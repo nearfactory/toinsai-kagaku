@@ -63,7 +63,7 @@ $(".newsContent").click(function(){
     document.removeEventListener('mousewheel', handle, { passive: false });
   }
   else{
-    $(this).addClass("active");
+    // $(this).addClass("active");
     $("#newsModal").addClass("active");
     $("#newsModalBackground").addClass("active");
     document.addEventListener('touchmove', handle, { passive: false });

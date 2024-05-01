@@ -177,7 +177,7 @@
 #newsModalBackground{
   display: block;
 
-  position: absolute;
+  position: fixed;
   z-index: 10;
   top: 0;
   left: 0;
@@ -198,15 +198,18 @@
 #newsModal{
   display: block;
 
-  position: absolute;
+  position: fixed;
 
-  top: 20rem;
-  left: 10%;
+  top: calc(50% - (20rem / 2));
+  left: calc(50% - (30rem / 2));
   z-index: 20;
+
+  width: 30rem;
+  height: 20rem;
 
   background-color: var(--background1);
 
-  transform: translateY(-100%);
+  transform: translateY(-250%);
   transition: all .25s;
 }
 
