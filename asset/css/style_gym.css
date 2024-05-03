@@ -59,10 +59,10 @@
 
 .gymDateContainer>div{
   display: grid;
-  grid-template-rows: 4fr 1fr 1.5fr;
+  grid-template-rows: 3.5fr 1fr 1.5fr;
 
   width: 90%;
-  height: 6rem;
+  height: 8rem;
 
   margin: auto;
   padding: 0;
@@ -83,10 +83,10 @@
   margin: 0;
   padding: 0;
 
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 600;
 
-  line-height: calc(6rem / 8 * 4);
+  line-height: calc(8rem / 8 * 3.5);
   text-align: center;
   
   transition: all .25s;
@@ -101,10 +101,10 @@
   margin: 0;
   padding: 0;
 
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 600;
 
-  line-height: calc(6rem / 8 * 1);
+  line-height: calc(8rem / 8 * 1);
   text-align: center;
 
   transition: all .25s;

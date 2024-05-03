@@ -403,6 +403,49 @@ footer{
   line-height: 3rem;
 }
 
+#windowOrientation{
+  display: none;
+
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  z-index: 99999999;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  background-color: var(--background1);
+}
+
+#windowOrientation.active{
+  display: block;
+}
+
+body:has(#windowOrientation.active){
+  overflow: hidden;
+}
+
+#windowOrientation>p{
+  display: block;
+
+  height: 3rem;
+  width: 100%;
+
+  margin: auto 0;
+  padding: 0;
+
+  color: var(--text);
+  font-size: 1.75rem;
+  font-weight: 500;
+
+  line-height: 3rem;
+  text-align: center;
+}
+
 /* ======================================== */
 
 /* スマホで文字サイズが自動で切り替わってしまうことを防ぐ */

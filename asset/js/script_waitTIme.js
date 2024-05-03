@@ -121,13 +121,14 @@ $(".waitContainerStretch>a").click(function(){
 })
 
 var waitTimeData = [60, 60, 15, 20, 0, 10, 35, 5, 10];
-var firstWidth = document.getElementById("data").clientWidth;
-console.log(firstWidth);
 function chartUpdate() {
+  var firstWidth = document.getElementById("data").clientWidth;
+  // console.log(firstWidth);
   for(var i=0; i<9; i++){
     var id = "#chartBar" + String(i+1);
-    $(id).css("width", "calc((" + String(firstWidth) + "px - 1rem) * " + String(waitTimeData[i] / 60) + " + 1rem)");
+    $(id).css("width", "calc((100% - 0rem) * " + String(waitTimeData[i]/Math.max.apply(null, waitTimeData)) + " + 0rem)");
     // $(id).attr("time-label", String(waitTimeData[i]));
   }
 }
+
 setInterval(chartUpdate, 10);

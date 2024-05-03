@@ -155,10 +155,10 @@ var firstHeight1;
 var firstHeight2;
 
 function timeCalc(){
-  var day1Start = new Date("2024-03-22 09:00:00").getTime();
-  var day1End = new Date("2024-03-22 18:00:00").getTime();
-  var day2Start = new Date("2024-03-23 09:00:00").getTime();
-  var day2End = new Date("2024-03-23 18:00:00").getTime();
+  var day1Start = new Date("2024-05-03 09:00:00").getTime();
+  var day1End = new Date("2024-05-03 21:00:00").getTime();
+  var day2Start = new Date("2024-05-04 09:00:00").getTime();
+  var day2End = new Date("2024-05-04 18:00:00").getTime();
   var now = new Date().getTime();
 
   var day1Time = day1End - day1Start;
@@ -172,35 +172,35 @@ function timeCalc(){
     var nowP2 = 0;
     $("#day1Point").removeClass("completed");
     $("#day12oint").removeClass("completed");
-    // console.log("haven't started");
+    console.log("haven't started");
   }
   else if(day1Start <= now && now <= day1End){
     var nowP1 = (now - day1Start) / day1Time;
     var nowP2 = 0;
     $("#day1Point").removeClass("completed");
     $("#day12oint").removeClass("completed");
-    // console.log("day1");
+    console.log("day1");
   }
   else if(day1End < now && now < day2Start){
     var nowP1 = 1;
     var nowP2 = 0;
     $("#day1Point").addClass("completed");
     $("#day12oint").removeClass("completed");
-    // console.log("between day1 & day2");
+    console.log("between day1 & day2");
   }
   else if(day2Start <= now && now <= day2End){
     var nowP1 = 1;
     var nowP2 = (now - day2Start) / day2Time;
     $("#day1Point").addClass("completed");
     $("#day12oint").removeClass("completed");
-    // console.log("day2");
+    console.log("day2");
   }
   else{
     var nowP1 = 1;
     var nowP2 = 1;
     $("#day1Point").addClass("completed");
     $("#day2Point").addClass("completed");
-    // console.log("ended");
+    console.log("ended");
   }
 
   // console.log(nowP1);
