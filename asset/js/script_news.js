@@ -27,7 +27,9 @@ for(var i=0; i<(news.length)-1; i++){
   var newsBox = document.createElement('div');
   var newsDate = document.createElement('h3');
   var newsTitle = document.createElement('h1');
+  var newsPublisher = document.createElement('h4');
   var newsDesc = document.createElement('p');
+  var newsImage = document.createElement('img');
   
   newsBox.classList.add("newsContent");
   newsContainer.prepend(newsBox);
@@ -37,9 +39,15 @@ for(var i=0; i<(news.length)-1; i++){
   
   newsTitle.textContent = news[i+1][2];
   newsBox.appendChild(newsTitle);
+  
+  newsPublisher.textContent = news[i+1][3];
+  newsBox.appendChild(newsPublisher);
 
-  newsDesc.textContent = news[i+1][3];
+  newsDesc.textContent = news[i+1][5];
   newsBox.appendChild(newsDesc);
+
+  newsImage.src = "./image/news/" + news[i+1][4] + ".jpg";
+  newsBox.appendChild(newsImage);
 }
 
 
@@ -50,31 +58,21 @@ for(var i=0; i<(news.length)-1; i++){
 
 // タップされたニュースの詳細を表示
 
-function handle(event) {
-  event.preventDefault();
-}
+const newsModal = document.querySelector("#newsModal");
+
 
 $(".newsContent").click(function(){
-  if($(this).hasClass("active")){
-    $(this).removeClass("active");
-    $("#newsModal").removeClass("active");
-    $("#newsModalBackground").removeClass("active");
-    document.removeEventListener('touchmove', handle, { passive: false });
-    document.removeEventListener('mousewheel', handle, { passive: false });
-  }
-  else{
-    // $(this).addClass("active");
-    $("#newsModal").addClass("active");
-    $("#newsModalBackground").addClass("active");
-    document.addEventListener('touchmove', handle, { passive: false });
-    document.addEventListener('mousewheel', handle, { passive: false });
-  }
+  var onFocusContent = $(this);
+  newsModal.showModal();
+  document.getElementById("newsModalTitle").innerHTML = this.children[1].innerHTML;
+  document.getElementById("newsModalPublisher").innerHTML = this.children[2].innerHTML;
+  document.getElementById("newsModalDate").innerHTML = this.children[0].innerHTML;
+  document.getElementById("newsModalContent").innerHTML = this.children[3].innerHTML;
+  document.getElementById("newsModalImg").src = this.children[4].src;
+  
+  $("#newsModalBackground").addClass("active");
 })
 
-$("#newsModalBackground").click(function(){
-  $(".newsContent").removeClass("active");
-  $("#newsModal").removeClass("active");
-  $("#newsModalBackground").removeClass("active");
-  document.removeEventListener('touchmove', handle, { passive: false });
-  document.removeEventListener('mousewheel', handle, { passive: false });
+$("#modalClose").click(function(){
+  newsModal.close();
 })
