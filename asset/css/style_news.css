@@ -165,6 +165,7 @@ body:has(#newsModal[open]){
 }
 
 dialog::backdrop {
+  -webkit-backdrop-filter: blur(0.25rem);
   backdrop-filter: blur(0.25rem);
 }
 
