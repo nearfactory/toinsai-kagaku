@@ -164,8 +164,4 @@ function chartUpdate() {
   }
 }
 
-<<<<<<< Updated upstream:asset/js/script_waitTime.js
-setInterval(chartUpdate, 1000);
-=======
 setInterval(chartUpdate, 10);
->>>>>>> Stashed changes:asset/js/script_waitTIme.js
