@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+:root{
+  --headerHeight: 3rem;
+  --navHeight: 4rem;
+  --footerHeight: 3rem;
+
+  --background1: #ffffff;
+  --background2: #f1f1f1;
+  --header: #f1f1f188;
+  --text: #222222;
+  --textPale: #777777;
+
+  --accent: #7FD9FB;
+}
+
+html, body{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  font-family: "Barlow Semi Condensed", "IBM Plex Sans JP", sans-serif;
+  font-size: 10px;
+
+  background-color: var(--background1);
+}
+
+/* ======================================== */
+
+canvas{
+  display: block;
+
+  width: 100%;
+  height: calc(100dvh - 8rem - 9.8rem - 5rem - 3rem);
+}

@@ -17,6 +17,7 @@
     <link href="./asset/css/style.css" rel="stylesheet">
     <link href="./asset/css/style_waitTime.css" rel="stylesheet">
     <link href="./asset/css/style_gym.css" rel="stylesheet">
+    <link href="./asset/css/style_map.css" rel="stylesheet">
     <link href="./asset/css/style_news.css" rel="stylesheet">
     <link href="./asset/css/style_aboutUs.css" rel="stylesheet">
 
@@ -33,6 +34,17 @@
     <link rel="mask-icon" href="./asset/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#efefef">
     <meta name="theme-color" content="#efefef">
+
+    <script type="importmap">
+      {
+          "imports": {
+              "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.164.1/three.module.js",
+              "OrbitControls":"https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/controls/OrbitControls.js",
+              "GLTFLoader":"https://unpkg.com/three@0.154.0/examples/jsm/loaders/GLTFLoader.js"
+          }
+      }
+    </script>
+    <script type="module" src="./asset/js/script_map.js"></script>
   </head>
 
   <body>
@@ -44,13 +56,13 @@
 
       <nav>
         <span></span>
-        <div id="navWaitTime" class="navItem current"><span></span><i class="fa-regular fa-clock"></i>
+        <div id="navWaitTime" class="navItem"><span></span><i class="fa-regular fa-clock"></i>
           <p>待ち時間</p><span></span>
         </div>
         <div id="navGym" class="navItem"><span></span><i class="fa-solid fa-dumbbell"></i>
           <p>体育館</p><span></span>
         </div>
-        <div id="navMap" class="navItem"><span></span><i class="fa-solid fa-map"></i>
+        <div id="navMap" class="navItem current"><span></span><i class="fa-solid fa-map"></i>
           <p>校内マップ</p><span></span>
         </div>
         <div id="navNews" class="navItem"><span></span><i class="fa-solid fa-newspaper"></i>
@@ -81,7 +93,7 @@
 
     <span id="topSpan"></span>
 
-    <div class="section current" id="sectionWaitTime">
+    <div class="section" id="sectionWaitTime">
       <h1>教室展示の待ち時間</h1>
       <h2>中学生の部</h2>
       <div class="waitContainer" id="waitClass1">
@@ -272,8 +284,11 @@
       </div>
     </div>
 
-    <div class="section" id="sectionMap">
+    <div class="section current" id="sectionMap">
       <h1>校内マップ</h1>
+
+      <canvas id="canvas"></canvas>
+
     </div>
 
     <div class="section" id="sectionNews">
@@ -356,7 +371,7 @@
       <button id="colorMode"><i class="fa-solid fa-brush"></i>DarkMode</button>
     </footer>
 
-    <div id="access">
+    <!-- <div id="access">
       <form>
         <input type="text" id="accessID" placeholder="アクセスID">
         <br>
@@ -374,14 +389,15 @@
       <br>
       <br>
       <button id="accessBtn">認証</button>
-    </div>
+    </div> -->
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="./asset/js/access.js"></script>
+    <!-- <script src="./asset/js/access.js"></script> -->
     <script src="./asset/js/script.js"></script>
     <script src="./asset/js/script_waitTIme.js"></script>
     <script src="./asset/js/script_gym.js"></script>
+    <!-- <script src="./asset/js/script_map.js" type="module"></script> -->
     <script src="./asset/js/script_news.js"></script>
     <script src="./asset/js/script_swipe.js"></script>
   </body>
