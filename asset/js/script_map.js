@@ -1,11 +1,13 @@
 import * as THREE from 'three';
 import { GLTFLoader } from "GLTFLoader";
 import { OrbitControls } from "OrbitControls";
+import { FlyControls } from "FlyControls";
 
+const loader2 = new THREE.CubeTextureLoader();
 
 // 画面サイズの取得
 const windowWidth = window.innerWidth;
-const windowHeight = window.innerHeight - (80+98+50+30);
+const windowHeight = window.innerHeight - (80+90);
 
 // レンダラーの作成
 const canvas = document.getElementById('canvas')
@@ -23,8 +25,20 @@ renderer.shadowMap.enabled = true;
 
 // シーンの作成
 const scene = new THREE.Scene();
-// 背景色の設定(水色)
-scene.background = new THREE.Color('#ffffff');
+
+// 背景の設定
+// scene.background = new THREE.Color('#ffffff');
+
+scene.background = new THREE.CubeTextureLoader()
+  .setPath( './3d/background/' )
+  .load( [
+    'sky1.jpg',
+    'sky3.jpg',
+    'sky3.jpg',
+    'sky3.jpg',
+    'sky4.jpg',
+    'sky2.jpg'
+]);
 
 // 見やすいようにヘルパー（網目）を設定
 // let gridHelper = new THREE.GridHelper();
@@ -65,23 +79,33 @@ scene.add(light4);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableRotate = true; // カメラの回転を有効にする
 controls.maxPolarAngle = Math.PI / 180 * 75; // カメラの仰角の最小値を設定
+controls.minPolarAngle = Math.PI / 180 * 30; // カメラの仰角の最小値を設定
 controls.minDistance = 3; // 最小距離を設定
 controls.maxDistance = 9; // 最大距離を設定
 controls.rotateSpeed = 0.3;
-controls.zoomSpeed = 0.3;
+controls.zoomSpeed = 0.2;
 controls.enablePan = false;     //true:パン操作可能,false:パン操作不可
-controls.userPanSpeed = 2.0;   //パン速度
+controls.userPanSpeed = 1;   //パン速度????
+controls.minTargetRadius = 0;
+controls.enableDamping = true;  //なめらかな動きを可能に
+controls.dampingFactor = 0.1;   //滑らかさの係数
+
+const controls2 = new FlyControls(camera, renderer.domElement);
+
 
 // 3Dモデルの読み込み
 const loader = new GLTFLoader();
+var model;
 loader.load('./3d/004/toin004.gltf', function (gltf) {
-    const model = gltf.scene;
+    model = gltf.scene;
     model.scale.set(0.05, 0.05, 0.05);
     scene.add(model);
 });
 
 // アニメーション
 function animate() {
+    controls.update();
+    // controls2.update();
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
 }

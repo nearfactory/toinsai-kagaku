@@ -254,6 +254,8 @@ nav>span{
   display: block;
   width: 100%;
   height: calc(var(--headerHeight) + var(--navHeight) + 1rem);
+
+  background-color: #ffffff00;
 }
 
 /* ======================================== */

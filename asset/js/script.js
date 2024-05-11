@@ -4,6 +4,7 @@ $("#navWaitTime").click(function(){
   $("#navWaitTime").addClass("current");
   $(".section").removeClass("current");
   $("#sectionWaitTime").addClass("current");
+  $("#topSpan").css("height","calc(var(--headerHeight) + var(--navHeight) + 1rem)");
 })
 
 $("#navGym").click(function(){
@@ -11,6 +12,7 @@ $("#navGym").click(function(){
   $("#navGym").addClass("current");
   $(".section").removeClass("current");
   $("#sectionGym").addClass("current");
+  $("#topSpan").css("height","calc(var(--headerHeight) + var(--navHeight) + 1rem)");
 })
 
 $("#navMap").click(function(){
@@ -18,6 +20,7 @@ $("#navMap").click(function(){
   $("#navMap").addClass("current");
   $(".section").removeClass("current");
   $("#sectionMap").addClass("current");
+  $("#topSpan").css("height","calc(var(--headerHeight) + var(--navHeight))");
 })
 
 $("#navNews").click(function(){
@@ -25,6 +28,7 @@ $("#navNews").click(function(){
   $("#navNews").addClass("current");
   $(".section").removeClass("current");
   $("#sectionNews").addClass("current");
+  $("#topSpan").css("height","calc(var(--headerHeight) + var(--navHeight) + 1rem)");
 })
 
 $("#navAboutUs").click(function(){
@@ -32,6 +36,7 @@ $("#navAboutUs").click(function(){
   $("#navAboutUs").addClass("current");
   $(".section").removeClass("current");
   $("#sectionAboutUs").addClass("current");
+  $("#topSpan").css("height","calc(var(--headerHeight) + var(--navHeight) + 1rem)");
 })
 
 $("#navBtn").click(function(){
