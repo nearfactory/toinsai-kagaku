@@ -13,12 +13,22 @@
     <link href="https://nearfactory.github.io/toin-festival/asset/css/reset.css" rel="stylesheet">
 
     <!--自作cssの読み込み-->
+<<<<<<< HEAD
     <link href="https://nearfactory.github.io/toin-festival/asset/css/access.css" rel="stylesheet">
     <link href="https://nearfactory.github.io/toin-festival/asset/css/style.css" rel="stylesheet">
     <link href="https://nearfactory.github.io/toin-festival/asset/css/style_waitTime.css" rel="stylesheet">
     <link href="https://nearfactory.github.io/toin-festival/asset/css/style_gym.css" rel="stylesheet">
     <link href="https://nearfactory.github.io/toin-festival/asset/css/style_news.css" rel="stylesheet">
     <link href="https://nearfactory.github.io/toin-festival/asset/css/style_aboutUs.css" rel="stylesheet">
+=======
+    <link href="./asset/css/access.css" rel="stylesheet">
+    <link href="./asset/css/style.css" rel="stylesheet">
+    <link href="./asset/css/style_waitTime.css" rel="stylesheet">
+    <link href="./asset/css/style_gym.css" rel="stylesheet">
+    <link href="./asset/css/style_map.css" rel="stylesheet">
+    <link href="./asset/css/style_news.css" rel="stylesheet">
+    <link href="./asset/css/style_aboutUs.css" rel="stylesheet">
+>>>>>>> 3d-model
 
     <!--googleFontsの読み込み-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,6 +43,17 @@
     <link rel="mask-icon" href="https://nearfactory.github.io/toin-festival/asset/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#efefef">
     <meta name="theme-color" content="#efefef">
+
+    <script type="importmap">
+      {
+          "imports": {
+              "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.164.1/three.module.js",
+              "OrbitControls":"https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/controls/OrbitControls.js",
+              "FlyControls":"https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/controls/FlyControls.js",
+              "GLTFLoader":"https://unpkg.com/three@0.154.0/examples/jsm/loaders/GLTFLoader.js"
+          }
+      }
+    </script>
   </head>
 
   <body>
@@ -44,13 +65,13 @@
 
       <nav>
         <span></span>
-        <div id="navWaitTime" class="navItem current"><span></span><i class="fa-regular fa-clock"></i>
+        <div id="navWaitTime" class="navItem"><span></span><i class="fa-regular fa-clock"></i>
           <p>待ち時間</p><span></span>
         </div>
         <div id="navGym" class="navItem"><span></span><i class="fa-solid fa-dumbbell"></i>
           <p>体育館</p><span></span>
         </div>
-        <div id="navMap" class="navItem"><span></span><i class="fa-solid fa-map"></i>
+        <div id="navMap" class="navItem current"><span></span><i class="fa-solid fa-map"></i>
           <p>校内マップ</p><span></span>
         </div>
         <div id="navNews" class="navItem"><span></span><i class="fa-solid fa-newspaper"></i>
@@ -81,7 +102,7 @@
 
     <span id="topSpan"></span>
 
-    <div class="section current" id="sectionWaitTime">
+    <div class="section" id="sectionWaitTime">
       <h1>教室展示の待ち時間</h1>
       <h2>中学生の部</h2>
       <div class="waitContainer" id="waitClass1">
@@ -272,8 +293,11 @@
       </div>
     </div>
 
-    <div class="section" id="sectionMap">
-      <h1>校内マップ</h1>
+    <div class="section current" id="sectionMap">
+      <!-- <h1>校内マップ</h1> -->
+
+      <canvas id="canvas"></canvas>
+
     </div>
 
     <div class="section" id="sectionNews">
@@ -385,12 +409,22 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<<<<<<< HEAD
     <!-- <script src="https://nearfactory.github.io/toin-festival/asset/js/access.js"></script> -->
     <script src="https://nearfactory.github.io/toin-festival/asset/js/script.js"></script>
     <script src="https://nearfactory.github.io/toin-festival/asset/js/script_waitTime.js"></script>
     <script src="https://nearfactory.github.io/toin-festival/asset/js/script_gym.js"></script>
     <script src="https://nearfactory.github.io/toin-festival/asset/js/script_news.js"></script>
     <script src="https://nearfactory.github.io/toin-festival/asset/js/script_swipe.js"></script>
+=======
+    <!-- <script src="./asset/js/access.js"></script> -->
+    <script src="./asset/js/script.js"></script>
+    <script src="./asset/js/script_waitTime.js"></script>
+    <script src="./asset/js/script_gym.js"></script>
+    <script src="./asset/js/script_map.js" type="module"></script>
+    <script src="./asset/js/script_news.js"></script>
+    <script src="./asset/js/script_swipe.js"></script>
+>>>>>>> 3d-model
   </body>
 
 </html>

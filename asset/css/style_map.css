@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+:root{
+  --headerHeight: 3rem;
+  --navHeight: 4rem;
+  --footerHeight: 3rem;
+
+  --background1: #ffffff;
+  --background2: #f1f1f1;
+  --header: #f1f1f188;
+  --text: #222222;
+  --textPale: #777777;
+
+  --accent: #7FD9FB;
+}
+
+/* ======================================== */
+
+#sectionMap{
+  margin-bottom: 0;
+  line-height: 0;
+}
