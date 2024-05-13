@@ -253,7 +253,9 @@ nav>span{
 #topSpan{
   display: block;
   width: 100%;
-  height: calc(var(--headerHeight) + var(--navHeight) + 1rem);
+  height: calc(var(--headerHeight) + var(--navHeight));
+  /* height: calc(var(--headerHeight) + var(--navHeight) + 1rem); */
+  /* !!!!! リリース前には必ず修正すること（マップの時のみtopspanの高さを-1remしています） */
 
   background-color: #ffffff00;
 }
