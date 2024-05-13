@@ -1,3 +1,31 @@
+// Load schedules from CSV
+
+var waitTime = [];
+
+function getCSV(url){
+  var req = new XMLHttpRequest();
+  req.open("get", url, false);
+  req.send(null);
+
+  return convertCSVtoArray(req.responseText);
+}
+
+function convertCSVtoArray(str){
+  var result = [];
+  var tmp = str.split("\n");
+  for(var i=0; i<tmp.length; i++){
+      result.push(tmp[i].split(","));
+  }
+  return result;
+}
+
+// ========================================
+
+waitTime = getCSV("./asset/csv/waitTime.csv");
+
+
+
+
 $("#waitClass1").click(function(){
   if($("#classDesc1").hasClass("current")){
     $(".classDesc").removeClass("current");
@@ -120,14 +148,20 @@ $(".waitContainerStretch>a").click(function(){
   $("#sectionMap").addClass("current");
 })
 
-var waitTimeData = [60, 60, 15, 20, 0, 10, 35, 5, 10];
-var firstWidth = document.getElementById("data").clientWidth;
-console.log(firstWidth);
+var waitTimeData = [];
+for(var i=0; i<waitTime.length-1; i++){
+  waitTimeData.push(Number(waitTime[i+1][1]));
+}
+
+
 function chartUpdate() {
+  var firstWidth = document.getElementById("data").clientWidth;
+  // console.log(firstWidth);
   for(var i=0; i<9; i++){
     var id = "#chartBar" + String(i+1);
-    $(id).css("width", "calc((" + String(firstWidth) + "px - 1rem) * " + String(waitTimeData[i] / 60) + " + 1rem)");
+    $(id).css("width", "calc((100% - 0rem) * " + String(waitTimeData[i]/Math.max.apply(null, waitTimeData)) + " + 0rem)");
     // $(id).attr("time-label", String(waitTimeData[i]));
   }
 }
+
 setInterval(chartUpdate, 10);

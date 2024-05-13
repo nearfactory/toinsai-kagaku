@@ -25,6 +25,27 @@ function convertCSVtoArray(str){
 day1 = getCSV("./asset/csv/day1.csv");
 day2 = getCSV("./asset/csv/day2.csv");
 
+var day1StartTimes = [];
+var day1EndTimes = [];
+var day2StartTimes = [];
+var day2EndTimes = [];
+
+for(var i=0; i<day1.length-1; i++){
+  if(day1[i+1][2] != "###"){
+    day1StartTimes.push(new Date("2024/05/04 " + String(day1[i+1][0])))
+    day1EndTimes.push(new Date("2024/05/04 " + String(day1[i+1][1])))
+  }
+}
+
+for(var i=0; i<day2.length-1; i++){
+  if(day2[i+1][2] != "###"){
+    day2StartTimes.push(new Date("2024/05/05 " + String(day2[i+1][0])))
+    day2EndTimes.push(new Date("2024/05/05 " + String(day2[i+1][1])))
+  }
+}
+
+// ========================================
+
 for(var i=1; i<day1.length; i++){
   var schedulesDay1 = document.getElementById("schedulesDay1");
 
@@ -38,21 +59,21 @@ for(var i=1; i<day1.length; i++){
   
   if(day1[i][2] != "###"){
     scheduleBox.classList.add("schedule");
-    scheduleBox.setAttribute("id", "schedule" + String(i+1) + "Day1");
+    scheduleBox.setAttribute("id", "schedule" + String(i));
     schedulesDay1.appendChild(scheduleBox);
     
     scheduleMainBox.classList.add("scheduleMain");
     scheduleBox.appendChild(scheduleMainBox);
     
-    scheduleTime.setAttribute("id", "scheduleTime" + String(i+1) + "Day1");
+    scheduleTime.setAttribute("id", "scheduleTime" + String(i));
     scheduleTime.textContent = day1[i][0];
     scheduleMainBox.appendChild(scheduleTime);
     
-    scheduleTitle.setAttribute("id", "scheduleTitle" + String(i+1) + "Day1");
+    scheduleTitle.setAttribute("id", "scheduleTitle" + String(i));
     scheduleTitle.textContent = day1[i][3];
     scheduleMainBox.appendChild(scheduleTitle);
     
-    scheduleCategory.setAttribute("id", "scheduleCategory" + String(i+1) + "Day1");
+    scheduleCategory.setAttribute("id", "scheduleCategory" + String(i));
     scheduleCategory.textContent = day1[i][4];
     scheduleMainBox.appendChild(scheduleCategory);
     
@@ -82,21 +103,21 @@ for(var i=1; i<day2.length; i++){
   
   if(day2[i][2] != "###"){
     scheduleBox.classList.add("schedule");
-    scheduleBox.setAttribute("id", "schedule" + String(i+1) + "Day2");
+    scheduleBox.setAttribute("id", "schedule" + String(i+day1.length-1));
     schedulesDay2.appendChild(scheduleBox);
     
     scheduleMainBox.classList.add("scheduleMain");
     scheduleBox.appendChild(scheduleMainBox);
     
-    scheduleTime.setAttribute("id", "scheduleTime" + String(i+1) + "Day2");
+    scheduleTime.setAttribute("id", "scheduleTime" + String(i+day1.length-1));
     scheduleTime.textContent = day2[i][0];
     scheduleMainBox.appendChild(scheduleTime);
     
-    scheduleTitle.setAttribute("id", "scheduleTitle" + String(i+1) + "Day2");
+    scheduleTitle.setAttribute("id", "scheduleTitle" + String(i+day1.length-1));
     scheduleTitle.textContent = day2[i][3];
     scheduleMainBox.appendChild(scheduleTitle);
     
-    scheduleCategory.setAttribute("id", "scheduleCategory" + String(i+1) + "Day2");
+    scheduleCategory.setAttribute("id", "scheduleCategory" + String(i+day1.length-1));
     scheduleCategory.textContent = day2[i][4];
     scheduleMainBox.appendChild(scheduleCategory);
     
@@ -131,90 +152,60 @@ $("#day2").click(function(){
   firstHeight2 = document.getElementById("schedulesDay2").clientHeight;
 })
 
-//★★★
-//あまりよろしくないやり方らしいから修正必要かも
-//（DOM要素をJSで追加した場合、jQueryからはクリックイベントに対応できない）
-
-$(document).on("click", ".schedule", function () {
-  if($(this).hasClass("active")){
-    $(this).removeClass("active");
-    activeCount -= 1;
-  }
-  else{
-    $(this).addClass("active");
-    activeCount += 1;
-  }
-});
-
 
 
 // ========================================
 
-var activeCount = 0;
-var firstHeight1;
-var firstHeight2;
+
+var now;
+var nowPosition = 0;
+var scheduleOpenHeight = 0;
+var nowgoing = 0;
 
 function timeCalc(){
-  var day1Start = new Date("2024-03-22 09:00:00").getTime();
-  var day1End = new Date("2024-03-22 18:00:00").getTime();
-  var day2Start = new Date("2024-03-23 09:00:00").getTime();
-  var day2End = new Date("2024-03-23 18:00:00").getTime();
-  var now = new Date().getTime();
+  now = new Date();
+  nowPosition = (day1.length-1)*2;
 
-  var day1Time = day1End - day1Start;
-  var day2Time = day2End - day2Start;
+  for(var i=0; i<day1.length-1; i++){
+    if(now < day1StartTimes[i]){
+      nowPosition = i*2
+      break;
+    }
+    else if(now < day1EndTimes[i]){
+      nowPosition = i*2+1;
+      break;
+    }
+  }
 
-  var nowP1;
-  var nowP2;
+  // console.log(nowPosition);
+  nowgoing = Math.floor(nowPosition/2);
+  // console.log(nowgoing);
 
-  if(now < day1Start){
-    var nowP1 = 0;
-    var nowP2 = 0;
-    $("#day1Point").removeClass("completed");
-    $("#day12oint").removeClass("completed");
-    // console.log("haven't started");
-  }
-  else if(day1Start <= now && now <= day1End){
-    var nowP1 = (now - day1Start) / day1Time;
-    var nowP2 = 0;
-    $("#day1Point").removeClass("completed");
-    $("#day12oint").removeClass("completed");
-    // console.log("day1");
-  }
-  else if(day1End < now && now < day2Start){
-    var nowP1 = 1;
-    var nowP2 = 0;
-    $("#day1Point").addClass("completed");
-    $("#day12oint").removeClass("completed");
-    // console.log("between day1 & day2");
-  }
-  else if(day2Start <= now && now <= day2End){
-    var nowP1 = 1;
-    var nowP2 = (now - day2Start) / day2Time;
-    $("#day1Point").addClass("completed");
-    $("#day12oint").removeClass("completed");
-    // console.log("day2");
+  if(nowPosition%2 == 1){
+    $("#day1Line1").css("height", String(nowgoing*4 + 1 + scheduleOpenHeight) + "rem");
+    $("#day1Line2").css("height", "calc(100% - " + String(nowgoing*4 + 1 + scheduleOpenHeight) + "rem)");
+    $("#day1Point").css("display", "none");
+    
+    for(var i=0; i<nowgoing; i++){
+      $("#schedule" + String(i+1)).addClass("held");
+    }
+    $("#schedule" + String(nowgoing+1)).addClass("nowGoing");
   }
   else{
-    var nowP1 = 1;
-    var nowP2 = 1;
-    $("#day1Point").addClass("completed");
-    $("#day2Point").addClass("completed");
-    // console.log("ended");
+    $("#day1Line1").css("height", String((nowgoing)*4 + 1 + scheduleOpenHeight) + "rem");
+    $("#day1Line2").css("height", "calc(100% - " + String(nowgoing*4 + 1 + scheduleOpenHeight) + "rem)");
+    
+    for(var i=0; i<nowgoing; i++){
+      $("#schedule" + String(i+1)).addClass("held");
+    }
+
+    $("#day1Point").css("display", "block");
+    $("#day1Point").css("top", String((nowgoing)*4 + 1 - 0.4 + scheduleOpenHeight) + "rem");
   }
-
-  // console.log(nowP1);
-  // console.log(nowP2);
-
-  $("#day1Line1").css("height", "calc(" + String(firstHeight1) + "px *" + String(nowP1) + ")");
-  $("#day1Line2").css("height", "calc(" + String(firstHeight1) + "px *" + String(1-nowP1) + " + " + String(activeCount*14.5) + "rem)");
-
-  $("#day2Line1").css("height", "calc(" + String(firstHeight2) + "px *" + String(nowP2) + ")");
-  $("#day2Line2").css("height", "calc(" + String(firstHeight2) + "px *" + String(1-nowP2) + " + " + String(activeCount*14.5) + "rem)");
 }
 
 
-setInterval(timeCalc, 10);
+setInterval(timeCalc, 5);
 
 // ========================================
 
@@ -227,3 +218,26 @@ $("#sectionGym>a").click(function(){
 })
 
 // ========================================
+
+//★★★
+//あまりよろしくないやり方らしいから修正必要かも
+//（DOM要素をJSで追加した場合、jQueryからはクリックイベントに対応できない）
+
+$(document).on("click", ".schedule", function () {
+  var clickedScheduleId = Number(String(this.getAttribute("id")).replace("schedule", ""));
+
+  if($(this).hasClass("active")){
+    $(this).removeClass("active");
+
+    if(clickedScheduleId <= nowgoing){
+      scheduleOpenHeight -= 14.5;
+    }
+  }
+  else{
+    $(this).addClass("active");
+    
+    if(clickedScheduleId <= nowgoing){
+      scheduleOpenHeight += 14.5;
+    }
+  }
+});

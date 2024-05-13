@@ -54,7 +54,6 @@
   display: grid;
   grid-template:
     "date title" 3rem
-    "span desc" 10rem
     / 3fr 10fr;
   
   width: calc(85% - 2rem);
@@ -71,6 +70,7 @@
 
   transition: all 0s;
 }
+
 
 .newsContent.active{
   height: 13rem;
@@ -143,72 +143,109 @@
   text-align: left;
 }
 
-.newsContent>p{
-  grid-area: desc;
+.newsContent>p, .newsContent>h4, .newsContent>img{
+  display: none;
+}
 
-  position: absolute;
-  z-index: 1;
+#newsModal{
+  width: 30rem;
+  max-height: 45rem;
 
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  margin: 0;
   padding: 0;
 
+  background-color: var(--background1);
+  border: none;
+  border-radius: 1.5rem;
+
+  overflow-y: scroll;
+}
+
+body:has(#newsModal[open]){
+  overflow: hidden;
+}
+
+dialog::backdrop {
+  -webkit-backdrop-filter: blur(0.25rem);
+  backdrop-filter: blur(0.25rem);
+}
+
+#newsModalTitle{
+  display: block;
+
+  width: calc(100% - 10rem);
+  min-height: 3rem;
+
+  margin: 0;
+  padding: 1.5rem 5rem 0 5rem;
+
   color: var(--text);
-  font-size: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+
+  line-height: 3rem;
+  text-align: left;
+}
+
+#newsModalPublisher, #newsModalDate{
+  display: block;
+
+  width: calc(100% - 10rem);
+  height: 1.5rem;
+
+  margin: 0;
+  padding: 0 5rem;
+
+  color: var(--text);
+  font-size: 0.875rem;
   font-weight: 500;
 
   line-height: 1.5rem;
   text-align: left;
-
-  transform: scaleY(0);
-  transform-origin: 0 0;
-  transition: all .3s;
 }
 
-.newsContent.active>p{
-  transform: scaleY(1);
-}
-
-#newsModalBackground{
+#newsModalContent{
   display: block;
 
-  position: absolute;
-  z-index: 10;
-  top: 0;
-  left: 0;
+  width: calc(100% - 10rem);
+  height: auto;
+
+  margin: 0;
+  padding: 0 5rem;
+
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 400;
+
+  line-height: 1.5rem;
+  text-align: justify;
+}
+
+#newsModalImg{
+  display: block;
 
   width: 100%;
-  height: 100%; 
-  
-  background-color: #22222255;
+  height: 15rem;
 
-  transform: translateY(-100%);
-  transition: all .25s;
+  margin: 0;
+  padding: 1rem 0 0 0;
+
+  object-fit: cover;
 }
 
-#newsModalBackground.active{
-  transform: translateY(0);
-}
-
-#newsModal{
+#newsModal>button{
   display: block;
 
   position: absolute;
+  top: 0;
+  right: 0;
 
-  top: 20rem;
-  left: 10%;
-  z-index: 20;
+  width: 5rem;
+  height: 5rem;
 
-  background-color: var(--background1);
+  background-color: #ffffff00;
+  border: none;
 
-  transform: translateY(-100%);
-  transition: all .25s;
-}
-
-#newsModal.active{
-  transform: translateY(0);
+  color: var(--text);
+  font-size: 1.5rem;
+  font-weight: 400;
 }
