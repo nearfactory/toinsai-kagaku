@@ -93,7 +93,7 @@
 
     <span id="topSpan"></span>
 
-    <div class="section" id="sectionWaitTime">
+    <div class="section current" id="sectionWaitTime">
       <h1>教室展示の待ち時間</h1>
       <h2>中学生の部</h2>
       <div class="waitContainer" id="waitClass1">
@@ -125,7 +125,7 @@
       <h2>高校生の部</h2>
       <div class="waitContainer" id="waitClass3">
         <h2>2-A</h2>
-        <h1>あっぱれ、ふじキング!!!</h1>
+        <h1>タイトル</h1>
         <p id="waitTime1">15</p>
 
         <div class="waitContainerStretch">
@@ -138,7 +138,7 @@
       </div>
       <div class="waitContainer" id="waitClass4">
         <h2>2-B</h2>
-        <h1>ライス、おかわりせぇへん?</h1>
+        <h1>タイトル</h1>
         <p id="waitTime2">20</p>
 
         <div class="waitContainerStretch">
@@ -151,7 +151,7 @@
       </div>
       <div class="waitContainer" id="waitClass5">
         <h2>2-C</h2>
-        <h1>ええやろ、これ。俺もすっきゃねん。</h1>
+        <h1>タイトル</h1>
         <p id="waitTime3">0</p>
 
         <div class="waitContainerStretch">
@@ -164,7 +164,7 @@
       </div>
       <div class="waitContainer" id="waitClass6">
         <h2>2-D</h2>
-        <h1>The Teacher -named MOEKA-</h1>
+        <h1>タイトル</h1>
         <p id="waitTime4">10</p>
 
         <div class="waitContainerStretch">
@@ -177,7 +177,7 @@
       </div>
       <div class="waitContainer" id="waitClass7">
         <h2>2-E</h2>
-        <h1>りんちゃん部長によろしく！</h1>
+        <h1>タイトル</h1>
         <p id="waitTime5">35</p>
 
         <div class="waitContainerStretch">
@@ -190,7 +190,7 @@
       </div>
       <div class="waitContainer" id="waitClass8">
         <h2>2-F</h2>
-        <h1>ここからの生き方を教えてください!!</h1>
+        <h1>タイトル</h1>
         <p id="waitTime6">5</p>
 
         <div class="waitContainerStretch">
@@ -203,7 +203,7 @@
       </div>
       <div class="waitContainer" id="waitClass9">
         <h2>2-G</h2>
-        <h1>今から出産します!!</h1>
+        <h1>タイトル</h1>
         <p id="waitTime7">10</p>
 
         <div class="waitContainerStretch">
@@ -252,12 +252,12 @@
 
       <div class="gymDateContainer">
         <div class="active" id="day1">
-          <h1>9/17</h1>
-          <p>Mon</p><span></span>
+          <h1>9/11</h1>
+          <p>Wed</p><span></span>
         </div>
         <div id="day2">
-          <h1>9/18</h1>
-          <p>Tue</p><span></span>
+          <h1>9/12</h1>
+          <p>Thu</p><span></span>
         </div>
       </div>
 
@@ -299,19 +299,20 @@
         <!-- <div class="newsContent">
           <h3>2024.03.11</h3>
           <h1>桐蔭祭サイトを公開しました!</h1>
+          <h4>サイト運営</h4>
           <p>デスクリプションデスクリプションデスクリプション</p>
+          <img></img>
         </div> -->
       </div>
 
-      <div id="newsModal">
-        <h1 id="title"></h1>
-        <h2 id="publisher"></h2>
-        <h3 id="date"></h3>
-        <p id="content"></p>
-        <img src="" id="img">
-      </div>
-
-      <div id="newsModalBackground"></div>
+      <dialog id="newsModal">
+        <h1 id="newsModalTitle"></h1>
+        <h2 id="newsModalPublisher"></h2>
+        <h3 id="newsModalDate"></h3>
+        <p id="newsModalContent"></p>
+        <img src="" id="newsModalImg">
+        <button id="modalClose"><i class="fa-solid fa-xmark"></i></button>
+      </dialog>
     </div>
 
     <div class="section" id="sectionAboutUs">
@@ -361,6 +362,7 @@
       <span></span>
       <h1>Follow Us!</h1>
       <p class="sns"><i class="fa-brands fa-x-twitter"></i><a href="https://twitter.com/toinkagaku">@toinkagaku</a></p>
+      <p class="sns"><i class="fa-brands fa-youtube"></i><a href="https://www.youtube.com/@Toinkagaku">@Toinkagaku</a></p>
       <p class="sns"><i class="fa-solid fa-link"></i><a href="https://wakayama-space.org/">https://wakayama-space.org/</a></p>
     </div>
 
@@ -390,6 +392,11 @@
       <br>
       <button id="accessBtn">認証</button>
     </div> -->
+
+    <noscript>
+      <h2>JavaScriptが無効です</h2>
+      <p>ブラウザの設定から有効にして再度お試しください</p>
+    </noscript>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
