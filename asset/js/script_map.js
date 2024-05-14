@@ -42,7 +42,7 @@ import { OrbitControls } from "OrbitControls";
 
 // 画面サイズの取得
 const windowWidth = window.innerWidth;
-const windowHeight = window.innerHeight - (80+90);
+const windowHeight = window.innerHeight - (80+30);
 
 
 
@@ -107,11 +107,11 @@ scene.background = new THREE.Color('#BBF2FF');
 // 見やすいようにヘルパー（網目）を設定
 var helpers = [];
 var helperX = [0, 0, 0];
-var helperY = [0, 0.0000001, 0];
+var helperY = [0, 0.1, 0];
 var helperZ = [0, 0, 0];
 
 for (var i=0; i<3; i++){
-  helpers.push(new THREE.GridHelper(60, 60, "#2288ff", "#cccccc"));
+  helpers.push(new THREE.GridHelper(60, 60, "#2288ff", "#aaaaaa"));
   helpers[i].position.set(helperX[i], helperY[i], helperZ[i]);
   scene.add(helpers[i]);
 }
@@ -129,11 +129,15 @@ helpers[2].rotation.z = Math.PI/180*90;
 
 
 // カメラを作成
+// 透視投影
 const camera = new THREE.PerspectiveCamera(75, windowWidth / windowHeight, 0.1, 1000);
+// 平行投影
+// const camera = new THREE.OrthographicCamera(-20, +20, 20, -20, 1, 1000);
 camera.aspect = windowWidth / windowHeight;
 camera.updateProjectionMatrix();
+// camera.position.set(0, 30, 0);
 camera.position.set(-25, 8, -20);
-camera.lookAt(0, 0, 0);
+camera.rotation.set(0, 0, 0);
 
 
 
@@ -179,6 +183,10 @@ for(var i=0; i<4; i++){
 // マウス制御
 const controls = new OrbitControls(camera, renderer.domElement);
 
+// Later in your code
+controls.object.position.set(camera.position.x, camera.position.y, camera.position.z);
+controls.target = new THREE.Vector3(0, 0, 0);
+
 controls.enableRotate = true; //カメラの回転を有効にする
 controls.enablePan = true;    //カメラのパンを有効にする
 
@@ -214,7 +222,6 @@ const loader = new GLTFLoader();
 const url = [
   "./3d/005/toin005.gltf",
   "./3d/004/test.gltf",
-  "./3d/004/test.gltf",
 ];
 
 var model = {};
@@ -230,16 +237,8 @@ loader.load(url[0], function (gltf) {
 loader.load(url[1], function (gltf) {
   model.ball = gltf.scene;
   model.ball.scale.set(scaleVal[1], scaleVal[1], scaleVal[1]);
-  model.ball.position.set(0, 10, 0);
+  model.ball.position.set(-8, 5, 21);
   scene.add(model.ball);
-  flag = true;
-});
-
-loader.load(url[2], function (gltf) {
-  model.ball2 = gltf.scene;
-  model.ball2.scale.set(scaleVal[1], scaleVal[1], scaleVal[1]);
-  model.ball2.position.set(0, 10, 0);
-  scene.add(model.ball2);
   flag = true;
 });
 
@@ -275,14 +274,20 @@ function animate() {
   y += 0.02;
 
   if(flag){
-    model.ball.position.set(Math.sin(y+Math.PI)*5, 20, Math.cos(y+Math.PI)*5);
-    model.ball2.position.set(Math.sin(y)*5, 20, Math.cos(y)*5);
-    model.ball.rotation.set(y, y, y);
+    // model.ball.position.set(Math.sin(y+Math.PI)*5, 20, Math.cos(y+Math.PI)*5);
+    // model.ball.rotation.set(y, y, y);
     
-    cameraMoveCheck();
+    // cameraMoveCheck();
 
     console.log("x:" + String(Math.floor(camera.position.x)) + "\t\ty:" + String(Math.floor(camera.position.y)) + "\t\tz:" + String(Math.floor(camera.position.z)));
   }
+
+  $("#map-gym").click(function(){
+    // controls.object.position.set(-8, 8, 21);
+    controls.target = new THREE.Vector3(-8, 8, 21);
+    camera.position.set(camera.position.x, camera.position.y, camera.position.z);
+    console.log("#aaaa");
+  })
     
   controls.update();
   requestAnimationFrame(animate);
@@ -305,7 +310,7 @@ animate();
 function onResize() {
   // サイズを取得
   const width = window.innerWidth;
-  const height = window.innerHeight - (80+90);
+  const height = window.innerHeight - (70+45);
 
   // レンダラーのサイズを調整する
   renderer.setPixelRatio(window.devicePixelRatio);

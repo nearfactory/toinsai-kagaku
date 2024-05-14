@@ -148,6 +148,8 @@
   display: none;
 }
 
+/* ======================================== */
+
 #newsModal{
   width: 30rem;
   max-height: 45rem;
@@ -159,6 +161,8 @@
   border-radius: 1.5rem;
 
   overflow-y: scroll;
+
+  transition: all 25s;
 }
 
 body:has(#newsModal[open]){
@@ -168,6 +172,8 @@ body:has(#newsModal[open]){
 dialog::backdrop {
   -webkit-backdrop-filter: blur(0.25rem);
   backdrop-filter: blur(0.25rem);
+
+  transition: all 25s;
 }
 
 #newsModalTitle{
