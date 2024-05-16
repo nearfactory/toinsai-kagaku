@@ -27,11 +27,13 @@ const cameraRangeVal = [
   50    // z（初期位置から横）
 ];
 
-// 目的地座標
-const targetCoordinate = [
+// 配置座標
+var balloonTheta = 0;
+var balloonY = 15;
+const coordinate = [
   new THREE.Vector3(0, 0, 0),     // 原点
   new THREE.Vector3(-8, 8, 21),   // 体育館
-  new THREE.Vector3(15, 15, 15),   // 体育館
+  new THREE.Vector3(Math.sin(balloonTheta), balloonY, Math.sin(balloonTheta)),   // 体育館
 ];
 
 
@@ -164,12 +166,14 @@ scene.add(sun);
 // SpotLight([色], [強さ], [照射半径], [照射角度], ???, ???);
 
 var lights = [];
-var lightX = [0, 50, 0, -50];
-var lightY = [50, 0, -50, 0];
+var lightX = [0, 100, 0, -100, 0];
+var lightY = [40, 40, 40, 40, 80];
+var lightZ = [100, 0, -100, 0, 0];
+var lightPower = [6, 6, 6, 6, 3]
 
-for(var i=0; i<4; i++){
-  lights.push(new THREE.SpotLight("#ffffff", 6, 100, Math.PI/180*120, 1, 0.05));
-  lights[i].position.set(lightX[i], 40, lightY[i]);
+for(var i=0; i<5; i++){
+  lights.push(new THREE.SpotLight("#ffffff", lightPower[i], 180, Math.PI/180*120, 1, 0.05));
+  lights[i].position.set(lightX[i], lightY[i], lightZ[i]);
   lights[i].lookAt(0, 0, 0);
   // ライトに影を有効にする
   // lights[i].castShadow = true;
@@ -266,11 +270,11 @@ loader.load(url[1], function (gltf) {
   model.ball.position.set(-8, 8, 21);
 
   // 裏面も描画
-  model.ball.traverse((object) => { //モデルの構成要素をforEach的に走査
-    if(object.isMesh) { //その構成要素がメッシュだったら
-      object.material.side = THREE.DoubleSide;
-    }
-  });
+  // model.ball.traverse((object) => { //モデルの構成要素をforEach的に走査
+  //   if(object.isMesh) { //その構成要素がメッシュだったら
+  //     object.material.side = THREE.DoubleSide;
+  //   }
+  // });
 
   model.ball.name = "gym";
 
@@ -323,24 +327,22 @@ function cameraMoveCheck() {
 
 
 
-var y = 0;
 // アニメーション
 function animate() {
-  y += 0.001;
+  balloonTheta += 0.001;
+  coordinate[2] = new THREE.Vector3(15 * Math.sin(balloonTheta), balloonY, 15 * Math.cos(balloonTheta));
 
   if(flag == url.length){
-    // model.ball.position.set(Math.sin(y+Math.PI)*5, 20, Math.cos(y+Math.PI)*5);
-    // model.ball.rotation.set(y, y, y);
     
     cameraMoveCheck();
-    console.log("x:" + String(Math.floor(camera.position.x)) + "\t\ty:" + String(Math.floor(camera.position.y)) + "\t\tz:" + String(Math.floor(camera.position.z)));
+    // console.log("x:" + String(Math.floor(camera.position.x)) + "\t\ty:" + String(Math.floor(camera.position.y)) + "\t\tz:" + String(Math.floor(camera.position.z)));
 
-    model.balloon.position.set(15*Math.sin(y), 15, 15*Math.cos(y));
+    model.balloon.position.set(15 * Math.sin(balloonTheta), balloonY, 15 * Math.cos(balloonTheta));
   }
 
   $("#map-gym").click(function(){
     // controls.object.position.set(-8, 8, 21);
-    controls.target = targetCoordinate[1];
+    controls.target = coordinate[2];
     
     // camera.position.set(camera.position.x, camera.position.y, camera.position.z);
   })
@@ -396,11 +398,11 @@ window.addEventListener('resize', onResize);
 // 光線上のオブジェクトを取得してクリック判定を行う
 let raycaster, mouse;
 
+// 操作用マウス/指ベクトルの作成
+mouse = new THREE.Vector2();
 // レイキャスターの初期化
 raycaster = new THREE.Raycaster();
 
-// 操作用マウス/指ベクトルの作成
-mouse = new THREE.Vector2();
 
 // クリックイベントの作成
 document.addEventListener('click', onMouseEvent);
@@ -421,24 +423,33 @@ function onMouseEvent(event) {
   // 座標を正規化する呪文
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  // console.log(mouse.x);
+  // console.log(mouse.y);
 
   // レイキャスティングでマウスと重なるオブジェクトを取得
   raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObjects(scene.children);
+  const intersects = raycaster.intersectObjects(scene.children)[0];
+  var boxClicked = false;
 
-  if(intersects[0].object.parent.name == "gym"){
-    intersects[0].object.material.color.set("#5588ee");
+    console.log("");
+  $('#mapBox').off('click');
+  $("#mapBox").on("click", function(){
+    console.log("clicked");
+    boxClicked = true;
+  });
 
+  if(boxClicked == false && intersects.object.parent.name == "gym"){
+    intersects.object.material.color.set("#5588ee");
+    $("#mapBox").addClass("active");
   }
   else{
-    intersects[0].object.material.color.set("#ffffff");
+    intersects.object.material.color.set("#ffffff");
+    $("#mapBox").removeClass("active");
     model.ball.traverse((object) => { //モデルの構成要素をforEach的に走査
       if(object.isMesh) { //その構成要素がメッシュだったら
         object.material.color.set("#00ff00");
+        object.material.side = THREE.DoubleSide;
       }
     });
-  }
-
-  console.log(model.ball);
-  
+  }  
 }
