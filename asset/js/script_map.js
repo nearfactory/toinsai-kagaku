@@ -3,27 +3,35 @@
 // 各モデルのスケール
 const scaleVal = [
   0.3, // 学校
-  0.3  // ボール
+  0.3,  // ボール
+  2,  // 気球
 ];
 
 // カメラ操作速度
 const cameraSpeedVal = [
-  0.1,  // 回転
+  0.2,  // 回転
   0.175,  // ズーム
-  0.2   // パン
+  0.4   // パン
 ];
 
 // 回転可能範囲
 const cameraRotateVal = [
-  85
+  80
 ]
 
 // パン可能範囲
 const cameraRangeVal = [
-  30,   // x（初期位置から奥）
+  50,   // x（初期位置から奥）
   60,   // y（垂直上）
   0.1,  // y（垂直下）
-  30    // z（初期位置から横）
+  50    // z（初期位置から横）
+];
+
+// 目的地座標
+const targetCoordinate = [
+  new THREE.Vector3(0, 0, 0),     // 原点
+  new THREE.Vector3(-8, 8, 21),   // 体育館
+  new THREE.Vector3(15, 15, 15),   // 体育館
 ];
 
 
@@ -66,8 +74,8 @@ renderer.setSize(windowWidth, windowHeight);
 renderer.physicallyCorrectLights = true;
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.shadowMap.enabled = true;
-
+// レンダリング時の影の描画を有効化
+// renderer.shadowMap.enabled = true;
 
 
 
@@ -111,9 +119,10 @@ var helperY = [0, 0.1, 0];
 var helperZ = [0, 0, 0];
 
 for (var i=0; i<3; i++){
-  helpers.push(new THREE.GridHelper(60, 60, "#2288ff", "#aaaaaa"));
+  helpers.push(new THREE.GridHelper(60, 60, "#2288ff", "#dddddd"));
   helpers[i].position.set(helperX[i], helperY[i], helperZ[i]);
   scene.add(helpers[i]);
+  helpers[i].name = "helper" + String(i);
 }
 helpers[0].rotation.x = Math.PI/180*90;
 helpers[1].rotation.y = Math.PI/180*90;
@@ -137,7 +146,6 @@ camera.aspect = windowWidth / windowHeight;
 camera.updateProjectionMatrix();
 // camera.position.set(0, 30, 0);
 camera.position.set(-25, 8, -20);
-camera.rotation.set(0, 0, 0);
 
 
 
@@ -163,6 +171,10 @@ for(var i=0; i<4; i++){
   lights.push(new THREE.SpotLight("#ffffff", 6, 100, Math.PI/180*120, 1, 0.05));
   lights[i].position.set(lightX[i], 40, lightY[i]);
   lights[i].lookAt(0, 0, 0);
+  // ライトに影を有効にする
+  // lights[i].castShadow = true;
+  // lights[i].shadow.mapSize.width = 2048;
+  // lights[i].shadow.mapSize.height = 2048;
   scene.add(lights[i]);
 }
 
@@ -215,31 +227,75 @@ controls.dampingFactor = 0.15;   //滑らかさの係数
 
 
 
-
 // 3Dモデルの読み込み
 const loader = new GLTFLoader();
 
 const url = [
   "./3d/005/toin005.gltf",
   "./3d/004/test.gltf",
+  "./3d/balloon.gltf",
 ];
 
 var model = {};
-var flag = false;
+var flag = 0;
 
 loader.load(url[0], function (gltf) {
   model.school = gltf.scene;
   model.school.scale.set(scaleVal[0], scaleVal[0], scaleVal[0]);
   model.school.position.set(0, 0, 0);
+  // model.school.receiveShadow = true;
+  // model.school.castShadow = true;
+
+  // 裏面も描画
+  model.school.traverse((object) => { //モデルの構成要素をforEach的に走査
+    if(object.isMesh) { //その構成要素がメッシュだったら
+      object.material.side = THREE.DoubleSide;
+    }
+  });
+
+  model.school.name = "school";
+
   scene.add(model.school);
+
+  flag += 1;
 });
 
 loader.load(url[1], function (gltf) {
   model.ball = gltf.scene;
   model.ball.scale.set(scaleVal[1], scaleVal[1], scaleVal[1]);
-  model.ball.position.set(-8, 5, 21);
+  model.ball.position.set(-8, 8, 21);
+
+  // 裏面も描画
+  model.ball.traverse((object) => { //モデルの構成要素をforEach的に走査
+    if(object.isMesh) { //その構成要素がメッシュだったら
+      object.material.side = THREE.DoubleSide;
+    }
+  });
+
+  model.ball.name = "gym";
+
   scene.add(model.ball);
-  flag = true;
+
+  flag += 1;
+});
+
+loader.load(url[2], function (gltf) {
+  model.balloon = gltf.scene;
+  model.balloon.scale.set(scaleVal[2], scaleVal[2], scaleVal[2]);
+  model.balloon.position.set(15, 15, 15);
+
+  // 裏面も描画
+  model.balloon.traverse((object) => { //モデルの構成要素をforEach的に走査
+    if(object.isMesh) { //その構成要素がメッシュだったら
+      object.material.side = THREE.DoubleSide;
+    }
+  });
+
+  model.balloon.name = "balloon";
+
+  scene.add(model.balloon);
+
+  flag += 1;
 });
 
 
@@ -270,23 +326,23 @@ function cameraMoveCheck() {
 var y = 0;
 // アニメーション
 function animate() {
+  y += 0.001;
 
-  y += 0.02;
-
-  if(flag){
+  if(flag == url.length){
     // model.ball.position.set(Math.sin(y+Math.PI)*5, 20, Math.cos(y+Math.PI)*5);
     // model.ball.rotation.set(y, y, y);
     
-    // cameraMoveCheck();
-
+    cameraMoveCheck();
     console.log("x:" + String(Math.floor(camera.position.x)) + "\t\ty:" + String(Math.floor(camera.position.y)) + "\t\tz:" + String(Math.floor(camera.position.z)));
+
+    model.balloon.position.set(15*Math.sin(y), 15, 15*Math.cos(y));
   }
 
   $("#map-gym").click(function(){
     // controls.object.position.set(-8, 8, 21);
-    controls.target = new THREE.Vector3(-8, 8, 21);
-    camera.position.set(camera.position.x, camera.position.y, camera.position.z);
-    console.log("#aaaa");
+    controls.target = targetCoordinate[1];
+    
+    // camera.position.set(camera.position.x, camera.position.y, camera.position.z);
   })
     
   controls.update();
@@ -326,3 +382,63 @@ onResize();
 
 // リサイズイベント発生時に実行
 window.addEventListener('resize', onResize);
+
+
+
+
+
+
+
+
+
+
+// raycasterでタップ場所からまっすぐ伸びる光線を作成、
+// 光線上のオブジェクトを取得してクリック判定を行う
+let raycaster, mouse;
+
+// レイキャスターの初期化
+raycaster = new THREE.Raycaster();
+
+// 操作用マウス/指ベクトルの作成
+mouse = new THREE.Vector2();
+
+// クリックイベントの作成
+document.addEventListener('click', onMouseEvent);
+
+
+
+
+
+
+
+
+
+
+// クリック時に動く関数
+function onMouseEvent(event) {
+  // event.preventDefault();
+
+  // 座標を正規化する呪文
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  // レイキャスティングでマウスと重なるオブジェクトを取得
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObjects(scene.children);
+
+  if(intersects[0].object.parent.name == "gym"){
+    intersects[0].object.material.color.set("#5588ee");
+
+  }
+  else{
+    intersects[0].object.material.color.set("#ffffff");
+    model.ball.traverse((object) => { //モデルの構成要素をforEach的に走査
+      if(object.isMesh) { //その構成要素がメッシュだったら
+        object.material.color.set("#00ff00");
+      }
+    });
+  }
+
+  console.log(model.ball);
+  
+}
