@@ -115,20 +115,20 @@ scene.background = new THREE.Color('#BBF2FF');
 
 
 // 見やすいようにヘルパー（網目）を設定
-var helpers = [];
-var helperX = [0, 0, 0];
-var helperY = [0, 0.1, 0];
-var helperZ = [0, 0, 0];
+// var helpers = [];
+// var helperX = [0, 0, 0];
+// var helperY = [0, 0.1, 0];
+// var helperZ = [0, 0, 0];
 
-for (var i=0; i<3; i++){
-  helpers.push(new THREE.GridHelper(60, 60, "#2288ff", "#dddddd"));
-  helpers[i].position.set(helperX[i], helperY[i], helperZ[i]);
-  scene.add(helpers[i]);
-  helpers[i].name = "helper" + String(i);
-}
-helpers[0].rotation.x = Math.PI/180*90;
-helpers[1].rotation.y = Math.PI/180*90;
-helpers[2].rotation.z = Math.PI/180*90;
+// for (var i=0; i<3; i++){
+//   helpers.push(new THREE.GridHelper(60, 60, "#2288ff", "#dddddd"));
+//   helpers[i].position.set(helperX[i], helperY[i], helperZ[i]);
+//   scene.add(helpers[i]);
+//   helpers[i].name = "helper" + String(i);
+// }
+// helpers[0].rotation.x = Math.PI/180*90;
+// helpers[1].rotation.y = Math.PI/180*90;
+// helpers[2].rotation.z = Math.PI/180*90;
 
 
 
@@ -431,10 +431,10 @@ function onMouseEvent(event) {
   const intersects = raycaster.intersectObjects(scene.children)[0];
   var boxClicked = false;
 
-    console.log("");
+    // console.log("");
   $('#mapBox').off('click');
   $("#mapBox").on("click", function(){
-    console.log("clicked");
+    // console.log("clicked");
     boxClicked = true;
   });
 
