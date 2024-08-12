@@ -2,29 +2,88 @@
 
 var waitTime = [];
 
-function getCSV(url){
-  var req = new XMLHttpRequest();
-  req.open("get", url, false);
-  req.send(null);
+// function getCSV(url){
+//   var req = new XMLHttpRequest();
+//   req.open("get", url, false);
+//   req.send(null);
 
-  return convertCSVtoArray(req.responseText);
+//   return convertCSVtoArray(req.responseText);
+// }
+
+// function convertCSVtoArray(str){
+//   var result = [];
+//   var tmp = str.split("\n");
+//   for(var i=0; i<tmp.length; i++){
+//       result.push(tmp[i].split(","));
+//   }
+//   return result;
+// }
+
+const csvUrl2 = './asset/csv/waitTime.csv'; // ここにCSVファイルのURLを入力する
+
+function fetchCSV(url, callback) {
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        callback(xhr.responseText);
+      } else {
+        console.error('Failed to fetch CSV:', xhr.status);
+        callback(null);
+      }
+    }
+  };
+  xhr.open('GET', url);
+  xhr.send();
 }
 
-function convertCSVtoArray(str){
-  var result = [];
-  var tmp = str.split("\n");
-  for(var i=0; i<tmp.length; i++){
-      result.push(tmp[i].split(","));
+function parseCSV(csvText) {
+  const lines = csvText.split(/\r\n|\n/);
+  const data = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const currentLine = lines[i].split(',');
+    if (currentLine.length > 0) {
+      data.push(currentLine);
+    }
   }
-  return result;
+
+  return data;
 }
+
+fetchCSV(csvUrl2, function(csvText){
+  waitTime = parseCSV(csvText);
+  console.log(waitTime);
+  
+  for(var i=1; i<waitTime.length; i++){
+    console.log(i);
+    
+    if(waitTime[i][1] == "HIGH"){
+      document.getElementById("wait" + String(i)).classList.add("high");
+    }
+    else if(waitTime[i][1] == "MIDDLE"){
+      document.getElementById("wait" + String(i)).classList.add("middle");
+    }
+    else if(waitTime[i][1] == "LOW"){
+      document.getElementById("wait" + String(i)).classList.add("low");
+    }
+  }
+});
+
+updateWaitTime = setInterval(
+  function(){
+    fetchCSV(csvUrl2, function(csvText){
+      waitTime = parseCSV(csvText);
+      console.log(waitTime);
+    });
+  },
+  5000
+)
+
+
+
 
 // ========================================
-
-waitTime = getCSV("./asset/csv/waitTime.csv");
-
-
-
 
 $("#waitClass1").click(function(){
   if($("#classDesc1").hasClass("current")){
@@ -154,14 +213,14 @@ for(var i=0; i<waitTime.length-1; i++){
 }
 
 
-function chartUpdate() {
-  var firstWidth = document.getElementById("data").clientWidth;
-  // console.log(firstWidth);
-  for(var i=0; i<9; i++){
-    var id = "#chartBar" + String(i+1);
-    $(id).css("width", "calc((100% - 0rem) * " + String(waitTimeData[i]/Math.max.apply(null, waitTimeData)) + " + 0rem)");
-    // $(id).attr("time-label", String(waitTimeData[i]));
-  }
-}
+// function chartUpdate() {
+//   var firstWidth = document.getElementById("data").clientWidth;
+//   // console.log(firstWidth);
+//   for(var i=0; i<9; i++){
+//     var id = "#chartBar" + String(i+1);
+//     $(id).css("width", "calc((100% - 0rem) * " + String(waitTimeData[i]/Math.max.apply(null, waitTimeData)) + " + 0rem)");
+//     // $(id).attr("time-label", String(waitTimeData[i]));
+//   }
+// }
 
-setInterval(chartUpdate, 10);
+// setInterval(chartUpdate, 10);

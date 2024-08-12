@@ -125,23 +125,38 @@
   text-align: left;
 }
 
-.waitContainer>p{
+.waitContainer>div:nth-of-type(1){
   grid-area: time;
 
-  display: block;
-  width: calc(100% - 1rem);
-  height: 5rem;
+  display: flex;
+  width: 100%;
+  height: 100%;
   margin: 0;
-  padding: 0 0.5rem 0 0.5rem;
+  padding: 0;
+}
 
-  border-radius: 0 15px 15px 0;
+.waitContainer>div>span{
+  display: block;
+  width: 50%;
+  height: 50%;
+  margin: auto;
+  padding: 0;
 
-  color: var(--text);
-  font-size: 2.75rem;
-  font-weight: 600;
+  border-radius: 505%;
 
-  line-height: 5rem;
-  text-align: center;
+  background-color: #cccccc;
+}
+
+.waitContainer>div>span.high{
+  background-color: #FFC4BD;
+}
+
+.waitContainer>div>span.middle{
+  background-color: #FFE7AB;
+}
+
+.waitContainer>div>span.low{
+  background-color: #CBFFD6;
 }
 
 .waitContainer>p::after{
