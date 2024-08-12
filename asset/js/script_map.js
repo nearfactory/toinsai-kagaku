@@ -235,7 +235,7 @@ controls.dampingFactor = 0.15;   //滑らかさの係数
 const loader = new GLTFLoader();
 
 const url = [
-  "./3d/005/toin005.gltf",
+  "./3d/006/toin006.gltf",
   "./3d/004/test.gltf",
   "./3d/balloon.gltf",
 ];
