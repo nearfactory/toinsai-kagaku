@@ -1,6 +1,6 @@
 // Load schedules from CSV
 
-var waitTime = [];
+// var waitTime = [];
 
 // function getCSV(url){
 //   var req = new XMLHttpRequest();
@@ -19,68 +19,122 @@ var waitTime = [];
 //   return result;
 // }
 
-const csvUrl2 = './asset/csv/waitTime.csv'; // ここにCSVファイルのURLを入力する
+// const csvUrl2 = './asset/csv/waitTime.csv'; // ここにCSVファイルのURLを入力する
 
-function fetchCSV(url, callback) {
-  const xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status === 200) {
-        callback(xhr.responseText);
-      } else {
-        console.error('Failed to fetch CSV:', xhr.status);
-        callback(null);
-      }
-    }
-  };
-  xhr.open('GET', url);
-  xhr.send();
-}
+// function fetchCSV(url, callback) {
+//   const xhr = new XMLHttpRequest();
+//   xhr.onreadystatechange = function() {
+//     if (xhr.readyState === XMLHttpRequest.DONE) {
+//       if (xhr.status === 200) {
+//         callback(xhr.responseText);
+//       } else {
+//         console.error('Failed to fetch CSV:', xhr.status);
+//         callback(null);
+//       }
+//     }
+//   };
+//   xhr.open('GET', url);
+//   xhr.send();
+// }
 
-function parseCSV(csvText) {
-  const lines = csvText.split(/\r\n|\n/);
-  const data = [];
+// function parseCSV(csvText) {
+//   const lines = csvText.split(/\r\n|\n/);
+//   const data = [];
 
-  for (let i = 0; i < lines.length; i++) {
-    const currentLine = lines[i].split(',');
-    if (currentLine.length > 0) {
-      data.push(currentLine);
-    }
-  }
+//   for (let i = 0; i < lines.length; i++) {
+//     const currentLine = lines[i].split(',');
+//     if (currentLine.length > 0) {
+//       data.push(currentLine);
+//     }
+//   }
 
-  return data;
-}
+//   return data;
+// }
 
-fetchCSV(csvUrl2, function(csvText){
-  waitTime = parseCSV(csvText);
-  console.log(waitTime);
+// fetchCSV(csvUrl2, function(csvText){
+//   waitTime = parseCSV(csvText);
+//   console.log(waitTime);
   
-  for(var i=1; i<waitTime.length; i++){
-    console.log(i);
+//   for(var i=1; i<waitTime.length; i++){
+//     console.log(i);
     
-    if(waitTime[i][1] == "HIGH"){
-      document.getElementById("wait" + String(i)).classList.add("high");
+//     if(waitTime[i][1] == "HIGH"){
+//       document.getElementById("wait" + String(i)).classList.add("high");
+//     }
+//     else if(waitTime[i][1] == "MIDDLE"){
+//       document.getElementById("wait" + String(i)).classList.add("middle");
+//     }
+//     else if(waitTime[i][1] == "LOW"){
+//       document.getElementById("wait" + String(i)).classList.add("low");
+//     }
+//   }
+// });
+
+// updateWaitTime = setInterval(
+//   function(){
+//     fetchCSV(csvUrl2, function(csvText){
+//       waitTime = parseCSV(csvText);
+//       console.log(waitTime);
+//     });
+//   },
+//   5000
+// )
+
+var api_url = 'https://script.google.com/macros/s/AKfycbzdHfQ9Roy3GjvHhrnKo4AqNDvpkI1m_08wQizMJIsi_kXLj-KsL-3DcZoAzKtUc9lrjQ/exec'; //生成したAPIのURLを指定
+fetch(api_url)
+.then(function (fetch_data) {
+  return fetch_data.json();
+})
+.then(function (json) {
+  for (var i in json) {
+    console.log(json[i].state);
+
+    if(json[i].state == "混雑"){
+      document.getElementById("wait" + String(Number(i)+1)).classList.add("high");
     }
-    else if(waitTime[i][1] == "MIDDLE"){
-      document.getElementById("wait" + String(i)).classList.add("middle");
+    else if(json[i].state == "普通"){
+      document.getElementById("wait" + String(Number(i)+1)).classList.add("middle");
     }
-    else if(waitTime[i][1] == "LOW"){
-      document.getElementById("wait" + String(i)).classList.add("low");
+    else if(json[i].state == "空いている"){
+      document.getElementById("wait" + String(Number(i)+1)).classList.add("low");
     }
   }
 });
 
-updateWaitTime = setInterval(
-  function(){
-    fetchCSV(csvUrl2, function(csvText){
-      waitTime = parseCSV(csvText);
-      console.log(waitTime);
-    });
-  },
-  5000
-)
+stateUpdate = setInterval(function(){
+  fetch(api_url)
+  .then(function (fetch_data) {
+    return fetch_data.json();
+  })
+  .then(function (json) {
+    for (var i in json) {
+      console.log(json[i].state);
+  
+      if(json[i].state == "混雑"){
+        document.getElementById("wait" + String(Number(i)+1)).classList.add("high");
+        document.getElementById("wait" + String(Number(i)+1)).classList.remove("middle");
+        document.getElementById("wait" + String(Number(i)+1)).classList.remove("low");
+      }
+      else if(json[i].state == "普通"){
+        document.getElementById("wait" + String(Number(i)+1)).classList.remove("high");
+        document.getElementById("wait" + String(Number(i)+1)).classList.add("middle");
+        document.getElementById("wait" + String(Number(i)+1)).classList.remove("low");
+      }
+      else if(json[i].state == "空いている"){
+        document.getElementById("wait" + String(Number(i)+1)).classList.remove("high");
+        document.getElementById("wait" + String(Number(i)+1)).classList.remove("middle");
+        document.getElementById("wait" + String(Number(i)+1)).classList.add("low");
+      }
+      else{
+        document.getElementById("wait" + String(Number(i)+1)).classList.remove("high");
+        document.getElementById("wait" + String(Number(i)+1)).classList.remove("middle");
+        document.getElementById("wait" + String(Number(i)+1)).classList.remove("low");
 
-
+      }
+    }
+  });
+}
+, 10000);
 
 
 // ========================================
@@ -207,10 +261,10 @@ $(".waitContainerStretch>a").click(function(){
   $("#sectionMap").addClass("current");
 })
 
-var waitTimeData = [];
-for(var i=0; i<waitTime.length-1; i++){
-  waitTimeData.push(Number(waitTime[i+1][1]));
-}
+// var waitTimeData = [];
+// for(var i=0; i<waitTime.length-1; i++){
+//   waitTimeData.push(Number(waitTime[i+1][1]));
+// }
 
 
 // function chartUpdate() {

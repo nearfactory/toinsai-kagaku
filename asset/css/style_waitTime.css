@@ -156,7 +156,7 @@
   font-weight: 500;
 
   line-height: 5rem;
-  text-align: left;
+  text-align: left; 
 }
 
 .waitContainer>div:nth-of-type(1){
