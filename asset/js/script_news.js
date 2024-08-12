@@ -55,7 +55,6 @@ function parseCSV(csvText) {
 
 fetchCSV(csvUrl, function(csvText) {
   news = parseCSV(csvText);
-  console.log(news);
 
   for(var i=0; i<(news.length)-1; i++){
     var newsContainer = document.getElementById("newsContainer");
