@@ -1,138 +1,163 @@
-// Load schedules from CSV
+// スケジュールをCSVファイルから取得
+const day1CSV = './asset/csv/day1.csv'; // ここにCSVファイルのURLを入力する
+const day2CSV = './asset/csv/day2.csv'; // ここにCSVファイルのURLを入力する
 
-var day1 = [];
-var day2 = [];
-
-function getCSV(url){
-  var req = new XMLHttpRequest();
-  req.open("get", url, false);
-  req.send(null);
-
-  return convertCSVtoArray(req.responseText);
+function fetchCSV(url, callback) {
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        callback(xhr.responseText);
+      } else {
+        console.error('Failed to fetch CSV:', xhr.status);
+        callback(null);
+      }
+    }
+  };
+  xhr.open('GET', url);
+  xhr.send();
 }
 
-function convertCSVtoArray(str){
-  var result = [];
-  var tmp = str.split("\n");
-  for(var i=0; i<tmp.length; i++){
-      result.push(tmp[i].split(","));
+function parseCSV(csvText) {
+  const lines = csvText.split(/\r\n|\n/);
+  const data = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const currentLine = lines[i].split(',');
+    if (currentLine.length > 0) {
+      data.push(currentLine);
+    }
   }
-  return result;
-}
 
-// ========================================
-
-day1 = getCSV("./asset/csv/day1.csv");
-day2 = getCSV("./asset/csv/day2.csv");
-
-var day1StartTimes = [];
-var day1EndTimes = [];
-var day2StartTimes = [];
-var day2EndTimes = [];
-
-for(var i=0; i<day1.length-1; i++){
-  if(day1[i+1][2] != "###"){
-    day1StartTimes.push(new Date("2024/05/04 " + String(day1[i+1][0])))
-    day1EndTimes.push(new Date("2024/05/04 " + String(day1[i+1][1])))
-  }
-}
-
-for(var i=0; i<day2.length-1; i++){
-  if(day2[i+1][2] != "###"){
-    day2StartTimes.push(new Date("2024/05/05 " + String(day2[i+1][0])))
-    day2EndTimes.push(new Date("2024/05/05 " + String(day2[i+1][1])))
-  }
+  return data;
 }
 
 // ========================================
 
-for(var i=1; i<day1.length; i++){
-  var schedulesDay1 = document.getElementById("schedulesDay1");
+var day1;
+var day1StartTimes;
+var day1EndTimes;
+var day2;
+var day2StartTimes;
+var day2EndTimes;
 
-  var scheduleBox = document.createElement('div');
-  var scheduleMainBox = document.createElement('div');
-  var scheduleTime = document.createElement('h2');
-  var scheduleTitle = document.createElement('h1');
-  var scheduleCategory = document.createElement('h3');
-  var scheduleImg = document.createElement('img');
-  var scheduleDesc = document.createElement('p');
+// ========================================
+
+fetchCSV(day1CSV, function(csvText) {
+  day1 = parseCSV(csvText);
+  day1StartTimes = [];
+  day1EndTimes = [];
+
+  for(var i=0; i<day1.length-1; i++){
+    if(day1[i+1][2] != "###"){
+      day1StartTimes.push(new Date("2024/05/04 " + String(day1[i+1][0])))
+      day1EndTimes.push(new Date("2024/05/04 " + String(day1[i+1][1])))
+    }
+  }
+
+  for(var i=1; i<day1.length; i++){
+    var schedulesDay1 = document.getElementById("schedulesDay1");
   
-  if(day1[i][2] != "###"){
-    scheduleBox.classList.add("schedule");
-    scheduleBox.setAttribute("id", "schedule" + String(i));
-    schedulesDay1.appendChild(scheduleBox);
+    var scheduleBox = document.createElement('div');
+    var scheduleMainBox = document.createElement('div');
+    var scheduleTime = document.createElement('h2');
+    var scheduleTitle = document.createElement('h1');
+    var scheduleCategory = document.createElement('h3');
+    var scheduleImg = document.createElement('img');
+    var scheduleDesc = document.createElement('p');
     
-    scheduleMainBox.classList.add("scheduleMain");
-    scheduleBox.appendChild(scheduleMainBox);
-    
-    scheduleTime.setAttribute("id", "scheduleTime" + String(i));
-    scheduleTime.textContent = day1[i][0];
-    scheduleMainBox.appendChild(scheduleTime);
-    
-    scheduleTitle.setAttribute("id", "scheduleTitle" + String(i));
-    scheduleTitle.textContent = day1[i][3];
-    scheduleMainBox.appendChild(scheduleTitle);
-    
-    scheduleCategory.setAttribute("id", "scheduleCategory" + String(i));
-    scheduleCategory.textContent = day1[i][4];
-    scheduleMainBox.appendChild(scheduleCategory);
-    
-    scheduleImg.src = "./image/" + day1[i][5];
-    scheduleBox.appendChild(scheduleImg);
-    
-    scheduleMainBox.classList.add("scheduleDesc");
-    scheduleDesc.textContent = day1[i][6];
-    scheduleBox.appendChild(scheduleDesc)
+    if(day1[i][2] != "###"){
+      scheduleBox.classList.add("schedule");
+      scheduleBox.setAttribute("id", "schedule" + String(i));
+      schedulesDay1.appendChild(scheduleBox);
+      
+      scheduleMainBox.classList.add("scheduleMain");
+      scheduleBox.appendChild(scheduleMainBox);
+      
+      scheduleTime.setAttribute("id", "scheduleTime" + String(i));
+      scheduleTime.textContent = day1[i][0];
+      scheduleMainBox.appendChild(scheduleTime);
+      
+      scheduleTitle.setAttribute("id", "scheduleTitle" + String(i));
+      scheduleTitle.textContent = day1[i][3];
+      scheduleMainBox.appendChild(scheduleTitle);
+      
+      scheduleCategory.setAttribute("id", "scheduleCategory" + String(i));
+      scheduleCategory.textContent = day1[i][4];
+      scheduleMainBox.appendChild(scheduleCategory);
+      
+      scheduleImg.src = "./image/" + day1[i][5];
+      scheduleBox.appendChild(scheduleImg);
+      
+      scheduleMainBox.classList.add("scheduleDesc");
+      scheduleDesc.textContent = day1[i][6];
+      scheduleBox.appendChild(scheduleDesc)
+    }
+    else{
+      scheduleBox.classList.add("scheduleSpan");
+      schedulesDay1.appendChild(scheduleBox);
+    }
   }
-  else{
-    scheduleBox.classList.add("scheduleSpan");
-    schedulesDay1.appendChild(scheduleBox);
+});
+
+// ========================================
+
+fetchCSV(day2CSV, function(csvText){
+  var day2 = parseCSV(csvText);
+  var day2StartTimes = [];
+  var day2EndTimes = [];
+
+  for(var i=0; i<day2.length-1; i++){
+    if(day2[i+1][2] != "###"){
+      day2StartTimes.push(new Date("2024/05/05 " + String(day2[i+1][0])))
+      day2EndTimes.push(new Date("2024/05/05 " + String(day2[i+1][1])))
+    }
   }
-}
 
-for(var i=1; i<day2.length; i++){
-  var schedulesDay2 = document.getElementById("schedulesDay2");
-
-  var scheduleBox = document.createElement('div');
-  var scheduleMainBox = document.createElement('div');
-  var scheduleTime = document.createElement('h2');
-  var scheduleTitle = document.createElement('h1');
-  var scheduleCategory = document.createElement('h3');
-  var scheduleImg = document.createElement('img');
-  var scheduleDesc = document.createElement('p');
+  for(var i=1; i<day2.length; i++){
+    var schedulesDay2 = document.getElementById("schedulesDay2");
   
-  if(day2[i][2] != "###"){
-    scheduleBox.classList.add("schedule");
-    scheduleBox.setAttribute("id", "schedule" + String(i+day1.length-1));
-    schedulesDay2.appendChild(scheduleBox);
+    var scheduleBox = document.createElement('div');
+    var scheduleMainBox = document.createElement('div');
+    var scheduleTime = document.createElement('h2');
+    var scheduleTitle = document.createElement('h1');
+    var scheduleCategory = document.createElement('h3');
+    var scheduleImg = document.createElement('img');
+    var scheduleDesc = document.createElement('p');
     
-    scheduleMainBox.classList.add("scheduleMain");
-    scheduleBox.appendChild(scheduleMainBox);
-    
-    scheduleTime.setAttribute("id", "scheduleTime" + String(i+day1.length-1));
-    scheduleTime.textContent = day2[i][0];
-    scheduleMainBox.appendChild(scheduleTime);
-    
-    scheduleTitle.setAttribute("id", "scheduleTitle" + String(i+day1.length-1));
-    scheduleTitle.textContent = day2[i][3];
-    scheduleMainBox.appendChild(scheduleTitle);
-    
-    scheduleCategory.setAttribute("id", "scheduleCategory" + String(i+day1.length-1));
-    scheduleCategory.textContent = day2[i][4];
-    scheduleMainBox.appendChild(scheduleCategory);
-    
-    scheduleImg.src = "./image/" + day2[i][5];
-    scheduleBox.appendChild(scheduleImg);
-    
-    scheduleMainBox.classList.add("scheduleDesc");
-    scheduleDesc.textContent = day2[i][6];
-    scheduleBox.appendChild(scheduleDesc);
+    if(day2[i][2] != "###"){
+      scheduleBox.classList.add("schedule");
+      scheduleBox.setAttribute("id", "schedule" + String(i+day1.length-1));
+      schedulesDay2.appendChild(scheduleBox);
+      
+      scheduleMainBox.classList.add("scheduleMain");
+      scheduleBox.appendChild(scheduleMainBox);
+      
+      scheduleTime.setAttribute("id", "scheduleTime" + String(i+day1.length-1));
+      scheduleTime.textContent = day2[i][0];
+      scheduleMainBox.appendChild(scheduleTime);
+      
+      scheduleTitle.setAttribute("id", "scheduleTitle" + String(i+day1.length-1));
+      scheduleTitle.textContent = day2[i][3];
+      scheduleMainBox.appendChild(scheduleTitle);
+      
+      scheduleCategory.setAttribute("id", "scheduleCategory" + String(i+day1.length-1));
+      scheduleCategory.textContent = day2[i][4];
+      scheduleMainBox.appendChild(scheduleCategory);
+      
+      scheduleImg.src = "./image/" + day2[i][5];
+      scheduleBox.appendChild(scheduleImg);
+      
+      scheduleMainBox.classList.add("scheduleDesc");
+      scheduleDesc.textContent = day2[i][6];
+      scheduleBox.appendChild(scheduleDesc);
+    }
+    else{
+      scheduleBox.classList.add("scheduleSpan");
+      schedulesDay2.appendChild(scheduleBox);
+    }
   }
-  else{
-    scheduleBox.classList.add("scheduleSpan");
-    schedulesDay2.appendChild(scheduleBox);
-  }
-}
+})
 
 // ========================================
 
@@ -152,10 +177,7 @@ $("#day2").click(function(){
   firstHeight2 = document.getElementById("schedulesDay2").clientHeight;
 })
 
-
-
 // ========================================
-
 
 var now;
 var nowPosition = 0;

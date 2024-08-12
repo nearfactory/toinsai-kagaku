@@ -115,15 +115,3 @@ $("#colorMode").click(function(){
 })
 
 // ==================================================
-// 端末の傾きを検知する
-// window.addEventListener("orientationchange", () => {
-//   // 端末の傾きを絶対値で取得する
-//   var direction = Math.abs(window.orientation);
-//   console.log(direction);
-  
-//   if(direction == 90) {
-//     $("#windowOrientation").addClass("active");
-//   } else {
-//     $("#windowOrientation").removeClass("active");
-//   }
-// });

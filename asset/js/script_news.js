@@ -1,27 +1,5 @@
 // スケジュールをCSVファイルから取得
-
-var news = [];
-
-// function getCSV(url){
-//   var req = new XMLHttpRequest();
-//   req.open("get", url, false);
-//   req.send(null);
-
-//   return convertCSVtoArray(req.responseText);
-// }
-
-// function convertCSVtoArray(str){
-//   var result = [];
-//   var tmp = str.split("\n");
-//   for(var i=0; i<tmp.length; i++){
-//       result.push(tmp[i].split(","));
-//   }
-//   return result;
-// }
-
-// news = getCSV("./asset/csv/news.csv");
-
-const csvUrl = './asset/csv/news.csv'; // ここにCSVファイルのURLを入力する
+const newsCSV = './asset/csv/news.csv'; // ここにCSVファイルのURLを入力する
 
 function fetchCSV(url, callback) {
   const xhr = new XMLHttpRequest();
@@ -53,8 +31,8 @@ function parseCSV(csvText) {
   return data;
 }
 
-fetchCSV(csvUrl, function(csvText) {
-  news = parseCSV(csvText);
+fetchCSV(newsCSV, function(csvText) {
+  var news = parseCSV(csvText);
 
   for(var i=0; i<(news.length)-1; i++){
     var newsContainer = document.getElementById("newsContainer");
