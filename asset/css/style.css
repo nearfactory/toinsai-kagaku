@@ -47,7 +47,7 @@ header>a{
   display: block;
 
   width: 100%;
-  height: 100%;
+  height: var(--headerHeight);
 
   color: var(--text);
   font-size: 1.75rem;
