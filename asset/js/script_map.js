@@ -428,7 +428,7 @@ function onMouseEvent(event) {
 
   // レイキャスティングでマウスと重なるオブジェクトを取得
   raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObjects(scene.children)[0];
+  var intersects = raycaster.intersectObjects(scene.children)[0];
   var boxClicked = false;
 
     // console.log("");
@@ -438,8 +438,9 @@ function onMouseEvent(event) {
     boxClicked = true;
   });
 
+  // if(boxClicked == false && intersects.object.parent.name == "gym"){
   if(boxClicked == false && intersects.object.parent.name == "gym"){
-    intersects.object.material.color.set("#5588ee");
+    intersects.object.material.color.set("#ff00ff");
     $("#mapBox").addClass("active");
   }
   else{

@@ -55,13 +55,13 @@
 
       <nav>
         <span></span>
-        <div id="navWaitTime" class="navItem"><span></span><i class="fa-regular fa-clock"></i>
-          <p>待ち時間</p><span></span>
+        <div id="navWaitTime" class="navItem current"><span></span><i class="fa-regular fa-clock"></i>
+          <p>混雑状況</p><span></span>
         </div>
         <div id="navGym" class="navItem"><span></span><i class="fa-solid fa-dumbbell"></i>
           <p>体育館</p><span></span>
         </div>
-        <div id="navMap" class="navItem current"><span></span><i class="fa-solid fa-map"></i>
+        <div id="navMap" class="navItem"><span></span><i class="fa-solid fa-map"></i>
           <p>校内マップ</p><span></span>
         </div>
         <div id="navNews" class="navItem"><span></span><i class="fa-solid fa-newspaper"></i>
@@ -92,8 +92,9 @@
 
     <span id="topSpan"></span>
 
-    <div class="section" id="sectionWaitTime">
-      <h1>教室展示の待ち時間</h1>
+    <div class="section current" id="sectionWaitTime">
+      <h1>教室展示の混雑状況&emsp;|&emsp;中学2年/高校2年</h1>
+
       <h2>中学生の部</h2>
       <div class="waitContainer" id="waitClass1">
         <h2>2-A</h2>
@@ -108,6 +109,7 @@
           <img src="./image/test1.jpg" alt="">
         </div>
       </div>
+      
       <div class="waitContainer" id="waitClass2">
         <h2>2-B</h2>
         <h1>タイトル</h1>
@@ -121,6 +123,7 @@
           <img src="./image/test2.jpg" alt="">
         </div>
       </div>
+
       <h2>高校生の部</h2>
       <div class="waitContainer" id="waitClass3">
         <h2>2-A</h2>
@@ -135,6 +138,7 @@
           <img src="./image/test3.jpg" alt="">
         </div>
       </div>
+
       <div class="waitContainer" id="waitClass4">
         <h2>2-B</h2>
         <h1>タイトル</h1>
@@ -148,6 +152,7 @@
           <img src="./image/test1.jpg" alt="">
         </div>
       </div>
+
       <div class="waitContainer" id="waitClass5">
         <h2>2-C</h2>
         <h1>タイトル</h1>
@@ -161,6 +166,7 @@
           <img src="./image/test2.jpg" alt="">
         </div>
       </div>
+
       <div class="waitContainer" id="waitClass6">
         <h2>2-D</h2>
         <h1>タイトル</h1>
@@ -174,6 +180,7 @@
           <img src="./image/test3.jpg" alt="">
         </div>
       </div>
+
       <div class="waitContainer" id="waitClass7">
         <h2>2-E</h2>
         <h1>タイトル</h1>
@@ -187,6 +194,7 @@
           <img src="./image/test1.jpg" alt="">
         </div>
       </div>
+
       <div class="waitContainer" id="waitClass8">
         <h2>2-F</h2>
         <h1>タイトル</h1>
@@ -200,6 +208,7 @@
           <img src="./image/test2.jpg" alt="">
         </div>
       </div>
+
       <div class="waitContainer" id="waitClass9">
         <h2>2-G</h2>
         <h1>タイトル</h1>
@@ -212,7 +221,10 @@
           </p>
           <img src="./image/test3.jpg" alt="">
         </div>
+
       </div>
+      
+      <h1>模擬店の混雑状況 | 高校3年</h1>
 
       <!-- <canvas id="waitTimeChart"></canvas> -->
       <div id="waitTimeChart">
@@ -283,7 +295,7 @@
       </div>
     </div>
 
-    <div class="section current" id="sectionMap">
+    <div class="section" id="sectionMap">
       <!-- <h1>校内マップ</h1> -->
 
       <canvas id="canvas">
@@ -331,40 +343,40 @@
         <br>
         今回の桐蔭祭では、桐蔭祭HPの制作/運営とともに体育館での出し物の映像中継/YouTube配信も実施しています。ぜひそちらもチェックしてみてください。<br>
         <br>
-        最後になりましたが、今回の桐蔭祭HP制作にあたって、顧問の藤木先生をはじめ、生徒会の方々やきのくにICTの山本さんなどたくさんの方にご協力いただいたこと、この場を借りて感謝申し上げます。本当にありがとうございました。
+        最後になりましたが、今回の桐蔭祭HP制作にあたって、顧問の藤木先生をはじめ、生徒会執行部の方々やきのくにICTの山本さんなどたくさんの方にご協力いただいたこと、この場を借りて感謝申し上げます。本当にありがとうございました。
       </p>
       <span></span>
       <h1>制作メンバー</h1>
       <div class="aboutUsMember">
-        <img src="./image/profile/test1.jpg" alt="">
-        <h2>Ritsuki Abe</h2>
-        <p>HP作成の根幹となるサイトのデザインカンプの作成を主に担当し、ユーザビリティ調査やサイト構成の話し合いで中心的な役割を担った。潮岬青少年の家で風邪をひいた。</p>
-      </div>
-      <div class="aboutUsMember">
         <img src="./image/profile/yuji.jpg" alt="">
         <h2>Yuji Terada</h2>
-        <p>デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション</p>
+        <p>作成されたデザインカンプをもとに、サイトの基盤をHTML、CSS、JavaScriptといった言語でコーディングし、サイトを主に制作した。</p>
+      </div>
+      <div class="aboutUsMember">
+        <img src="./image/profile/test1.jpg" alt="">
+        <h2>Ritsuki Abe</h2>
+        <p>サイトのデザインカンプの作成を主に担当し、ユーザビリティ調査やサイト構成の話し合いで中心的な役割を担った。</p>
       </div>
       <div class="aboutUsMember">
         <img src="./image/profile/test3.jpg" alt="">
         <h2>Ryo Kaijiri</h2>
-        <p>今回の桐蔭祭HP作成では、主にユーザビリティ調査、内容構成チェック、各クラス・他部活・文化祭実行委員会などとの話し合いなどを担当した。好きな食べ物は焼肉。</p>
-      </div>
-      <div class="aboutUsMember">
-        <img src="./image/profile/test1.jpg" alt="">
-        <h2>Asahi Ueno</h2>
-        <p>デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション</p>
+        <p>今回の桐蔭祭HP作成では、主にユーザビリティ調査、内容チェック、生徒会などとの話し合いなどを主に担当した。</p>
       </div>
       <div class="aboutUsMember">
         <img src="./image/profile/test2.jpg" alt="">
         <h2>Yu Otowa</h2>
-        <p>デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション</p>
+        <p>科学部と生徒会執行部を兼部していることを活かし、生徒会とサイト作成プロジェクトメンバーの連絡・報告を円滑に進める役割を担った。</p>
       </div>
-      <div class="aboutUsMember">
+      <!-- <div class="aboutUsMember">
+        <img src="./image/profile/test1.jpg" alt="">
+        <h2>Asahi Ueno</h2>
+        <p></p>
+      </div> -->
+      <!-- <div class="aboutUsMember">
         <img src="./image/profile/test3.jpg" alt="">
         <h2>Hiromichi Matsui</h2>
         <p>デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション</p>
-      </div>
+      </div> -->
       <span></span>
       <h1>Follow Us!</h1>
       <p class="sns"><i class="fa-brands fa-x-twitter"></i><a href="https://twitter.com/toinkagaku">@toinkagaku</a></p>

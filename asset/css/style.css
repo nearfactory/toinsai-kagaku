@@ -163,6 +163,19 @@ nav{
   z-index: 1;
   
   display: grid;
+  grid-template-columns: 0.25fr 1fr 1fr 1fr 1fr 0.25fr;
+
+  width: 100%;
+  height: var(--navHeight);
+}
+
+nav:has(#navNews){
+  position: fixed;
+  top: var(--headerHeight);
+  left: 0;
+  z-index: 1;
+  
+  display: grid;
   grid-template-columns: 0.25fr 1fr 1fr 1fr 1fr 1fr 0.25fr;
 
   width: 100%;
