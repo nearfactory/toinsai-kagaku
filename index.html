@@ -364,7 +364,20 @@
 
     <!-- 2Dマップ -->
     <div class="section" id="sectionMap">
-      <img src="./image/dummy.jpg" data-src="./2d/001.png" class="imgdelay">
+      <!-- <div class="floor1" id="map2d">
+        <div id="floorBtnBox">
+          <button class="floorBtn" id="floorBtn1">1F</button>
+          <button class="floorBtn" id="floorBtn2">2F</button>
+          <button class="floorBtn" id="floorBtn3">3F</button>
+          <span></span>
+        </div>
+      </div> -->
+
+      <img class="imgFloor" id="imgFloor1" src="./2d/001.png" alt="">
+      <img class="imgFloor" id="imgFloor2" src="./2d/002.png" alt="">
+      <img class="imgFloor" id="imgFloor3" src="./2d/003.png" alt="">
+
+      <i id="compass" class="fa-solid fa-location-arrow"></i>
     </div>
 
     <div class="section" id="sectionNews">
@@ -469,7 +482,8 @@
     <script src="./asset/js/script.js"></script>
     <script src="./asset/js/script_waitTime.js"></script>
     <script src="./asset/js/script_gym.js"></script>
-    <!-- <script src="./asset/js/script_map.js" type="module"></script> -->
+    <!-- <script src="./asset/js/script_3dmap.js" type="module"></script> -->
+    <script src="./asset/js/script_2dmap.js"></script>
     <script src="./asset/js/script_news.js"></script>
   </body>
 

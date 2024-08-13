@@ -19,6 +19,12 @@
 #sectionMap{
   position: relative;
 
+  display: block;
+  width: 100%;
+  height: calc(100vh - 8rem - 3rem - 5px);
+  
+  overflow: scroll;
+
   margin-top: 0;
   margin-bottom: 0;
   line-height: 0;
@@ -26,6 +32,7 @@
 
 /* ======================================== */
 
+/* 3dマップ */
 #mapBox{
   position: absolute;
   bottom: 0;
@@ -48,13 +55,126 @@
   display: block;
 }
 
-#sectionMap>img{
+/* ======================================== */
+
+/* 2dマップ */
+/* #map2d{
+  position: relative;
+
   display: block;
   width: 80%;
   height: calc(100vh - 8rem - 3rem - 5px);
 
-  margin: 0;
-  padding: 0 10%;
+  margin: 0 auto;
+  
+  background-position: 50% 50%;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 
-  object-fit: contain;
+#map2d.floor1{
+  background-image: url(../../2d/001.png);
+}
+
+#map2d.floor2{
+  background-image: url(../../2d/002.png);
+}
+
+#map2d.floor3{
+  background-image: url(../../2d/003.png);
+}
+
+#floorBtnBox{
+  position: absolute;
+  top: 2rem;
+  left: 1rem;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 12rem;
+  height: 3rem;
+
+  padding: 0;
+
+}
+
+.floorBtn{
+  display: block;
+  width: 100%;
+  height: 3rem;
+  z-index: 2;
+
+  background-color: #ffffff22;
+  border: none;
+
+  color: var(--text);
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-family: "IBM Plex Sans JP", sans-serif;
+  
+  text-align: center;
+  line-height: 3rem;
+}
+
+#floorBtnBox>span{
+  position: absolute;
+  display: block;
+  width: 4rem;
+  height: 3rem;
+
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  margin: 0;
+  padding: 0;
+
+  background-color: var(--accent);
+  filter: opacity(0.8);
+
+  transition: all .25s;
+} */
+
+.imgFloor{
+  position: relative;
+  z-index: 0;
+
+  display: none;
+
+  margin: 0 auto;
+  padding: 5rem;
+
+}
+
+#imgFloor1{
+  display: block;
+}
+
+#imgFloor2, #imgFloor3{
+  display: none;
+}
+
+#compass{
+  position: fixed;
+  bottom: 6rem;
+  right: 1.5rem;
+  z-index: 100;
+
+  display: none;
+  width: 4rem;
+  height: 4rem;
+
+  background-color: var(--accent);
+  border-radius: 50%;
+
+  font-size: 1.5rem;
+
+  text-align: center;
+  line-height: 4rem;
+
+  transform: rotate(-22deg);
+}
+
+#sectionMap.current>#compass{
+  display: block;
 }
