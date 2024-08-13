@@ -1,418 +1,128 @@
 <!DOCTYPE html>
-<html lang="ja">
-
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>桐蔭祭 HP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Zoomable Scrollable Element</title>
+    <style>
+        .zoom-container {
+            width: 50vw;
+            height: 50vh;
+            border: 1px solid #000;
+            overflow: hidden; /* スクロールバーを非表示 */
+            margin: 50px;
+            background-color: lightgray;
+            position: relative;
+        }
 
-    <!--FontAwesome読み込み-->
-    <script src="https://kit.fontawesome.com/2cd68e5bc6.js" crossorigin="anonymous"></script>
+        .content {
+            width: 150vw;
+            height: 150vh;
+            background-color: skyblue;
+            text-align: center;
+            line-height: 500px;
+            font-size: 24px;
+            transform-origin: 0 0;
+            transition: transform 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="zoom-container" id="zoom-container">
+        <div class="content" id="content">Zoom Me</div>
+    </div>
 
-    <!--リセットcssの読み込み-->
-    <link href="./asset/css/reset.css" rel="stylesheet">
+    <script>
+        const zoomContainer = document.getElementById('zoom-container');
+        const content = document.getElementById('content');
+        let scale = 1;
 
-    <!--自作cssの読み込み-->
-    <link href="./asset/css/access.css" rel="stylesheet">
-    <link href="./asset/css/style.css" rel="stylesheet">
-    <link href="./asset/css/style_waitTime.css" rel="stylesheet">
-    <link href="./asset/css/style_gym.css" rel="stylesheet">
-    <link href="./asset/css/style_map.css" rel="stylesheet">
-    <link href="./asset/css/style_news.css" rel="stylesheet">
-    <link href="./asset/css/style_aboutUs.css" rel="stylesheet">
+        // マウスホイールによるズーム
+        zoomContainer.addEventListener('wheel', (event) => {
+            event.preventDefault();
+            const rect = content.getBoundingClientRect();
 
-    <!--googleFontsの読み込み-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=IBM+Plex+Sans+JP:wght@100;200;300;400;500;600;700&display=swap">
+            // 現在のマウス位置に基づくズーム起点の設定
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
 
-    <!-- ファビコンの読み込み -->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://nearfactory.github.io/toin-festival/asset/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://nearfactory.github.io/toin-festival/asset/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://nearfactory.github.io/toin-festival/asset/favicon/favicon-16x16.png">
-    <link rel="manifest" href="https://nearfactory.github.io/toin-festival/asset/favicon/site.webmanifest">
-    <link rel="mask-icon" href="https://nearfactory.github.io/toin-festival/asset/favicon/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#efefef">
-    <meta name="theme-color" content="#efefef">
+            // ズーム前のスクロール位置
+            const scrollLeftBefore = zoomContainer.scrollLeft;
+            const scrollTopBefore = zoomContainer.scrollTop;
 
-    <script type="importmap">
-      {
-          "imports": {
-              "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.164.1/three.module.js",
-              "OrbitControls":"https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/controls/OrbitControls.js",
-              "GLTFLoader":"https://unpkg.com/three@0.154.0/examples/jsm/loaders/GLTFLoader.js"
-          }
-      }
+            // ズームイン/ズームアウトの計算
+            const deltaScale = event.deltaY < 0 ? 1.1 : 0.9;
+            const newScale = Math.max(0.1, Math.min(scale * deltaScale, zoomContainer.clientWidth / content.clientWidth));
+
+            const zoomRatio = newScale / scale;
+            scale = newScale;
+
+            content.style.transform = `scale(${scale})`;
+
+            // ズーム後のスクロール位置を計算し、調整
+            const newRect = content.getBoundingClientRect();
+            const newMouseX = (mouseX * scale) / (scale / deltaScale);
+            const newMouseY = (mouseY * scale) / (scale / deltaScale);
+
+            zoomContainer.scrollLeft = Math.max(0, Math.min(scrollLeftBefore + (newMouseX - mouseX), content.clientWidth * scale - zoomContainer.clientWidth));
+            zoomContainer.scrollTop = Math.max(0, Math.min(scrollTopBefore + (newMouseY - mouseY), content.clientHeight * scale - zoomContainer.clientHeight));
+        });
+
+        // タッチによるピンチイン・ピンチアウトズーム
+        let lastTouchDistance = null;
+
+        // 2点間の距離を計算する関数
+        function getDistance(touches) {
+            const dx = touches[0].clientX - touches[1].clientX;
+            const dy = touches[0].clientY - touches[1].clientY;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+
+        zoomContainer.addEventListener('touchstart', (event) => {
+            if (event.touches.length === 2) {
+                lastTouchDistance = getDistance(event.touches);
+            }
+        });
+
+        zoomContainer.addEventListener('touchmove', (event) => {
+            if (event.touches.length === 2) {
+                event.preventDefault();
+                
+                const currentTouchDistance = getDistance(event.touches);
+                if (lastTouchDistance) {
+                    const deltaScale = currentTouchDistance / lastTouchDistance;
+                    const rect = content.getBoundingClientRect();
+
+                    // ズーム前のスクロール位置
+                    const scrollLeftBefore = zoomContainer.scrollLeft;
+                    const scrollTopBefore = zoomContainer.scrollTop;
+
+                    const newScale = Math.max(0.1, Math.min(scale * deltaScale, zoomContainer.clientWidth / content.clientWidth));
+                    const zoomRatio = newScale / scale;
+                    scale = newScale;
+
+                    content.style.transform = `scale(${scale})`;
+
+                    // タッチの中間点
+                    const midX = (event.touches[0].clientX + event.touches[1].clientX) / 2;
+                    const midY = (event.touches[0].clientY + event.touches[1].clientY) / 2;
+
+                    // 中間点に基づく新しいスクロール位置の計算と調整
+                    const newMidX = (midX - rect.left) * scale;
+                    const newMidY = (midY - rect.top) * scale;
+
+                    zoomContainer.scrollLeft = Math.max(0, Math.min(scrollLeftBefore + (newMidX - (midX - rect.left)), content.clientWidth * scale - zoomContainer.clientWidth));
+                    zoomContainer.scrollTop = Math.max(0, Math.min(scrollTopBefore + (newMidY - (midY - rect.top)), content.clientHeight * scale - zoomContainer.clientHeight));
+                }
+                lastTouchDistance = currentTouchDistance;
+            }
+        });
+
+        zoomContainer.addEventListener('touchend', (event) => {
+            if (event.touches.length < 2) {
+                lastTouchDistance = null;
+            }
+        });
     </script>
-  </head>
-
-  <body>
-    <header>
-      <a href="./test.html">
-        TOIN-FESTIVAL&nbsp;2024
-        <!-- <img src="./image/test.png" alt="LOGO"> -->
-      </a>
-
-      <nav>
-        <span></span>
-        <div id="navWaitTime" class="navItem"><span></span><i class="fa-regular fa-clock"></i>
-          <p>待ち時間</p><span></span>
-        </div>
-        <div id="navGym" class="navItem"><span></span><i class="fa-solid fa-dumbbell"></i>
-          <p>体育館</p><span></span>
-        </div>
-        <div id="navMap" class="navItem current"><span></span><i class="fa-solid fa-map"></i>
-          <p>校内マップ</p><span></span>
-        </div>
-        <div id="navNews" class="navItem"><span></span><i class="fa-solid fa-newspaper"></i>
-          <p>ニュース</p><span></span>
-        </div>
-        <div id="navAboutUs" class="navItem"><span></span><i class="fa-solid fa-circle-nodes"></i>
-          <p>制作者について</p><span></span>
-        </div>
-        <span></span>
-      </nav>
-    </header>
-
-    <!-- <button id="navBtn">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <nav>
-        <h1>MENU</h1>
-        <a href="#home" class="navLink">ホーム</a>
-        <a href="#booth" class="navLink">出し物一覧</a>
-        <a href="#" class="navLink">校内図</a>
-        <a href="#gym" class="navLink">体育館出し物の時間</a>
-        <a href="#council" class="navLink">生徒会企画</a>
-        <a href="#aboutus" class="navLink">制作者について</a>
-      </nav> -->
-
-    <span id="topSpan"></span>
-
-    <div class="section" id="sectionWaitTime">
-      <h1>教室展示の待ち時間</h1>
-      <h2>中学生の部</h2>
-      <div class="waitContainer" id="waitClass1">
-        <h2>2-A</h2>
-        <h1>タイトル</h1>
-        <p id="waitTime1">60</p>
-
-        <div class="waitContainerStretch">
-          <a href="#"><i class="fa-solid fa-location-dot"></i>中学校 2-A教室</a>
-          <p>
-            デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション
-          </p>
-          <img src="./image/test1.jpg" alt="">
-        </div>
-      </div>
-      <div class="waitContainer" id="waitClass2">
-        <h2>2-B</h2>
-        <h1>タイトル</h1>
-        <p id="waitTime2">60</p>
-
-        <div class="waitContainerStretch">
-          <a href="#"><i class="fa-solid fa-location-dot"></i>中学校 2-B教室</a>
-          <p>
-            デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション
-          </p>
-          <img src="./image/test2.jpg" alt="">
-        </div>
-      </div>
-      <h2>高校生の部</h2>
-      <div class="waitContainer" id="waitClass3">
-        <h2>2-A</h2>
-        <h1>タイトル</h1>
-        <p id="waitTime1">15</p>
-
-        <div class="waitContainerStretch">
-          <a href="#"><i class="fa-solid fa-location-dot"></i>高校 2-A教室</a>
-          <p>
-            デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション
-          </p>
-          <img src="./image/test3.jpg" alt="">
-        </div>
-      </div>
-      <div class="waitContainer" id="waitClass4">
-        <h2>2-B</h2>
-        <h1>タイトル</h1>
-        <p id="waitTime2">20</p>
-
-        <div class="waitContainerStretch">
-          <a href="#"><i class="fa-solid fa-location-dot"></i>高校 2-B教室</a>
-          <p>
-            デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション
-          </p>
-          <img src="./image/test1.jpg" alt="">
-        </div>
-      </div>
-      <div class="waitContainer" id="waitClass5">
-        <h2>2-C</h2>
-        <h1>タイトル</h1>
-        <p id="waitTime3">0</p>
-
-        <div class="waitContainerStretch">
-          <a href="#"><i class="fa-solid fa-location-dot"></i>高校 2-C教室</a>
-          <p>
-            デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション
-          </p>
-          <img src="./image/test2.jpg" alt="">
-        </div>
-      </div>
-      <div class="waitContainer" id="waitClass6">
-        <h2>2-D</h2>
-        <h1>タイトル</h1>
-        <p id="waitTime4">10</p>
-
-        <div class="waitContainerStretch">
-          <a href="#"><i class="fa-solid fa-location-dot"></i>高校 2-D教室</a>
-          <p>
-            デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション
-          </p>
-          <img src="./image/test3.jpg" alt="">
-        </div>
-      </div>
-      <div class="waitContainer" id="waitClass7">
-        <h2>2-E</h2>
-        <h1>タイトル</h1>
-        <p id="waitTime5">35</p>
-
-        <div class="waitContainerStretch">
-          <a href="#"><i class="fa-solid fa-location-dot"></i>高校 2-E教室</a>
-          <p>
-            デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション
-          </p>
-          <img src="./image/test1.jpg" alt="">
-        </div>
-      </div>
-      <div class="waitContainer" id="waitClass8">
-        <h2>2-F</h2>
-        <h1>タイトル</h1>
-        <p id="waitTime6">5</p>
-
-        <div class="waitContainerStretch">
-          <a href="#"><i class="fa-solid fa-location-dot"></i>高校 2-F教室</a>
-          <p>
-            デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション
-          </p>
-          <img src="./image/test2.jpg" alt="">
-        </div>
-      </div>
-      <div class="waitContainer" id="waitClass9">
-        <h2>2-G</h2>
-        <h1>タイトル</h1>
-        <p id="waitTime7">10</p>
-
-        <div class="waitContainerStretch">
-          <a href="#"><i class="fa-solid fa-location-dot"></i>高校 2-G教室</a>
-          <p>
-            デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション
-          </p>
-          <img src="./image/test3.jpg" alt="">
-        </div>
-      </div>
-
-      <!-- <canvas id="waitTimeChart"></canvas> -->
-      <div id="waitTimeChart">
-        <h1>待ち時間比較</h1>
-
-        <div>
-          <div id="option">
-            <p class="chartOption" id="chartOption1">中2-A</p>
-            <p class="chartOption" id="chartOption2">B</p>
-            <p class="chartOption" id="chartOption3">高2-A</p>
-            <p class="chartOption" id="chartOption4">B</p>
-            <p class="chartOption" id="chartOption5">C</p>
-            <p class="chartOption" id="chartOption6">D</p>
-            <p class="chartOption" id="chartOption7">E</p>
-            <p class="chartOption" id="chartOption8">F</p>
-            <p class="chartOption" id="chartOption9">G</p>
-          </div>
-          <div id="data">
-            <span class="chartBar" id="chartBar1"></span>
-            <span class="chartBar" id="chartBar2"></span>
-            <span class="chartBar" id="chartBar3"></span>
-            <span class="chartBar" id="chartBar4"></span>
-            <span class="chartBar" id="chartBar5"></span>
-            <span class="chartBar" id="chartBar6"></span>
-            <span class="chartBar" id="chartBar7"></span>
-            <span class="chartBar" id="chartBar8"></span>
-            <span class="chartBar" id="chartBar9"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section" id="sectionGym">
-      <h1>出し物のスケジュール</h1>
-      <a id="map-gym"><i class="fa-solid fa-location-dot"></i>体育館</a>
-
-      <div class="gymDateContainer">
-        <div class="active" id="day1">
-          <h1>9/11</h1>
-          <p>Wed</p><span></span>
-        </div>
-        <div id="day2">
-          <h1>9/12</h1>
-          <p>Thu</p><span></span>
-        </div>
-      </div>
-
-      <div class="gymMainContainer active" id="scheduleDay1">
-        <div class="lines" id="day1Lines">
-          <span class="line" id="day1Line1"></span>
-          <span class="line" id="day1Line2"></span>
-          <span class="point" id="day1Point"></span>
-        </div>
-
-        <div id="schedulesDay1">
-        </div>
-      </div>
-
-      <div class="gymMainContainer" id="scheduleDay2">
-        <div class="lines">
-          <span class="line" id="day2Line1"></span>
-          <span class="point" id="day2Point"></span>
-          <span class="line" id="day2Line2"></span>
-        </div>
-
-        <div id="schedulesDay2">
-        </div>
-      </div>
-    </div>
-
-    <div class="section current" id="sectionMap">
-      <!-- <h1>校内マップ</h1> -->
-
-      <canvas id="canvas">
-        
-      </canvas>
-
-      <div id="mapBox">
-        <h2 id="mapTitle">asdfasdfasdfasdf</h2>
-        <p id="mapDesc">asdfasdfasdfasdfasdfad</p>
-      </div>
-
-    </div>
-
-    <div class="section" id="sectionNews">
-      <h1>ニュース</h1>
-      <h2>タップして詳細をチェック</h2>
-
-      <div id="newsContainer">
-        <!-- <div class="newsContent">
-          <h3>2024.03.11</h3>
-          <h1>桐蔭祭サイトを公開しました!</h1>
-          <h4>サイト運営</h4>
-          <p>デスクリプションデスクリプションデスクリプション</p>
-          <img></img>
-        </div> -->
-      </div>
-
-      <dialog id="newsModal">
-        <h1 id="newsModalTitle"></h1>
-        <h2 id="newsModalPublisher"></h2>
-        <h3 id="newsModalDate"></h3>
-        <p id="newsModalContent"></p>
-        <img src="" id="newsModalImg">
-        <button id="modalClose"><i class="fa-solid fa-xmark"></i></button>
-      </dialog>
-    </div>
-
-    <div class="section" id="sectionAboutUs">
-      <h1>制作者について</h1>
-      <p id="aboutUsThank">
-        このサイトは、桐蔭高校
-        科学部によって制作・管理されています。部員が自分たちで、サイトの構想からデザインカンプの作成、HTML/CSS/JSのコーディング、サーバー設定、デバッグなどのサイト立ち上げのためのあらゆる作業を行いました。<br>
-        <br>
-        科学部は、このようなWEBサイト制作以外にも、自立してサッカーをプレイする Robo Cup Junior、空き缶サイズの模擬人工衛星をロケットで飛ばす 缶サット など、さまざまな取り組みを行っています。<br>
-        <br>
-        今回の桐蔭祭では、桐蔭祭HPの制作/運営とともに体育館での出し物の映像中継/YouTube配信も実施しています。ぜひそちらもチェックしてみてください。<br>
-        <br>
-        最後になりましたが、今回の桐蔭祭HP制作にあたって、顧問の藤木先生をはじめ、生徒会の方々やきのくにICTの山本さんなどたくさんの方にご協力いただいたこと、この場を借りて感謝申し上げます。本当にありがとうございました。
-      </p>
-      <span></span>
-      <h1>制作メンバー</h1>
-      <div class="aboutUsMember">
-        <img src="./image/profile/test1.jpg" alt="">
-        <h2>Ritsuki Abe</h2>
-        <p>HP作成の根幹となるサイトのデザインカンプの作成を主に担当し、ユーザビリティ調査やサイト構成の話し合いで中心的な役割を担った。潮岬青少年の家で風邪をひいた。</p>
-      </div>
-      <div class="aboutUsMember">
-        <img src="./image/profile/yuji.jpg" alt="">
-        <h2>Yuji Terada</h2>
-        <p>デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション</p>
-      </div>
-      <div class="aboutUsMember">
-        <img src="./image/profile/test3.jpg" alt="">
-        <h2>Ryo Kaijiri</h2>
-        <p>今回の桐蔭祭HP作成では、主にユーザビリティ調査、内容構成チェック、各クラス・他部活・文化祭実行委員会などとの話し合いなどを担当した。好きな食べ物は焼肉。</p>
-      </div>
-      <div class="aboutUsMember">
-        <img src="./image/profile/test1.jpg" alt="">
-        <h2>Asahi Ueno</h2>
-        <p>デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション</p>
-      </div>
-      <div class="aboutUsMember">
-        <img src="./image/profile/test2.jpg" alt="">
-        <h2>Yu Otowa</h2>
-        <p>デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション</p>
-      </div>
-      <div class="aboutUsMember">
-        <img src="./image/profile/test3.jpg" alt="">
-        <h2>Hiromichi Matsui</h2>
-        <p>デスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプションデスクリプション</p>
-      </div>
-      <span></span>
-      <h1>Follow Us!</h1>
-      <p class="sns"><i class="fa-brands fa-x-twitter"></i><a href="https://twitter.com/toinkagaku">@toinkagaku</a></p>
-      <p class="sns"><i class="fa-brands fa-youtube"></i><a href="https://www.youtube.com/@Toinkagaku">@Toinkagaku</a></p>
-      <p class="sns"><i class="fa-solid fa-link"></i><a href="https://wakayama-space.org/">https://wakayama-space.org/</a></p>
-    </div>
-
-    <footer>
-      <p id="copyright">
-        Copyright &copy; 2024 Toin Science Club
-      </p>
-      <!-- <button id="colorMode"><i class="fa-solid fa-brush"></i>DarkMode</button> -->
-    </footer>
-
-    <!-- <div id="access">
-      <form>
-        <input type="text" id="accessID" placeholder="アクセスID">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <input type="password" id="accessPW" placeholder="アクセスPASS">
-      </form>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <button id="accessBtn">認証</button>
-    </div> -->
-
-    <noscript>
-      <h2>JavaScriptが無効です</h2>
-      <p>ブラウザの設定から有効にして再度お試しください</p>
-    </noscript>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <!-- <script src="./asset/js/access.js"></script> -->
-    <script src="./asset/js/script.js"></script>
-    <script src="./asset/js/script_waitTime.js"></script>
-    <script src="./asset/js/script_gym.js"></script>
-    <script src="./asset/js/script_map.js" type="module"></script>
-    <script src="./asset/js/script_news.js"></script>
-    <script src="./asset/js/script_swipe.js"></script>
-  </body>
-
+</body>
 </html>

@@ -21,7 +21,7 @@
 
   display: none;
   width: 100%;
-  height: calc(100vh - 8rem - 3rem - 5px);
+  height: calc(100dvh - 8rem - 3rem - 5px);
   
   overflow: scroll;
 
@@ -151,6 +151,8 @@
   padding: 0 0;
 
   background-color: #EBE2D5;
+
+  resize: both;
 }
 
 .imgFloor.active{
@@ -208,17 +210,17 @@
   position: absolute;
   
   display: block;
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 3rem;
+  height: 3rem;
 
-  background-color: var(--background2);
-  filter: opacity(0.8);
-  border-radius: 50%;
+  background-color: #7FD9FB33;
+  border-radius: 25%;
+  border: var(--accent) 0.2rem solid;
 
   color: var(--accent);
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 600;
 
   text-align: center;
-  line-height: 4.5rem;
+  line-height: 3rem;
 }
