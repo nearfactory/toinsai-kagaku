@@ -178,19 +178,19 @@
 
   border-radius: 505%;
 
-  background-color: #cccccc;
+  background-color: #d0d0d0;
 }
 
 .waitContainer>div>span.high{
-  background-color: #FFC4BD;
+  background-color: #3096BF;
 }
 
 .waitContainer>div>span.middle{
-  background-color: #FFE7AB;
+  background-color: #36ACD9;
 }
 
 .waitContainer>div>span.low{
-  background-color: #CBFFD6;
+  background-color: #51CBFC;
 }
 
 .waitContainer>p::after{

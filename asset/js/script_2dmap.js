@@ -30,3 +30,57 @@
 
 
 
+// for(var i=0; i<49; i++){
+//   $("#grid-tate" + String(i+1)).css("left", String((i+1)*5) + "%");
+//   $("#grid-yoko" + String(i+1)).css("top", String((i+1)*5) + "%");
+// }
+
+// スケジュールをCSVファイルから取得
+const mapContentCSV = './asset/csv/2dmap.csv'; // ここにCSVファイルのURLを入力する
+
+function fetchCSV(url, callback) {
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        callback(xhr.responseText);
+      } else {
+        console.error('Failed to fetch CSV:', xhr.status);
+        callback(null);
+      }
+    }
+  };
+  xhr.open('GET', url);
+  xhr.send();
+}
+
+function parseCSV(csvText) {
+  const lines = csvText.split(/\r\n|\n/);
+  const data = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const currentLine = lines[i].split(',');
+    if (currentLine.length > 0) {
+      data.push(currentLine);
+    }
+  }
+
+  return data;
+}
+
+fetchCSV(mapContentCSV, function(csvText) {
+  var mapContent = parseCSV(csvText);
+  console.log(mapContent);
+
+  var sectionMap = document.getElementById("sectionMap");
+
+  for(var i in mapContent){
+    console.log(mapContent[i]);
+    var appendContent = document.createElement("p");
+    appendContent.innerHTML = '<i class="fa-solid fa-location-dot"></i>';
+    appendContent.classList.add("mapContent");
+    appendContent.style.left =  String(mapContent[i][4]) + "%";
+    appendContent.style.top = String(mapContent[i][5]) + "%";
+    sectionMap.appendChild(appendContent);
+  }
+});

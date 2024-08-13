@@ -19,7 +19,7 @@
 #sectionMap{
   position: relative;
 
-  display: block;
+  display: none;
   width: 100%;
   height: calc(100vh - 8rem - 3rem - 5px);
   
@@ -28,6 +28,10 @@
   margin-top: 0;
   margin-bottom: 0;
   line-height: 0;
+}
+
+#sectionMap.current{
+  display: block;
 }
 
 /* ======================================== */
@@ -140,18 +144,17 @@
   z-index: 0;
 
   display: none;
+  width: 250%;
+  height: 250%;
 
   margin: 0 auto;
-  padding: 5rem;
+  padding: 0 0;
 
+  background-color: #EBE2D5;
 }
 
-#imgFloor1{
+.imgFloor.active{
   display: block;
-}
-
-#imgFloor2, #imgFloor3{
-  display: none;
 }
 
 #compass{
@@ -177,4 +180,45 @@
 
 #sectionMap.current>#compass{
   display: block;
+}
+
+.grid-tate{
+  position: absolute;
+  top: 0;
+  
+  display: block;
+  width: 1px;
+  height: 250%;
+
+  background-color: #ccc;
+}
+
+.grid-yoko{
+  position: absolute;
+  left: 0;
+  
+  display: block;
+  width: 250%;
+  height: 1px;
+
+  background-color: #ccc;
+}
+
+.mapContent{
+  position: absolute;
+  
+  display: block;
+  width: 4.5rem;
+  height: 4.5rem;
+
+  background-color: var(--background2);
+  filter: opacity(0.8);
+  border-radius: 50%;
+
+  color: var(--accent);
+  font-size: 1.75rem;
+  font-weight: 600;
+
+  text-align: center;
+  line-height: 4.5rem;
 }
