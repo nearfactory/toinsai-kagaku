@@ -159,28 +159,30 @@
   display: block;
 }
 
-#compass{
+#toggleFloor{
   position: fixed;
   bottom: 6rem;
   right: 1.5rem;
   z-index: 100;
 
   display: none;
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
 
   background-color: var(--accent);
   border-radius: 50%;
+  border: none;
+  box-shadow: 0 0 0.75rem silver;
+  /* border: var(--textPale) 2px solid; */
 
+  color: var(--text);
   font-size: 1.5rem;
 
   text-align: center;
-  line-height: 4rem;
-
-  transform: rotate(-22deg);
+  line-height: 5rem;
 }
 
-#sectionMap.current>#compass{
+#sectionMap.current>#toggleFloor{
   display: block;
 }
 
@@ -206,8 +208,22 @@
   background-color: #ccc;
 }
 
+#mapContentBox{
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+}
+
 .mapContentBtn{
   position: absolute;
+  z-index: 1;
   
   display: block;
   width: 3rem;
@@ -216,16 +232,17 @@
   margin: 0;
   padding: 0;
 
-  background-color: #7FD9FB33;
+  background-color: #7FD9FB;
   border-radius: 25%;
-  border: var(--accent) 0.2rem solid;
+  border: var(--textPale) 2px solid;
+  box-shadow: 2px 2px 0 silver;
 
-  color: var(--accent);
+  color: var(--text);
   font-size: 1.5rem;
   font-weight: 600;
 
   text-align: center;
-  line-height: 3rem;
+  line-height: calc(3rem - 2px * 2);
 }
 
 .mapContentBtn.active{

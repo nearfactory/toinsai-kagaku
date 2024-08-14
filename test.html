@@ -3,75 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Zoomable Scrollable Element</title>
+    <title>Zoomable Element</title>
     <style>
         .zoom-container {
-            width: 50vw;
-            height: 50vh;
+            width: 300px;
+            height: 200px;
             border: 1px solid #000;
-            overflow: hidden; /* スクロールバーを非表示 */
-            margin: 50px;
-            background-color: lightgray;
+            overflow: scroll;
+            margin: 50px auto;
             position: relative;
+            background-color: lightgray;
         }
 
         .content {
-            width: 150vw;
-            height: 150vh;
+            width: 300px;
+            height: 200px;
             background-color: skyblue;
             text-align: center;
-            line-height: 500px;
+            line-height: 200px;
             font-size: 24px;
-            transform-origin: 0 0;
-            transition: transform 0.1s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: center center;
+            transform: scale(1);
         }
     </style>
 </head>
 <body>
-    <div class="zoom-container" id="zoom-container">
-        <div class="content" id="content">Zoom Me</div>
+    <div class="zoom-container">
+        <div class="content">Zoom Me</div>
     </div>
 
     <script>
-        const zoomContainer = document.getElementById('zoom-container');
-        const content = document.getElementById('content');
+        const zoomContainer = document.querySelector('.zoom-container');
+        const content = document.querySelector('.content');
         let scale = 1;
+
+        function setTransform(newScale, originX, originY) {
+            const rect = zoomContainer.getBoundingClientRect();
+            const contentRect = content.getBoundingClientRect();
+
+            // ズーム前のスクロール位置の相対位置を保存
+            const offsetX = (zoomContainer.scrollLeft + originX) / contentRect.width;
+            const offsetY = (zoomContainer.scrollTop + originY) / contentRect.height;
+
+            // スケールを更新
+            scale = newScale;
+            content.style.transform = `scale(${scale})`;
+
+            // 新しいスクロール位置を計算して適用
+            const newScrollLeft = offsetX * contentRect.width * scale - originX;
+            const newScrollTop = offsetY * contentRect.height * scale - originY;
+
+            zoomContainer.scrollLeft = Math.max(0, Math.min(newScrollLeft, contentRect.width * scale - rect.width));
+            zoomContainer.scrollTop = Math.max(0, Math.min(newScrollTop, contentRect.height * scale - rect.height));
+        }
 
         // マウスホイールによるズーム
         zoomContainer.addEventListener('wheel', (event) => {
             event.preventDefault();
-            const rect = content.getBoundingClientRect();
 
-            // 現在のマウス位置に基づくズーム起点の設定
-            const mouseX = event.clientX - rect.left;
-            const mouseY = event.clientY - rect.top;
+            const delta = event.deltaY > 0 ? -0.1 : 0.1;
+            const newScale = Math.max(1, Math.min(scale + delta, 3)); // ズーム範囲を1から3に制限
 
-            // ズーム前のスクロール位置
-            const scrollLeftBefore = zoomContainer.scrollLeft;
-            const scrollTopBefore = zoomContainer.scrollTop;
+            // ズームの起点をコンテナの中央に設定
+            const originX = zoomContainer.clientWidth / 2;
+            const originY = zoomContainer.clientHeight / 2;
 
-            // ズームイン/ズームアウトの計算
-            const deltaScale = event.deltaY < 0 ? 1.1 : 0.9;
-            const newScale = Math.max(0.1, Math.min(scale * deltaScale, zoomContainer.clientWidth / content.clientWidth));
-
-            const zoomRatio = newScale / scale;
-            scale = newScale;
-
-            content.style.transform = `scale(${scale})`;
-
-            // ズーム後のスクロール位置を計算し、調整
-            const newRect = content.getBoundingClientRect();
-            const newMouseX = (mouseX * scale) / (scale / deltaScale);
-            const newMouseY = (mouseY * scale) / (scale / deltaScale);
-
-            zoomContainer.scrollLeft = Math.max(0, Math.min(scrollLeftBefore + (newMouseX - mouseX), content.clientWidth * scale - zoomContainer.clientWidth));
-            zoomContainer.scrollTop = Math.max(0, Math.min(scrollTopBefore + (newMouseY - mouseY), content.clientHeight * scale - zoomContainer.clientHeight));
+            setTransform(newScale, originX, originY);
         });
 
         // タッチによるピンチイン・ピンチアウトズーム
         let lastTouchDistance = null;
 
-        // 2点間の距離を計算する関数
         function getDistance(touches) {
             const dx = touches[0].clientX - touches[1].clientX;
             const dy = touches[0].clientY - touches[1].clientY;
@@ -87,41 +92,22 @@
         zoomContainer.addEventListener('touchmove', (event) => {
             if (event.touches.length === 2) {
                 event.preventDefault();
-                
+
                 const currentTouchDistance = getDistance(event.touches);
-                if (lastTouchDistance) {
-                    const deltaScale = currentTouchDistance / lastTouchDistance;
-                    const rect = content.getBoundingClientRect();
+                const deltaScale = currentTouchDistance / lastTouchDistance;
+                const newScale = Math.max(1, Math.min(scale * deltaScale, 3)); // ズーム範囲を1から3に制限
 
-                    // ズーム前のスクロール位置
-                    const scrollLeftBefore = zoomContainer.scrollLeft;
-                    const scrollTopBefore = zoomContainer.scrollTop;
+                // ズームの起点をコンテナの中央に設定
+                const originX = zoomContainer.clientWidth / 2;
+                const originY = zoomContainer.clientHeight / 2;
 
-                    const newScale = Math.max(0.1, Math.min(scale * deltaScale, zoomContainer.clientWidth / content.clientWidth));
-                    const zoomRatio = newScale / scale;
-                    scale = newScale;
-
-                    content.style.transform = `scale(${scale})`;
-
-                    // タッチの中間点
-                    const midX = (event.touches[0].clientX + event.touches[1].clientX) / 2;
-                    const midY = (event.touches[0].clientY + event.touches[1].clientY) / 2;
-
-                    // 中間点に基づく新しいスクロール位置の計算と調整
-                    const newMidX = (midX - rect.left) * scale;
-                    const newMidY = (midY - rect.top) * scale;
-
-                    zoomContainer.scrollLeft = Math.max(0, Math.min(scrollLeftBefore + (newMidX - (midX - rect.left)), content.clientWidth * scale - zoomContainer.clientWidth));
-                    zoomContainer.scrollTop = Math.max(0, Math.min(scrollTopBefore + (newMidY - (midY - rect.top)), content.clientHeight * scale - zoomContainer.clientHeight));
-                }
+                setTransform(newScale, originX, originY);
                 lastTouchDistance = currentTouchDistance;
             }
         });
 
-        zoomContainer.addEventListener('touchend', (event) => {
-            if (event.touches.length < 2) {
-                lastTouchDistance = null;
-            }
+        zoomContainer.addEventListener('touchend', () => {
+            lastTouchDistance = null;
         });
     </script>
 </body>

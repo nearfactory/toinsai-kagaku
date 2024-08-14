@@ -72,17 +72,18 @@ fetchCSV(mapContentCSV, function(csvText) {
   var mapContent = parseCSV(csvText);
   console.log(mapContent);
 
-  var sectionMap = document.getElementById("sectionMap");
+  var mapContentBox = document.getElementById("mapContentBox");
 
   for(var i in mapContent){
     console.log(mapContent[i]);
     var appendContent = document.createElement("button");
-    appendContent.innerHTML = '<i class="fa-solid fa-location-dot"></i>';
+    // appendContent.innerHTML = '<i class="fa-solid fa-location-dot"></i>';
+    appendContent.innerHTML = Number(i)+1;
     appendContent.classList.add("mapContentBtn");
     appendContent.setAttribute("id", "mapContentBtn" + mapContent[i][0]);
     appendContent.style.left =  String(mapContent[i][4]) + "%";
     appendContent.style.top = String(mapContent[i][5]) + "%";
-    sectionMap.appendChild(appendContent);
+    mapContentBox.appendChild(appendContent);
   }
 });
 
