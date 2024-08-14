@@ -30,10 +30,10 @@
 
 
 
-// for(var i=0; i<49; i++){
-//   $("#grid-tate" + String(i+1)).css("left", String((i+1)*5) + "%");
-//   $("#grid-yoko" + String(i+1)).css("top", String((i+1)*5) + "%");
-// }
+for(var i=0; i<49; i++){
+  $("#grid-tate" + String(i+1)).css("left", String((i+1)*5) + "%");
+  $("#grid-yoko" + String(i+1)).css("top", String((i+1)*5) + "%");
+}
 
 // スケジュールをCSVファイルから取得
 const mapContentCSV = './asset/csv/2dmap.csv'; // ここにCSVファイルのURLを入力する
@@ -121,6 +121,12 @@ $("#floor2").click(function(){
 $("#floor3").click(function(){
   $(".mapContentBox").removeClass("active");
   $("#mapContent3F").addClass("active");
+  $("#floorSelect>button").removeClass("active");
+  $(this).addClass("active")
+  $(".mapContentBtn").removeClass("active");
+});
+$("#floorAll").click(function(){
+  $(".mapContentBox").addClass("active");
   $("#floorSelect>button").removeClass("active");
   $(this).addClass("active")
   $(".mapContentBtn").removeClass("active");

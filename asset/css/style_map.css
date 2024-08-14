@@ -168,7 +168,7 @@
   width: 1px;
   height: 250%;
 
-  background-color: #ccc;
+  background-color: #cccccc00;
 }
 
 .grid-yoko{
@@ -179,7 +179,7 @@
   width: 250%;
   height: 1px;
   
-  background-color: #ccc;
+  background-color: #cccccc00;
 }
 
 .mapContentBox{
@@ -283,7 +283,7 @@
 }
 
 #floorSelect.active{
-  width: 20rem;
+  width: 25rem;
   padding: 0;
 }
 
