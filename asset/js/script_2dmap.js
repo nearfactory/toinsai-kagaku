@@ -70,23 +70,59 @@ function parseCSV(csvText) {
 
 fetchCSV(mapContentCSV, function(csvText) {
   var mapContent = parseCSV(csvText);
-  console.log(mapContent);
 
-  var mapContentBox = document.getElementById("mapContentBox");
+  const mapContent1F = document.getElementById("mapContent1F");
+  const mapContent2F = document.getElementById("mapContent2F");
+  const mapContent3F = document.getElementById("mapContent3F");
 
   for(var i in mapContent){
-    console.log(mapContent[i]);
     var appendContent = document.createElement("button");
     // appendContent.innerHTML = '<i class="fa-solid fa-location-dot"></i>';
     appendContent.innerHTML = Number(i)+1;
     appendContent.classList.add("mapContentBtn");
-    appendContent.setAttribute("id", "mapContentBtn" + mapContent[i][0]);
-    appendContent.style.left =  String(mapContent[i][4]) + "%";
-    appendContent.style.top = String(mapContent[i][5]) + "%";
-    mapContentBox.appendChild(appendContent);
+    appendContent.setAttribute("id", "mapContentBtn" + mapContent[i][1]);
+    appendContent.style.left =  String(mapContent[i][5]) + "%";
+    appendContent.style.top = String(mapContent[i][6]) + "%";
+    switch(Number(mapContent[i][0])){
+      case 1:
+        mapContent1F.appendChild(appendContent);
+        break;
+      case 2:
+        mapContent2F.appendChild(appendContent);
+        break;
+      case 3:
+        mapContent3F.appendChild(appendContent);
+        break;
+      default:
+        console.log("error");
+    }
+    
   }
 });
 
 $(document).on("click", ".mapContentBtn", function () {
   $(this).toggleClass("active");
+});
+
+$("#floor1").click(function(){
+  $(".mapContentBox").removeClass("active");
+  $("#mapContent1F").addClass("active");
+  $("#floorSelect>button").removeClass("active");
+  $(this).addClass("active")
+});
+$("#floor2").click(function(){
+  $(".mapContentBox").removeClass("active");
+  $("#mapContent2F").addClass("active");
+  $("#floorSelect>button").removeClass("active");
+  $(this).addClass("active")
+});
+$("#floor3").click(function(){
+  $(".mapContentBox").removeClass("active");
+  $("#mapContent3F").addClass("active");
+  $("#floorSelect>button").removeClass("active");
+  $(this).addClass("active")
+});
+
+$("#toggleFloor").click(function(){
+  $("#floorSelect").toggleClass("active");
 });

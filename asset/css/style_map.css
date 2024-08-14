@@ -159,32 +159,6 @@
   display: block;
 }
 
-#toggleFloor{
-  position: fixed;
-  bottom: 6rem;
-  right: 1.5rem;
-  z-index: 100;
-
-  display: none;
-  width: 5rem;
-  height: 5rem;
-
-  background-color: var(--accent);
-  border-radius: 50%;
-  border: none;
-  box-shadow: 0 0 0.75rem silver;
-  /* border: var(--textPale) 2px solid; */
-
-  color: var(--text);
-  font-size: 1.5rem;
-
-  text-align: center;
-  line-height: 5rem;
-}
-
-#sectionMap.current>#toggleFloor{
-  display: block;
-}
 
 .grid-tate{
   position: absolute;
@@ -204,21 +178,25 @@
   display: block;
   width: 250%;
   height: 1px;
-
+  
   background-color: #ccc;
 }
 
-#mapContentBox{
+.mapContentBox{
   position: absolute;
   top: 0;
   left: 0;
-
-  display: block;
+  
+  display: none;
   width: 100%;
   height: 100%;
-
+  
   margin: 0;
   padding: 0;
+}
+
+.mapContentBox.active{
+  display: block;
 }
 
 .mapContentBtn{
@@ -228,23 +206,113 @@
   display: block;
   width: 3rem;
   height: 3rem;
-
+  
   margin: 0;
   padding: 0;
-
+  
   background-color: #7FD9FB;
   border-radius: 25%;
   border: var(--textPale) 2px solid;
   box-shadow: 2px 2px 0 silver;
-
+  
   color: var(--text);
   font-size: 1.5rem;
-  font-weight: 600;
-
+  font-family: "IBM Plex Sans JP", sans-serif;
+  font-weight: 500;
+  
   text-align: center;
-  line-height: calc(3rem - 2px * 2);
+  line-height: 3rem;
 }
 
 .mapContentBtn.active{
   filter: invert(1);
+}
+
+#toggleFloor{
+  position: fixed;
+  bottom: 6rem;
+  right: 1.5rem;
+  z-index: 100;
+
+  display: none;
+  width: 5rem;
+  height: 5rem;
+
+  background-color: #7FD9FB88;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 0 0.75rem silver;
+
+  color: var(--text);
+  font-size: 1.5rem;
+
+  text-align: center;
+  line-height: 5rem;
+}
+
+#sectionMap.current>#toggleFloor{
+  display: block;
+}
+
+#floorSelect{
+  position: fixed;
+  bottom: 6rem;
+  right: 1.5rem;
+  z-index: 99;
+  
+  display: flex;
+  width: 5rem;
+  height: 5rem;
+
+  margin: 0;
+  padding: 0;
+
+  background-color: #7FD9FB88;
+  border-radius: 2.5rem;
+  border: none;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 0.75rem silver;
+  
+  color: var(--text);
+  font-size: 1.5rem;
+
+  text-align: center;
+  line-height: 5rem;
+
+  transition: all .25s;
+}
+
+#floorSelect.active{
+  width: 20rem;
+  padding: 0;
+}
+
+#floorSelect>button{
+  display: block;
+  width: 4.5rem;
+  height: 4.5rem;
+
+  margin: 0.25rem;
+  padding: 0;
+
+  background-color: #ffffff00;
+  border: none;
+  border-radius: 50%;
+  
+  color: var(--text);
+  font-size: 1.5rem;
+
+  text-align: center;
+  line-height: 4.5rem;
+
+  transform: scaleX(0);
+  transition: all .25s;
+}
+
+#floorSelect.active>button{
+  transform: scaleX(1);
+}
+
+#floorSelect>button.active{
+  background-color: #ffffffaa;
 }

@@ -5,110 +5,242 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Zoomable Element</title>
     <style>
-        .zoom-container {
-            width: 300px;
-            height: 200px;
-            border: 1px solid #000;
-            overflow: scroll;
-            margin: 50px auto;
-            position: relative;
-            background-color: lightgray;
-        }
+      /* http://meyerweb.com/eric/tools/css/reset/ 
+          v2.0 | 20110126
+          License: none (public domain)
+      */
 
-        .content {
-            width: 300px;
-            height: 200px;
-            background-color: skyblue;
-            text-align: center;
-            line-height: 200px;
-            font-size: 24px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transform-origin: center center;
-            transform: scale(1);
-        }
+      html, body, div, span, applet, object, iframe,
+      h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+      a, abbr, acronym, address, big, cite, code,
+      del, dfn, em, img, ins, kbd, q, s, samp,
+      small, strike, strong, sub, sup, tt, var,
+      b, u, i, center,
+      dl, dt, dd, ol, ul, li,
+      fieldset, form, label, legend,
+      table, caption, tbody, tfoot, thead, tr, th, td,
+      article, aside, canvas, details, embed, 
+      figure, figcaption, footer, header, hgroup, 
+      menu, nav, output, ruby, section, summary,
+      time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+      }
+      /* HTML5 display-role reset for older browsers */
+      article, aside, details, figcaption, figure, 
+      footer, header, hgroup, menu, nav, section {
+        display: block;
+      }
+      body {
+        line-height: 1;
+      }
+      ol, ul {
+        list-style: none;
+      }
+      blockquote, q {
+        quotes: none;
+      }
+      blockquote:before, blockquote:after,
+      q:before, q:after {
+        content: '';
+        content: none;
+      }
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+
+
+
+
+
+
+
+
+
+
+      .zoom-container {
+          width: 80vw;
+          height: 500px;
+          border: none;
+          overflow: scroll; /* スクロールを有効にする */
+          border: none;
+          margin: 0 auto;
+          position: relative;
+          background-color: silver;
+      }
+
+      .content {
+        width: 100vw;
+        height: 1000px;
+        background-color: black;
+        transform-origin: center center; /* ズーム起点を中央に */
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translateX(0, 0) scale(2); /* 初期状態で中央に配置 */
+      }
+
+      #zahyou{
+        display: block;
+        width: 100vw;
+        height: 24px;
+        margin: calc(500px - 24px) auto;
+        padding: 0;
+
+        color: white;
+        text-align: center;
+        line-height: 24px;
+        font-size: 24px;
+
+      }
+
+      .point{
+        display: block;
+        width: 10px;
+        height: 10px;
+        margin: 0;
+        padding: 0;
+        background-color: white;
+        border-radius: 50%;
+
+        position: absolute;
+      }
     </style>
 </head>
 <body>
     <div class="zoom-container">
-        <div class="content">Zoom Me</div>
+        <div class="content">
+          <p id="zahyou">test</p>
+          <span class="point" style="top: 400px; left: 300px;"></span>
+        </div>
     </div>
 
     <script>
-        const zoomContainer = document.querySelector('.zoom-container');
-        const content = document.querySelector('.content');
-        let scale = 1;
+      const zoomContainer = document.querySelector('.zoom-container');
+      const content = document.querySelector('.content');
+      zoomContainer.scrollLeft = 99999;
+      zoomContainer.scrollTop = 99999;
+      zoomContainer.scrollLeft = zoomContainer.scrollLeft / 2;
+      zoomContainer.scrollTop = zoomContainer.scrollTop / 2;
+      
+      const containerWidth = zoomContainer.offsetWidth;
+      const containerHeight = zoomContainer.offsetHeight;
+      const scrollbarWidth = zoomContainer.offsetWidth - zoomContainer.clientWidth;
+      
+      const contentWidth = content.offsetWidth;
+      const contentHeight = content.offsetHeight;
+      
+      // ズームスケールの初期値
+      var scale = 2;
+      var newScale;
+      
+      // ズーム最大値・最小値
+      const maxZoom = 2.5;
+      const minZoom = 1;
 
-        function setTransform(newScale, originX, originY) {
-            const rect = zoomContainer.getBoundingClientRect();
-            const contentRect = content.getBoundingClientRect();
+      // マウスホイールによるズーム
+      zoomContainer.addEventListener('wheel', (event) => {
+          event.preventDefault();
 
-            // ズーム前のスクロール位置の相対位置を保存
-            const offsetX = (zoomContainer.scrollLeft + originX) / contentRect.width;
-            const offsetY = (zoomContainer.scrollTop + originY) / contentRect.height;
+          // ズーム変化量（マウスホイールの回転量）
+          var delta = event.deltaY > 0 ? -0.1 : 0.1;
+          
+          newScale = scale + delta
+          // 最大値処理
+          newScale = newScale > maxZoom ? maxZoom : newScale;
+          // 最小値処理
+          newScale = newScale < minZoom ? minZoom : newScale;
 
-            // スケールを更新
-            scale = newScale;
-            content.style.transform = `scale(${scale})`;
+          // console.log("X:" + Number((event.offsetX - contentWidth/2)) + "\tY:" + Number((event.offsetY- contentHeight/2)));
+          
+          content.style.transformOrigin = String(event.offsetX) + "px " + String(event.offsetY) + "px";
+          if(true){
+            content.style.transform = `scale(${newScale})`;
+          }
+          
+          
+          scale = newScale;
+      });
 
-            // 新しいスクロール位置を計算して適用
-            const newScrollLeft = offsetX * contentRect.width * scale - originX;
-            const newScrollTop = offsetY * contentRect.height * scale - originY;
 
-            zoomContainer.scrollLeft = Math.max(0, Math.min(newScrollLeft, contentRect.width * scale - rect.width));
-            zoomContainer.scrollTop = Math.max(0, Math.min(newScrollTop, contentRect.height * scale - rect.height));
+
+
+
+
+
+
+
+
+
+      // zoomContainer.onmousemove = function(event){
+      //   document.getElementById("zahyou").textContent = ("X: " + String(event.offsetX - contentWidth/2) + "\tY: " + String(event.offsetY - contentHeight/2));
+      // }
+
+      // タッチによるピンチイン・ピンチアウトズーム
+      var lastTouchDistance = null;
+      var currentTouchDistance;
+      var mx;
+      var my;
+
+      function getDistance(touches) {
+        const dx = touches[0].clientX - touches[1].clientX;
+        const dy = touches[0].clientY - touches[1].clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+      }
+
+      function getMiddle(touches) {
+        mx = touches[0].clientX + touches[1].clientX;
+        my = touches[0].clientY + touches[1].clientY;
+      }
+
+      zoomContainer.addEventListener('touchstart', (event) => {
+        if (event.touches.length === 2) {
+          lastTouchDistance = getDistance(event.touches);
+          // alert("touchStart");
         }
+      });
 
-        // マウスホイールによるズーム
-        zoomContainer.addEventListener('wheel', (event) => {
-            event.preventDefault();
+      zoomContainer.addEventListener('touchmove', (event) => {
+        if (event.touches.length === 2) {
+        // alert("move Start");
+          event.preventDefault();
 
-            const delta = event.deltaY > 0 ? -0.1 : 0.1;
-            const newScale = Math.max(1, Math.min(scale + delta, 3)); // ズーム範囲を1から3に制限
+          currentTouchDistance = getDistance(event.touches);
+          getMiddle(event.touches);
+          // document.getElementById("zahyou").textContent = currentTouchDistance;
+          var deltaScale = currentTouchDistance / lastTouchDistance;
 
-            // ズームの起点をコンテナの中央に設定
-            const originX = zoomContainer.clientWidth / 2;
-            const originY = zoomContainer.clientHeight / 2;
+          document.getElementById("zahyou").textContent = scale;
+          
+          newScale = scale * deltaScale;
+          // 最大値処理
+          newScale = newScale > maxZoom ? maxZoom : newScale;
+          // 最小値処理
+          newScale = newScale < minZoom ? minZoom : newScale;
 
-            setTransform(newScale, originX, originY);
-        });
+          // console.log("X:" + Number((event.offsetX - contentWidth/2)) + "\tY:" + Number((event.offsetY- contentHeight/2)));
+          
+          content.style.transformOrigin = mx + "px " + my + "px";
+          // content.style.transformOrigin = "center center";
+          if(true){
+            content.style.transform = `scale(${newScale})`;
+          }
 
-        // タッチによるピンチイン・ピンチアウトズーム
-        let lastTouchDistance = null;
-
-        function getDistance(touches) {
-            const dx = touches[0].clientX - touches[1].clientX;
-            const dy = touches[0].clientY - touches[1].clientY;
-            return Math.sqrt(dx * dx + dy * dy);
+          lastTouchDistance = currentTouchDistance;
+          scale = newScale;
         }
+      });
 
-        zoomContainer.addEventListener('touchstart', (event) => {
-            if (event.touches.length === 2) {
-                lastTouchDistance = getDistance(event.touches);
-            }
-        });
-
-        zoomContainer.addEventListener('touchmove', (event) => {
-            if (event.touches.length === 2) {
-                event.preventDefault();
-
-                const currentTouchDistance = getDistance(event.touches);
-                const deltaScale = currentTouchDistance / lastTouchDistance;
-                const newScale = Math.max(1, Math.min(scale * deltaScale, 3)); // ズーム範囲を1から3に制限
-
-                // ズームの起点をコンテナの中央に設定
-                const originX = zoomContainer.clientWidth / 2;
-                const originY = zoomContainer.clientHeight / 2;
-
-                setTransform(newScale, originX, originY);
-                lastTouchDistance = currentTouchDistance;
-            }
-        });
-
-        zoomContainer.addEventListener('touchend', () => {
-            lastTouchDistance = null;
-        });
+      zoomContainer.addEventListener('touchend', () => {
+        if (event.touches.length === 2) {
+          lastTouchDistance = null;
+        }
+      });
     </script>
 </body>
 </html>
