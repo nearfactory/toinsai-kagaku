@@ -109,18 +109,21 @@ $("#floor1").click(function(){
   $("#mapContent1F").addClass("active");
   $("#floorSelect>button").removeClass("active");
   $(this).addClass("active")
+  $(".mapContentBtn").removeClass("active");
 });
 $("#floor2").click(function(){
   $(".mapContentBox").removeClass("active");
   $("#mapContent2F").addClass("active");
   $("#floorSelect>button").removeClass("active");
   $(this).addClass("active")
+  $(".mapContentBtn").removeClass("active");
 });
 $("#floor3").click(function(){
   $(".mapContentBox").removeClass("active");
   $("#mapContent3F").addClass("active");
   $("#floorSelect>button").removeClass("active");
   $(this).addClass("active")
+  $(".mapContentBtn").removeClass("active");
 });
 
 $("#toggleFloor").click(function(){
