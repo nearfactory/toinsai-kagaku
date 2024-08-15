@@ -1,19 +1,18 @@
 var mapContent;
 
-// for(var i=0; i<100; i++){
-//   $("#grid-tate" + String(i+1)).css("left", String((i+1)*5) + "px");
-//   $("#grid-yoko" + String(i+1)).css("top", String((i+1)*5) + "px");
-//   if(i%10 == 9){
-//     $("#grid-tate" + String(i+1)).css("background-color", "#00000055");
-//     $("#grid-yoko" + String(i+1)).css("background-color", "#00000055");
-//   }
-//   if(i%20 == 19){
-//     $("#grid-tate" + String(i+1)).css("background-color", "#ff000055");
-//     $("#grid-yoko" + String(i+1)).css("background-color", "#ff000055");
-//   }
-// }
+for(var i=0; i<100; i++){
+  $("#grid-tate" + String(i+1)).css("left", String((i+1)*5) + "px");
+  $("#grid-yoko" + String(i+1)).css("top", String((i+1)*5) + "px");
+  if(i%10 == 9){
+    $("#grid-tate" + String(i+1)).css("background-color", "#00000055");
+    $("#grid-yoko" + String(i+1)).css("background-color", "#00000055");
+  }
+  if(i%20 == 19){
+    $("#grid-tate" + String(i+1)).css("background-color", "#ff000055");
+    $("#grid-yoko" + String(i+1)).css("background-color", "#ff000055");
+  }
+}
 
-// スケジュールをCSVファイルから取得
 const mapContentCSV = './asset/csv/2dmap.csv'; // ここにCSVファイルのURLを入力する
 
 function fetchCSV(url, callback) {
@@ -56,20 +55,12 @@ fetchCSV(mapContentCSV, function(csvText) {
   for(var i in mapContent){
     var appendContent = document.createElement("button");
     // appendContent.innerHTML = '<i class="fa-solid fa-location-dot"></i>';
-    if(mapContent[i][1] == "トイレ"){
-      appendContent.innerHTML = '<i class="fa-solid fa-restroom"></i>';
-    }
-    else if(mapContent[i][1] == "ゴミ箱"){
-      appendContent.innerHTML = '<i class="fa-solid fa-trash"></i>';
-    }
-    else{
-      appendContent.innerHTML = Number(i)+1;
-    }
+    appendContent.innerHTML = `<i class="fa-solid ${mapContent[i][2]}"></i>`;
     appendContent.classList.add("mapContentBtn");
     appendContent.classList.add(mapContent[i][1]);
     appendContent.setAttribute("id", "mapContentBtn" + String(Number(i)+1));
-    appendContent.style.left =  String(mapContent[i][6]) + "px";
-    appendContent.style.top = String(mapContent[i][7]) + "px";
+    appendContent.style.left =  String(mapContent[i][7]) + "px";
+    appendContent.style.top = String(mapContent[i][8]) + "px";
     switch(Number(mapContent[i][0])){
       case 1:
         mapContent1F.appendChild(appendContent);
@@ -99,9 +90,9 @@ $(document).on("click", ".mapContentBtn", function () {
     lastId = null;
   }
   else{
-    $("#mapContentClass").text(mapContent[id-1][2]);
-    $("#mapContentTitle").text(mapContent[id-1][3]);
-    $("#mapContentDesc").text(mapContent[id-1][4]);
+    $("#mapContentClass").text(mapContent[id-1][3]);
+    $("#mapContentTitle").text(mapContent[id-1][4]);
+    $("#mapContentDesc").text(mapContent[id-1][5]);
     $("#mapContentWindow").addClass("active");
     lastId = id;
   }

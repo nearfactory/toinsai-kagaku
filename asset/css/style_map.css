@@ -133,7 +133,7 @@
   width: 0.5px;
   height: calc(375px / 1142 * 1379);
 
-  background-color: #cccccc00;
+  background-color: #cccccc88;
 }
 
 .grid-yoko{
@@ -144,7 +144,7 @@
   width: 375px;
   height: 0.5px;
   
-  background-color: #cccccc00;
+  background-color: #cccccc88;
 }
 
 /* ======================================== */
@@ -180,13 +180,15 @@
   border: #cccccc 1px solid;
   box-shadow: 0 1px 0 #a0a0a0;
   
-  color: var(--text);
   font-size: 0.75rem;
   font-family: "IBM Plex Sans JP", sans-serif;
   font-weight: 500;
   
   text-align: center;
   line-height: 1.5rem;
+
+  transform: scale(1);
+  transform-origin: center center;
 }
 
 /* .mapContentBtn.active{
@@ -195,10 +197,12 @@
 
 .教室展示{
   background-color: #7ffbd2;
+  color: #4c967d;
 }
 
 .模擬店{
   background-color: #fb7fbd;
+  color: #92486c
 }
 
 .部活{
@@ -369,6 +373,7 @@
   
   color: var(--text);
   font-size: 1.5rem;
+  font-family: "IBM Plex Sans JP", sans-serif;
 
   text-align: center;
   line-height: 4.5rem;

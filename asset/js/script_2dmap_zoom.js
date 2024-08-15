@@ -1,6 +1,7 @@
 const zoomContainer = document.querySelector('#sectionMap');
 const content = document.querySelector('#content');
 const contentBtn = document.getElementsByClassName('mapContentBtn');
+
 zoomContainer.scrollLeft = 99999;
 zoomContainer.scrollTop = 99999;
 zoomContainer.scrollLeft = zoomContainer.scrollLeft / 2;
@@ -38,6 +39,12 @@ zoomContainer.addEventListener('wheel', (event) => {
     const zoomCenterY = (zoomContainer.scrollTop + containerHeight / 2) / scale;
 
     content.style.transform = `scale(${newScale})`;
+    for(var i=0; i<contentBtn.length; i++){
+      var btnScale = 2/newScale
+      btnScale = btnScale < 0.75 ? 0.75 : btnScale;
+      btnScale = btnScale > 2.5 ? 25 : btnScale;
+      contentBtn[i].style.transform = `scale(${btnScale})`
+    }
 
     scale = newScale;
 
@@ -91,6 +98,12 @@ zoomContainer.addEventListener('touchmove', (event) => {
     const zoomCenterY = (zoomContainer.scrollTop + containerHeight / 2) / scale;
 
     content.style.transform = `scale(${newScale})`;
+    for(var i=0; i<contentBtn.length; i++){
+      var btnScale = 2/newScale
+      btnScale = btnScale < 0.75 ? 0.75 : btnScale;
+      btnScale = btnScale > 1.5 ? 1.5 : btnScale;
+      contentBtn[i].style.transform = `scale(${btnScale})`
+    }
 
     lastTouchDistance = currentTouchDistance;
     scale = newScale;
