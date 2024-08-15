@@ -54,11 +54,6 @@ zoomContainer.addEventListener('wheel', (event) => {
 
 
 
-
-// zoomContainer.onmousemove = function(event){
-//   document.getElementById("zahyou").textContent = ("X: " + String(event.offsetX - contentWidth/2) + "\tY: " + String(event.offsetY - contentHeight/2));
-// }
-
 // タッチによるピンチイン・ピンチアウトズーム
 var lastTouchDistance = null;
 var currentTouchDistance;

@@ -1,34 +1,4 @@
-// var floor = 1;
-
-// $("#floorBtn1").click(function(){
-//   $("#map2d").addClass("floor1");
-//   $("#map2d").removeClass("floor2");
-//   $("#map2d").removeClass("floor3");
-//   // $(".floorBtn").removeClass("active");
-//   // $(this).addClass("active");
-//   $("#floorBtnBox>span").css("left", "0rem");
-// });
-
-// $("#floorBtn2").click(function(){
-//   $("#map2d").removeClass("floor1");
-//   $("#map2d").addClass("floor2");
-//   $("#map2d").removeClass("floor3");
-//   // $(".floorBtn").removeClass("active");
-//   // $(this).addClass("active");
-//   $("#floorBtnBox>span").css("left", "4rem");
-// });
-
-// $("#floorBtn3").click(function(){
-//   $("#map2d").removeClass("floor1");
-//   $("#map2d").removeClass("floor2");
-//   $("#map2d").addClass("floor3");
-//   // $(".floorBtn").removeClass("active");
-//   // $(this).addClass("active");
-//   $("#floorBtnBox>span").css("left", "8rem");
-// });
-
-
-
+var mapContent;
 
 for(var i=0; i<100; i++){
   $("#grid-tate" + String(i+1)).css("left", String((i+1)*5) + "px");
@@ -77,7 +47,7 @@ function parseCSV(csvText) {
 }
 
 fetchCSV(mapContentCSV, function(csvText) {
-  var mapContent = parseCSV(csvText);
+  mapContent = parseCSV(csvText);
 
   const mapContent1F = document.getElementById("mapContent1F");
   const mapContent2F = document.getElementById("mapContent2F");
@@ -89,12 +59,15 @@ fetchCSV(mapContentCSV, function(csvText) {
     if(mapContent[i][1] == "トイレ"){
       appendContent.innerHTML = '<i class="fa-solid fa-restroom"></i>';
     }
+    else if(mapContent[i][1] == "ゴミ箱"){
+      appendContent.innerHTML = '<i class="fa-solid fa-trash"></i>';
+    }
     else{
       appendContent.innerHTML = Number(i)+1;
     }
     appendContent.classList.add("mapContentBtn");
     appendContent.classList.add(mapContent[i][1]);
-    appendContent.setAttribute("id", "mapContentBtn" + mapContent[i][1]);
+    appendContent.setAttribute("id", "mapContentBtn" + String(Number(i)+1));
     appendContent.style.left =  String(mapContent[i][6]) + "px";
     appendContent.style.top = String(mapContent[i][7]) + "px";
     switch(Number(mapContent[i][0])){
@@ -114,13 +87,23 @@ fetchCSV(mapContentCSV, function(csvText) {
   }
 });
 
+var lastId = null;
+
 $(document).on("click", ".mapContentBtn", function () {
   $(this).toggleClass("active");
-  if($("#mapContentWindow").hasClass("active")){
+  var id = $(this).attr("id");
+  id = Number(id.replace("mapContentBtn", ""));
+
+  if(id == lastId){
     $("#mapContentWindow").removeClass("active");
+    lastId = null;
   }
   else{
+    $("#mapContentClass").text(mapContent[id-1][2]);
+    $("#mapContentTitle").text(mapContent[id-1][3]);
+    $("#mapContentDesc").text(mapContent[id-1][4]);
     $("#mapContentWindow").addClass("active");
+    lastId = id;
   }
 });
 
