@@ -1,5 +1,6 @@
 const zoomContainer = document.querySelector('#sectionMap');
 const content = document.querySelector('#content');
+const contentBtn = document.getElementsByClassName('mapContentBtn');
 zoomContainer.scrollLeft = 99999;
 zoomContainer.scrollTop = 99999;
 zoomContainer.scrollLeft = zoomContainer.scrollLeft / 2;
@@ -13,7 +14,7 @@ const contentWidth = content.offsetWidth;
 const contentHeight = content.offsetHeight;
 
 // ズームスケールの初期値
-var scale = 1;
+var scale = 2;
 var newScale;
 
 // ズーム最大値・最小値

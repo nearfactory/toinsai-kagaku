@@ -16,6 +16,7 @@
 
 /* ======================================== */
 
+/* ズーム枠 */
 #sectionMap{
   position: relative;
 
@@ -26,7 +27,7 @@
   margin: 0;
   padding: 0;
 
-  background-color: #ffffff;
+  background-color: #f1f1f1;
   border: none;
 
   overflow: scroll;
@@ -34,12 +35,23 @@
   margin-top: 0;
   margin-bottom: 0;
   line-height: 0;
+
+  /* Firefoxへの対応 */
+  scrollbar-width: none;
 }
 
 #sectionMap.current{
   display: block;
 }
 
+/* Google Chrome、Safariへの対応 */
+#sectionMap::-webkit-scrollbar{
+ display: none;
+}
+
+/* ======================================== */
+
+/* ズーム可能な要素 */
 #content{
   position: absolute;
   top: 0;
@@ -48,15 +60,17 @@
   display: block;
 
   width: 100vw;
-  height: 100%;
+  height: calc(375px / 1142 * 1379);
+
+  margin: calc(((100dvh - 8rem - 3rem - 5px) - (100vw / 1142 * 1379)) / 2) auto;
 
   transform-origin: 0 0;
-  transform: scale(1);
+  transform: scale(2);
 }
 
 /* ======================================== */
 
-/* 3dマップ */
+/* 3dマップ
 #mapBox{
   position: absolute;
   bottom: 0;
@@ -77,88 +91,7 @@
 
 #mapBox.active{
   display: block;
-}
-
-/* ======================================== */
-
-/* 2dマップ */
-/* #map2d{
-  position: relative;
-
-  display: block;
-  width: 80%;
-  height: calc(100vh - 8rem - 3rem - 5px);
-
-  margin: 0 auto;
-  
-  background-position: 50% 50%;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-#map2d.floor1{
-  background-image: url(../../2d/001.png);
-}
-
-#map2d.floor2{
-  background-image: url(../../2d/002.png);
-}
-
-#map2d.floor3{
-  background-image: url(../../2d/003.png);
-}
-
-#floorBtnBox{
-  position: absolute;
-  top: 2rem;
-  left: 1rem;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  width: 12rem;
-  height: 3rem;
-
-  padding: 0;
-
-}
-
-.floorBtn{
-  display: block;
-  width: 100%;
-  height: 3rem;
-  z-index: 2;
-
-  background-color: #ffffff22;
-  border: none;
-
-  color: var(--text);
-  font-size: 1.5rem;
-  font-weight: 400;
-  font-family: "IBM Plex Sans JP", sans-serif;
-  
-  text-align: center;
-  line-height: 3rem;
-}
-
-#floorBtnBox>span{
-  position: absolute;
-  display: block;
-  width: 4rem;
-  height: 3rem;
-
-  top: 0;
-  left: 0;
-  z-index: 1;
-
-  margin: 0;
-  padding: 0;
-
-  background-color: var(--accent);
-  filter: opacity(0.8);
-
-  transition: all .25s;
 } */
-
 
 /* ======================================== */
 
@@ -167,11 +100,11 @@
   z-index: 0;
 
   display: none;
-  width: 100dvw;
-  height: 100%;
+  width: 375px;
+  height: auto;
 
-  margin: 0;
-  padding: 0 0;
+  margin: auto;
+  padding: 0;
 
   background-color: #ffffff;
 
@@ -184,13 +117,21 @@
 
 /* ======================================== */
 
+#grids{
+  position: absolute;
+  top: 0;
+  left: calc((100vw - 375px) / 2);
+
+  display: block;
+}
+
 .grid-tate{
   position: absolute;
   top: 0;
   
   display: block;
   width: 0.5px;
-  height: 100%;
+  height: calc(375px / 1142 * 1379);
 
   background-color: #cccccc55;
 }
@@ -200,7 +141,7 @@
   left: 0;
   
   display: block;
-  width: 100vw;
+  width: 375px;
   height: 0.5px;
   
   background-color: #cccccc55;
@@ -211,13 +152,12 @@
 .mapContentBox{
   position: absolute;
   top: 0;
-  left: 0;
+  left: calc((100vw - 375px) / 2);
   
   display: none;
-  width: 100%;
-  height: 100%;
+  width: 375px;
+  height: calc(375px / 1142 * 1379);
   
-  margin: 0;
   padding: 0;
 }
 
@@ -230,28 +170,27 @@
   z-index: 1;
   
   display: block;
-  width: 3rem;
-  height: 3rem;
+  width: 1.5rem;
+  height: 1.5rem;
   
   margin: 0;
   padding: 0;
   
-  background-color: #7FD9FB;
   border-radius: 25%;
-  border: var(--textPale) 2px solid;
-  box-shadow: 2px 2px 0 silver;
+  border: #cccccc 1px solid;
+  box-shadow: 0 1px 0 #a0a0a0;
   
   color: var(--text);
-  font-size: 1.5rem;
+  font-size: 0.75rem;
   font-family: "IBM Plex Sans JP", sans-serif;
   font-weight: 500;
   
   text-align: center;
-  line-height: 3rem;
+  line-height: 1.5rem;
 }
 
 .mapContentBtn.active{
-  filter: invert(1);
+  border-radius: 0;
 }
 
 .教室展示{
@@ -266,12 +205,93 @@
   background-color: #b97ffb;
 }
 
-.トイレ{
-  background-color: #7fd9fb;
+.ゴミ箱, .トイレ{
+  border-radius: 50%;
+  background-color: #dddddd33;
+  color: #22222299;
 }
 
-.ゴミ箱{
-  background-color: #bbbbbb;
+/* ======================================== */
+
+#mapContentWindow{
+  position: fixed;
+  /* bottom: 4.5rem; */
+  bottom: 0;
+  left: calc(20% - 2rem);
+
+  display: grid;
+  grid-template-rows: 3.5rem 2.5rem 6.25rem 7.25rem;
+  width: calc(60% + 4rem);
+  height: calc(17.5rem + 2rem);
+
+  margin: 0;
+  padding: 0;
+
+  background-color: #f1f1f1cc;
+  border-radius: 2rem 2rem 0 0;
+  backdrop-filter: blur(1rem);
+
+  transform: translateY(calc(100% + 4.5rem));
+  transition: all .4s;
+}
+
+#mapContentWindow.active{
+  transform: translateY(0);
+}
+
+#mapContentClass{
+  display: block;
+  width: 60%;
+  height: 1.5rem;
+
+  padding: 2rem 2rem 0 2rem;
+
+  color: #222222;
+  font-size: 1rem;
+  font-weight: 400;
+
+  text-align: justify;
+  line-height: 1.5rem;
+}
+
+#mapContentTitle{
+  display: block;
+  width: 100%;
+  height: 1.5rem;
+
+  padding: 0 2rem;
+
+  color: #222222;
+  font-size: 1.75rem;
+  font-weight: 500;
+
+  text-align: justify;
+  line-height: 2.5rem;
+}
+
+#mapContentDesc{
+  display: block;
+  width: 100%;
+  height: 3.75rem;
+
+  padding: 0 2rem;
+
+  color: #222222;
+  font-size: 0.875rem;
+  font-weight: 400;
+
+  text-align: justify;
+  line-height: 1.25rem;
+}
+
+#mapContentImg{
+  display: block;
+  width: 100%;
+  height: 7.25rem;
+
+  padding: 0;
+  
+  object-fit: cover;
 }
 
 /* ======================================== */

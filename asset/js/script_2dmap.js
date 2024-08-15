@@ -86,7 +86,12 @@ fetchCSV(mapContentCSV, function(csvText) {
   for(var i in mapContent){
     var appendContent = document.createElement("button");
     // appendContent.innerHTML = '<i class="fa-solid fa-location-dot"></i>';
-    appendContent.innerHTML = Number(i)+1;
+    if(mapContent[i][1] == "トイレ"){
+      appendContent.innerHTML = '<i class="fa-solid fa-restroom"></i>';
+    }
+    else{
+      appendContent.innerHTML = Number(i)+1;
+    }
     appendContent.classList.add("mapContentBtn");
     appendContent.classList.add(mapContent[i][1]);
     appendContent.setAttribute("id", "mapContentBtn" + mapContent[i][1]);
@@ -111,6 +116,12 @@ fetchCSV(mapContentCSV, function(csvText) {
 
 $(document).on("click", ".mapContentBtn", function () {
   $(this).toggleClass("active");
+  if($("#mapContentWindow").hasClass("active")){
+    $("#mapContentWindow").removeClass("active");
+  }
+  else{
+    $("#mapContentWindow").addClass("active");
+  }
 });
 
 $("#floor1").click(function(){
