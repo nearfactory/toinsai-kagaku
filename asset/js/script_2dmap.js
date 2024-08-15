@@ -1,17 +1,17 @@
 var mapContent;
 
-for(var i=0; i<100; i++){
-  $("#grid-tate" + String(i+1)).css("left", String((i+1)*5) + "px");
-  $("#grid-yoko" + String(i+1)).css("top", String((i+1)*5) + "px");
-  if(i%10 == 9){
-    $("#grid-tate" + String(i+1)).css("background-color", "#00000055");
-    $("#grid-yoko" + String(i+1)).css("background-color", "#00000055");
-  }
-  if(i%20 == 19){
-    $("#grid-tate" + String(i+1)).css("background-color", "#ff000055");
-    $("#grid-yoko" + String(i+1)).css("background-color", "#ff000055");
-  }
-}
+// for(var i=0; i<100; i++){
+//   $("#grid-tate" + String(i+1)).css("left", String((i+1)*5) + "px");
+//   $("#grid-yoko" + String(i+1)).css("top", String((i+1)*5) + "px");
+//   if(i%10 == 9){
+//     $("#grid-tate" + String(i+1)).css("background-color", "#00000055");
+//     $("#grid-yoko" + String(i+1)).css("background-color", "#00000055");
+//   }
+//   if(i%20 == 19){
+//     $("#grid-tate" + String(i+1)).css("background-color", "#ff000055");
+//     $("#grid-yoko" + String(i+1)).css("background-color", "#ff000055");
+//   }
+// }
 
 // スケジュールをCSVファイルから取得
 const mapContentCSV = './asset/csv/2dmap.csv'; // ここにCSVファイルのURLを入力する
@@ -108,6 +108,8 @@ $(document).on("click", ".mapContentBtn", function () {
 });
 
 $("#floor1").click(function(){
+  $(".imgFloor").removeClass("active");
+  $("#imgFloor1").addClass("active");
   $(".mapContentBox").removeClass("active");
   $("#mapContent1F").addClass("active");
   $("#floorSelect>button").removeClass("active");
@@ -115,6 +117,8 @@ $("#floor1").click(function(){
   $(".mapContentBtn").removeClass("active");
 });
 $("#floor2").click(function(){
+  $(".imgFloor").removeClass("active");
+  $("#imgFloor2").addClass("active");
   $(".mapContentBox").removeClass("active");
   $("#mapContent2F").addClass("active");
   $("#floorSelect>button").removeClass("active");
@@ -122,6 +126,8 @@ $("#floor2").click(function(){
   $(".mapContentBtn").removeClass("active");
 });
 $("#floor3").click(function(){
+  $(".imgFloor").removeClass("active");
+  $("#imgFloor3").addClass("active");
   $(".mapContentBox").removeClass("active");
   $("#mapContent3F").addClass("active");
   $("#floorSelect>button").removeClass("active");
@@ -129,6 +135,8 @@ $("#floor3").click(function(){
   $(".mapContentBtn").removeClass("active");
 });
 $("#floorAll").click(function(){
+  $(".imgFloor").removeClass("active");
+  $("#imgFloor1").addClass("active");
   $(".mapContentBox").addClass("active");
   $("#floorSelect>button").removeClass("active");
   $(this).addClass("active")

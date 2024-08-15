@@ -112,7 +112,7 @@
 }
 
 .imgFloor.active{
-  display: block;
+  display: block; 
 }
 
 /* ======================================== */
@@ -133,7 +133,7 @@
   width: 0.5px;
   height: calc(375px / 1142 * 1379);
 
-  background-color: #cccccc55;
+  background-color: #cccccc00;
 }
 
 .grid-yoko{
@@ -144,7 +144,7 @@
   width: 375px;
   height: 0.5px;
   
-  background-color: #cccccc55;
+  background-color: #cccccc00;
 }
 
 /* ======================================== */
@@ -207,8 +207,8 @@
 
 .ゴミ箱, .トイレ{
   border-radius: 50%;
-  background-color: #dddddd33;
-  color: #22222299;
+  background-color: #dddddd;
+  color: #888888;
 }
 
 /* ======================================== */

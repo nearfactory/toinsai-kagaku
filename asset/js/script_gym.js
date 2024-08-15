@@ -37,6 +37,7 @@ function parseCSV(csvText) {
 var day1;
 var day1StartTimes;
 var day1EndTimes;
+
 var day2;
 var day2StartTimes;
 var day2EndTimes;
