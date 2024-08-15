@@ -30,9 +30,17 @@
 
 
 
-for(var i=0; i<49; i++){
-  $("#grid-tate" + String(i+1)).css("left", String((i+1)*5) + "%");
-  $("#grid-yoko" + String(i+1)).css("top", String((i+1)*5) + "%");
+for(var i=0; i<100; i++){
+  $("#grid-tate" + String(i+1)).css("left", String((i+1)*5) + "px");
+  $("#grid-yoko" + String(i+1)).css("top", String((i+1)*5) + "px");
+  if(i%10 == 9){
+    $("#grid-tate" + String(i+1)).css("background-color", "#00000055");
+    $("#grid-yoko" + String(i+1)).css("background-color", "#00000055");
+  }
+  if(i%20 == 19){
+    $("#grid-tate" + String(i+1)).css("background-color", "#ff000055");
+    $("#grid-yoko" + String(i+1)).css("background-color", "#ff000055");
+  }
 }
 
 // スケジュールをCSVファイルから取得
@@ -80,9 +88,10 @@ fetchCSV(mapContentCSV, function(csvText) {
     // appendContent.innerHTML = '<i class="fa-solid fa-location-dot"></i>';
     appendContent.innerHTML = Number(i)+1;
     appendContent.classList.add("mapContentBtn");
+    appendContent.classList.add(mapContent[i][1]);
     appendContent.setAttribute("id", "mapContentBtn" + mapContent[i][1]);
-    appendContent.style.left =  String(mapContent[i][5]) + "%";
-    appendContent.style.top = String(mapContent[i][6]) + "%";
+    appendContent.style.left =  String(mapContent[i][6]) + "px";
+    appendContent.style.top = String(mapContent[i][7]) + "px";
     switch(Number(mapContent[i][0])){
       case 1:
         mapContent1F.appendChild(appendContent);
