@@ -41,7 +41,7 @@ zoomContainer.addEventListener('wheel', (event) => {
     content.style.transform = `scale(${newScale})`;
     for(var i=0; i<contentBtn.length; i++){
       var btnScale = 2/newScale
-      btnScale = btnScale < 0.75 ? 0.75 : btnScale;
+      btnScale = btnScale < 0.5 ? 0.5 : btnScale;
       btnScale = btnScale > 2.5 ? 25 : btnScale;
       contentBtn[i].style.transform = `scale(${btnScale})`
     }
@@ -100,7 +100,7 @@ zoomContainer.addEventListener('touchmove', (event) => {
     content.style.transform = `scale(${newScale})`;
     for(var i=0; i<contentBtn.length; i++){
       var btnScale = 2/newScale
-      btnScale = btnScale < 0.75 ? 0.75 : btnScale;
+      btnScale = btnScale < 0.5 ? 0.5 : btnScale;
       btnScale = btnScale > 1.5 ? 1.5 : btnScale;
       contentBtn[i].style.transform = `scale(${btnScale})`
     }
