@@ -39,6 +39,46 @@
   text-align: center;
 }
 
+#newsForParents{
+  display: block;
+
+  width: calc(90% - 3rem);
+  height: 3rem;
+
+  margin: 1.5rem auto;
+  padding: 0.5rem 1.5rem;
+
+  background-color: #7FD9FB77;
+  border: none;
+  border-radius: 2rem;
+  
+  box-shadow:
+    -15px 15px 30px var(--background2),
+    15px -15px 30px var(--background1);
+    
+  color: var(--text);
+  font-size: 1.25rem;
+  font-weight: 500;
+
+  line-height: 3rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+#newsForParents>i{
+  display: inline-block;
+
+  width: 3rem;
+  height: 3rem;
+
+  color: #222222;
+  font-size: 1.25rem;
+
+  line-height: 3rem;
+  text-align: center;
+  text-decoration: none;
+}
+
 .newsContainer{
   display: block;
 

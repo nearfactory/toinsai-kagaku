@@ -134,6 +134,18 @@ $("#floorAll").click(function(){
   $(".mapContentBtn").removeClass("active");
 });
 
+
+
+
+
 $("#toggleFloor").click(function(){
   $("#floorSelect").toggleClass("active");
+});
+
+
+
+
+
+$("#mapLink1").click(function(){
+
 });

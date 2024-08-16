@@ -24,32 +24,32 @@ const minZoom = 1;
 
 // マウスホイールによるズーム
 zoomContainer.addEventListener('wheel', (event) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    // ズーム変化量（マウスホイールの回転量）
-    var delta = event.deltaY > 0 ? -0.1 : 0.1;
-    
-    newScale = scale + delta
-    // 最大値処理
-    newScale = newScale > maxZoom ? maxZoom : newScale;
-    // 最小値処理
-    newScale = newScale < minZoom ? minZoom : newScale;
+  // ズーム変化量（マウスホイールの回転量）
+  var delta = event.deltaY > 0 ? -0.1 : 0.1;
+  
+  newScale = scale + delta
+  // 最大値処理
+  newScale = newScale > maxZoom ? maxZoom : newScale;
+  // 最小値処理
+  newScale = newScale < minZoom ? minZoom : newScale;
 
-    const zoomCenterX = (zoomContainer.scrollLeft + containerWidth / 2) / scale;
-    const zoomCenterY = (zoomContainer.scrollTop + containerHeight / 2) / scale;
+  const zoomCenterX = (zoomContainer.scrollLeft + containerWidth / 2) / scale;
+  const zoomCenterY = (zoomContainer.scrollTop + containerHeight / 2) / scale;
 
-    content.style.transform = `scale(${newScale})`;
-    for(var i=0; i<contentBtn.length; i++){
-      var btnScale = 2/newScale
-      btnScale = btnScale < 0.5 ? 0.5 : btnScale;
-      btnScale = btnScale > 2.5 ? 25 : btnScale;
-      contentBtn[i].style.transform = `scale(${btnScale})`
-    }
+  content.style.transform = `scale(${newScale})`;
+  for(var i=0; i<contentBtn.length; i++){
+    var btnScale = 2/newScale
+    btnScale = btnScale < 0.5 ? 0.5 : btnScale;
+    btnScale = btnScale > 2.5 ? 25 : btnScale;
+    contentBtn[i].style.transform = `scale(${btnScale})`
+  }
 
-    scale = newScale;
+  scale = newScale;
 
-    zoomContainer.scrollLeft = zoomCenterX * scale - containerWidth / 2;
-    zoomContainer.scrollTop = zoomCenterY * scale - containerHeight / 2;
+  zoomContainer.scrollLeft = zoomCenterX * scale - containerWidth / 2;
+  zoomContainer.scrollTop = zoomCenterY * scale - containerHeight / 2;
 });
 
 
@@ -64,8 +64,6 @@ zoomContainer.addEventListener('wheel', (event) => {
 // タッチによるピンチイン・ピンチアウトズーム
 var lastTouchDistance = null;
 var currentTouchDistance;
-var mx;
-var my;
 
 function getDistance(touches) {
   const dx = touches[0].clientX - touches[1].clientX;
@@ -117,4 +115,34 @@ zoomContainer.addEventListener('touchend', () => {
   if (event.touches.length === 2) {
     lastTouchDistance = null;
   }
+});
+
+
+
+
+$("#navMap").click(function(){
+  zoomContainer.scrollLeft = 99999;
+  zoomContainer.scrollTop = 99999;
+  zoomContainer.scrollLeft = zoomContainer.scrollLeft / 2;
+  zoomContainer.scrollTop = zoomContainer.scrollTop / 2;
+})
+
+$("#mapLink1").click(function(){ 
+  scale = scale;
+  newScale = 5;
+
+  const zoomCenterX = (zoomContainer.scrollLeft + containerWidth / 2) / scale;
+  const zoomCenterY = (zoomContainer.scrollTop + containerHeight / 2) / scale;
+
+  content.style.transform = `scale(${newScale})`;
+  for(var i=0; i<contentBtn.length; i++){
+    var btnScale = 2/newScale
+    btnScale = btnScale < 0.5 ? 0.5 : btnScale;
+    btnScale = btnScale > 1.5 ? 1.5 : btnScale;
+    contentBtn[i].style.transform = `scale(${btnScale})`
+  }
+  scale = newScale;
+
+  zoomContainer.scrollLeft = zoomCenterX * scale - containerWidth / 2;
+  zoomContainer.scrollTop = zoomCenterY * scale - containerHeight / 2;  
 });
