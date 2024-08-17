@@ -287,12 +287,13 @@
   width: 30%; 
   height: 20rem;
 
-  margin: 1.5rem auto;
+  margin: 1.5rem auto 3rem auto;
   padding: 2rem;
 
-  background-color: #f1f1f188;
-  backdrop-filter: blur(1.5rem);
-  -webkit-backdrop-filter: blur(1.5rem);
+  background: linear-gradient(225deg, var(--background3), var(--background1));
+  box-shadow:
+    -15px 15px 30px var(--background2),
+    15px -15px 30px var(--background1);
   border-radius: 1rem;
 
   transition: all .4s;
@@ -337,7 +338,7 @@
   padding: 0;
 
   color: #23648C;
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   font-weight: 600;
 
   text-align: justify;

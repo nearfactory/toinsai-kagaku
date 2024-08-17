@@ -39,6 +39,8 @@
   text-align: center;
 }
 
+/* ======================================== */
+
 #newsForParents{
   display: block;
 
@@ -50,8 +52,7 @@
 
   background-color: #7FD9FB77;
   border: none;
-  border-radius: 2rem;
-  
+  border-radius: 2rem;  
   box-shadow:
     -15px 15px 30px var(--background2),
     15px -15px 30px var(--background1);
@@ -78,6 +79,8 @@
   text-align: center;
   text-decoration: none;
 }
+
+/* ======================================== */
 
 .newsContainer{
   display: block;
