@@ -187,6 +187,6 @@ $(".waitContainerStretch>a").click(function(){
   $("#sectionMap").addClass("current");
 })
 
-$("#toggleWaitTimeLegends").click(function(){
-  $("#waitTimeLegends").toggleClass("active");
-})
+// $("#toggleWaitTimeLegends").click(function(){
+//   $("#waitTimeLegends").toggleClass("active");
+// })
