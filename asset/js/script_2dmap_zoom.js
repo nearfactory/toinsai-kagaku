@@ -131,8 +131,8 @@ $("#mapLink1").click(function(){
   scale = scale;
   newScale = 5;
 
-  const zoomCenterX = (zoomContainer.scrollLeft + containerWidth / 2) / scale;
-  const zoomCenterY = (zoomContainer.scrollTop + containerHeight / 2) / scale;
+  // const zoomCenterX = (zoomContainer.scrollLeft + containerWidth / 2) / scale;
+  // const zoomCenterY = (zoomContainer.scrollTop + containerHeight / 2) / scale;
 
   content.style.transform = `scale(${newScale})`;
   for(var i=0; i<contentBtn.length; i++){
@@ -143,6 +143,6 @@ $("#mapLink1").click(function(){
   }
   scale = newScale;
 
-  zoomContainer.scrollLeft = zoomCenterX * scale - containerWidth / 2;
-  zoomContainer.scrollTop = zoomCenterY * scale - containerHeight / 2;  
+  // zoomContainer.scrollLeft = zoomCenterX * scale - containerWidth / 2;
+  // zoomContainer.scrollTop = zoomCenterY * scale - containerHeight / 2;
 });
