@@ -76,7 +76,7 @@
         <span></span>
       </nav>
     </header>
-    
+      
     <span id="topSpan"></span>
     
     <div class="section" id="sectionWaitTime">
@@ -337,6 +337,10 @@
       <a id="map-gym"><i class="fa-solid fa-location-dot"></i>体育館</a>
 
       <div class="gymDateContainer">
+        <div id="day0">
+          <h1>9/10</h1>
+          <p>Tue</p><span></span>
+        </div>
         <div class="active" id="day1">
           <h1>9/11</h1>
           <p>Wed</p><span></span>
@@ -347,6 +351,17 @@
         </div>
       </div>
 
+      <div class="gymMainContainer" id="scheduleDay0">
+        <div class="lines" id="day0Lines">
+          <span class="line" id="day0Line1"></span>
+          <span class="line" id="day0Line2"></span>
+          <span class="point" id="day0Point"></span>
+        </div>
+
+        <div class="scheduleContainer" id="schedulesDay0">
+        </div>
+      </div>
+
       <div class="gymMainContainer active" id="scheduleDay1">
         <div class="lines" id="day1Lines">
           <span class="line" id="day1Line1"></span>
@@ -354,7 +369,7 @@
           <span class="point" id="day1Point"></span>
         </div>
 
-        <div id="schedulesDay1">
+        <div class="scheduleContainer" id="schedulesDay1">
         </div>
       </div>
 
@@ -365,7 +380,7 @@
           <span class="line" id="day2Line2"></span>
         </div>
 
-        <div id="schedulesDay2">
+        <div class="scheduleContainer" id="schedulesDay2">
         </div>
       </div>
     </div>

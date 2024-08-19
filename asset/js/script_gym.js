@@ -1,4 +1,5 @@
 // スケジュールをCSVファイルから取得
+const day0CSV = './asset/csv/day0.csv'; // ここにCSVファイルのURLを入力する
 const day1CSV = './asset/csv/day1.csv'; // ここにCSVファイルのURLを入力する
 const day2CSV = './asset/csv/day2.csv'; // ここにCSVファイルのURLを入力する
 
@@ -34,6 +35,10 @@ function parseCSV(csvText) {
 
 // ========================================
 
+var day0;
+var day0StartTimes;
+var day0EndTimes;
+
 var day1;
 var day1StartTimes;
 var day1EndTimes;
@@ -51,8 +56,8 @@ fetchCSV(day1CSV, function(csvText) {
 
   for(var i=0; i<day1.length-1; i++){
     if(day1[i+1][2] != "###"){
-      day1StartTimes.push(new Date("2024/05/04 " + String(day1[i+1][0])))
-      day1EndTimes.push(new Date("2024/05/04 " + String(day1[i+1][1])))
+      day1StartTimes.push(new Date("2024/08/19 " + String(day1[i+1][0])))
+      day1EndTimes.push(new Date("2024/08/19 " + String(day1[i+1][1])))
     }
   }
 
@@ -110,8 +115,8 @@ fetchCSV(day2CSV, function(csvText){
 
   for(var i=0; i<day2.length-1; i++){
     if(day2[i+1][2] != "###"){
-      day2StartTimes.push(new Date("2024/05/05 " + String(day2[i+1][0])))
-      day2EndTimes.push(new Date("2024/05/05 " + String(day2[i+1][1])))
+      day2StartTimes.push(new Date("2024/09/12 " + String(day2[i+1][0])))
+      day2EndTimes.push(new Date("2024/09/12 " + String(day2[i+1][1])))
     }
   }
 
@@ -162,17 +167,31 @@ fetchCSV(day2CSV, function(csvText){
 
 // ========================================
 
+$("#day0").click(function(){
+  $("#scheduleDay1").removeClass("active");
+  $("#scheduleDay2").removeClass("active");
+  $("#scheduleDay0").addClass("active");
+  $("#day1").removeClass("active");
+  $("#day2").removeClass("active");
+  $("#day0").addClass("active");
+  firstHeight1 = document.getElementById("schedulesDay1").clientHeight;
+});
+
 $("#day1").click(function(){
+  $("#scheduleDay0").removeClass("active");
   $("#scheduleDay2").removeClass("active");
   $("#scheduleDay1").addClass("active");
+  $("#day0").removeClass("active");
   $("#day2").removeClass("active");
   $("#day1").addClass("active");
   firstHeight1 = document.getElementById("schedulesDay1").clientHeight;
 });
 
 $("#day2").click(function(){
+  $("#scheduleDay0").removeClass("active");
   $("#scheduleDay1").removeClass("active");
   $("#scheduleDay2").addClass("active");
+  $("#day0").removeClass("active");
   $("#day1").removeClass("active");
   $("#day2").addClass("active");
   firstHeight2 = document.getElementById("schedulesDay2").clientHeight;
@@ -182,7 +201,7 @@ $("#day2").click(function(){
 
 var now;
 var nowPosition = 0;
-var scheduleOpenHeight = 0;
+var scheduleOpen = 0;
 var nowgoing = 0;
 
 function timeCalc(){
@@ -205,8 +224,8 @@ function timeCalc(){
   // console.log(nowgoing);
 
   if(nowPosition%2 == 1){
-    $("#day1Line1").css("height", String(nowgoing*4 + 1 + scheduleOpenHeight) + "rem");
-    $("#day1Line2").css("height", "calc(100% - " + String(nowgoing*4 + 1 + scheduleOpenHeight) + "rem)");
+    $("#day1Line1").css("height", String(nowgoing*4 + 1 + scheduleOpen*14.5) + "rem");
+    $("#day1Line2").css("height", "calc(100% - " + String(nowgoing*4 + 1 + scheduleOpen*14.5) + "rem)");
     $("#day1Point").css("display", "none");
     
     for(var i=0; i<nowgoing; i++){
@@ -215,15 +234,15 @@ function timeCalc(){
     $("#schedule" + String(nowgoing+1)).addClass("nowGoing");
   }
   else{
-    $("#day1Line1").css("height", String((nowgoing)*4 + 1 + scheduleOpenHeight) + "rem");
-    $("#day1Line2").css("height", "calc(100% - " + String(nowgoing*4 + 1 + scheduleOpenHeight) + "rem)");
+    $("#day1Line1").css("height", String((nowgoing)*4 + 1 + scheduleOpen*14.5) + "rem");
+    $("#day1Line2").css("height", "calc(100% - " + String(nowgoing*4 + 1 + scheduleOpen*14.5) + "rem)");
     
     for(var i=0; i<nowgoing; i++){
       $("#schedule" + String(i+1)).addClass("held");
     }
 
     $("#day1Point").css("display", "block");
-    $("#day1Point").css("top", String((nowgoing)*4 + 1 - 0.4 + scheduleOpenHeight) + "rem");
+    $("#day1Point").css("top", String((nowgoing)*4 + 1 - 0.4 + scheduleOpen*14.5) + "rem");
   }
 }
 
@@ -253,14 +272,14 @@ $(document).on("click", ".schedule", function () {
     $(this).removeClass("active");
 
     if(clickedScheduleId <= nowgoing){
-      scheduleOpenHeight -= 14.5;
+      scheduleOpen -= 1;
     }
   }
   else{
     $(this).addClass("active");
     
     if(clickedScheduleId <= nowgoing){
-      scheduleOpenHeight += 14.5;
+      scheduleOpen += 1;
     }
   }
 });
