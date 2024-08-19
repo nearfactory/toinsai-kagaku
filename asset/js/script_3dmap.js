@@ -3,7 +3,7 @@
 // 各モデルのスケール
 const scaleVal = [
   0.3, // 学校
-  0.3,  // ボール
+  0.2,  // ポインタ
   2,  // 気球
 ];
 
@@ -32,11 +32,13 @@ var balloonTheta = 0;
 var balloonY = 15;
 const coordinate = [
   new THREE.Vector3(0, 0, 0),     // 原点
-  new THREE.Vector3(-8, 8, 21),   // 体育館
+  new THREE.Vector3(-8, 8, 18),   // 体育館
   new THREE.Vector3(Math.sin(balloonTheta), balloonY, Math.sin(balloonTheta)),   // 体育館
 ];
 
-
+const places = [
+  [-8, 6.5, 21],    // 体育館
+]
 
 
 
@@ -52,7 +54,7 @@ import { OrbitControls } from "OrbitControls";
 
 // 画面サイズの取得
 const windowWidth = window.innerWidth;
-const windowHeight = window.innerHeight - (80+30);
+const windowHeight = window.innerHeight - 45;
 
 
 
@@ -235,9 +237,9 @@ controls.dampingFactor = 0.15;   //滑らかさの係数
 const loader = new GLTFLoader();
 
 const url = [
-  "./3d/006/toin006.gltf",
-  "./3d/004/test.gltf",
-  "./3d/balloon.gltf",
+  "./3d/main/toin.gltf",
+  "./3d/point/point.gltf",
+  "./3d/balloon/balloon.gltf",
 ];
 
 var model = {};
@@ -267,7 +269,7 @@ loader.load(url[0], function (gltf) {
 loader.load(url[1], function (gltf) {
   model.ball = gltf.scene;
   model.ball.scale.set(scaleVal[1], scaleVal[1], scaleVal[1]);
-  model.ball.position.set(-8, 8, 21);
+  model.ball.position.set(places[0][0], places[0][1], places[0][2]);
 
   // 裏面も描画
   // model.ball.traverse((object) => { //モデルの構成要素をforEach的に走査
@@ -368,7 +370,7 @@ animate();
 function onResize() {
   // サイズを取得
   const width = window.innerWidth;
-  const height = window.innerHeight - (70+45);
+  const height = window.innerHeight - 45;
 
   // レンダラーのサイズを調整する
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -440,15 +442,15 @@ function onMouseEvent(event) {
 
   // if(boxClicked == false && intersects.object.parent.name == "gym"){
   if(boxClicked == false && intersects.object.parent.name == "gym"){
-    intersects.object.material.color.set("#ff00ff");
+    intersects.object.material.color.set("#000000");
     $("#mapBox").addClass("active");
   }
   else{
-    intersects.object.material.color.set("#ffffff");
+    // intersects.object.material.color.set("#ffffff");
     $("#mapBox").removeClass("active");
     model.ball.traverse((object) => { //モデルの構成要素をforEach的に走査
       if(object.isMesh) { //その構成要素がメッシュだったら
-        object.material.color.set("#00ff00");
+        object.material.color.set("#E7444C");
         object.material.side = THREE.DoubleSide;
       }
     });

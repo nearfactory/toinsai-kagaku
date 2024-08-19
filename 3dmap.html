@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>桐蔭祭 | 3DMAP</title>
+
+    <!--FontAwesome読み込み-->
+    <script src="https://kit.fontawesome.com/2cd68e5bc6.js" crossorigin="anonymous"></script>
+
+    <!--リセットcssの読み込み-->
+    <link href="./asset/css/reset.css" rel="stylesheet">
+
+    <!--自作cssの読み込み-->
+    <link href="./asset/css/style_map3d.css" rel="stylesheet">
+
+    <!--googleFontsの読み込み-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=IBM+Plex+Sans+JP:wght@100;200;300;400;500;600;700&display=swap">
+
+    <!-- ファビコンの読み込み -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://nearfactory.github.io/toin-festival/asset/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://nearfactory.github.io/toin-festival/asset/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://nearfactory.github.io/toin-festival/asset/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://nearfactory.github.io/toin-festival/asset/favicon/site.webmanifest">
+    <link rel="mask-icon" href="https://nearfactory.github.io/toin-festival/asset/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#efefef">
+    <meta name="theme-color" content="#efefef">
+
+    <!-- ページのデスクリプション -->
+    <meta name="description" content="和歌山県立桐蔭中学校・高等学校 「桐蔭祭」 公式ホームページ">
+
+    <script type="importmap">
+      {
+          "imports": {
+              "three": "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.164.1/three.module.js",
+              "OrbitControls":"https://cdn.jsdelivr.net/npm/three@0.145.0/examples/jsm/controls/OrbitControls.js",
+              "GLTFLoader":"https://unpkg.com/three@0.154.0/examples/jsm/loaders/GLTFLoader.js"
+          }
+      }
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <a href="./index.html">
+        TOIN-FESTIVAL&nbsp;2024
+      </a>
+    </header>
+
+    <!-- 3Dマップ -->
+    <canvas id="canvas"></canvas>
+    <div id="mapBox">
+      <h2 id="mapTitle">test</h2>
+      <p id="mapDesc">test</p>
+    </div>
+
+    <footer>
+      <p id="copyright">
+        Copyright &copy; 2024 Toin Science Club
+      </p>
+    </footer>
+
+    <noscript>
+      <h2>JavaScriptが無効です</h2>
+      <p>ブラウザの設定から有効にして再度お試しください</p>
+    </noscript>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="./asset/js/script_3dmap.js" type="module"></script>
+  </body>
+
+</html>
