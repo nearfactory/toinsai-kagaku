@@ -149,6 +149,7 @@ function initSchedules() {
       
       scheduleImg.src = "./image/schedule/day0/" + day0[i][5] + ".jpg";
       scheduleImg.setAttribute("alt", "scheduleImg" + String(i));
+      scheduleImg.setAttribute("loading", "lazy");
       scheduleBox.appendChild(scheduleImg);
     }
 
@@ -193,6 +194,7 @@ function initSchedules() {
       
       scheduleImg.src = "./image/schedule/day1/" + day1[i][5] + ".jpg";
       scheduleImg.setAttribute("alt", "scheduleImg" + String(i+day0.length-1));
+      scheduleImg.setAttribute("loading", "lazy");
       scheduleBox.appendChild(scheduleImg);
     }
 
@@ -237,6 +239,7 @@ function initSchedules() {
 
       scheduleImg.src = "./image/schedule/day2/" + day2[i][5] + ".jpg";
       scheduleImg.setAttribute("alt", "scheduleImg" + String(i+day0.length-1+day1.length-1));
+      scheduleImg.setAttribute("loading", "lazy");
       scheduleBox.appendChild(scheduleImg);
     }
 
