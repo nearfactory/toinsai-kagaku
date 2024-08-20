@@ -1,12 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
+
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>桐蔭祭 | 来校者の方へ</title>
+
+    <!--FontAwesome読み込み-->
+    <script src="https://kit.fontawesome.com/2cd68e5bc6.js" crossorigin="anonymous"></script>
+
+    <!--リセットcssの読み込み-->
+    <link href="./asset/css/reset.css" rel="stylesheet">
+
+    <!--自作cssの読み込み-->
+    <link href="./asset/css/style_forParents.css" rel="stylesheet">
+
+    <!--googleFontsの読み込み-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=IBM+Plex+Sans+JP:wght@100;200;300;400;500;600;700&display=swap">
+
+    <!-- ファビコンの読み込み -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://nearfactory.github.io/toin-festival/asset/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://nearfactory.github.io/toin-festival/asset/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://nearfactory.github.io/toin-festival/asset/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://nearfactory.github.io/toin-festival/asset/favicon/site.webmanifest">
+    <link rel="mask-icon" href="https://nearfactory.github.io/toin-festival/asset/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#efefef">
+    <meta name="theme-color" content="#efefef">
+
+    <!-- ページのデスクリプション -->
+    <meta name="description" content="和歌山県立桐蔭中学校・高等学校 「桐蔭祭」 公式ホームページ">
   </head>
 
   <body>
-    つらい。
+    <header>
+      <a href="./index.html">
+        TOIN-FESTIVAL&nbsp;2024
+      </a>
+    </header>
+    
+    <span id="topSpan"></span>
+
+    <div class="container" id="messageContainer">
+      <h1>&ensp;来校者の方へ&ensp;</h1>
+      <p>
+        お忙しい中桐蔭祭にご来場いただき、ありがとうございます。<br>
+        ご来校にあたって、注意していただきたい点をまとめましたので、確認いただけると幸いです。
+      </p>
+    </div>
+
+    <div class="container" id="faqContainer">
+      <h1>&ensp;よくある質問&ensp;</h1>
+      <div class="pagnination">
+        <p class="faq-q">
+          自家用車で行こうと考えているのですが、駐車場はありますか？
+        </p>
+        <p class="faq-a">
+          申し訳ございませんが、自家用車での来校は基本的にお断りしております。本校には十分な数の来校者用の駐車場がありませんので、近隣のパーキング (有料) に駐車いただくか、公共交通機関を利用しての来校をお願いしております。
+        </p>
+      </div>
+
+      <div class="pagnination">
+        <p class="faq-q">
+          当日、入校するにあたって何か必要な手続きはありますか？
+        </p>
+        <p class="faq-a">
+          ご来場いただく際は、必ず正門（1棟に近い門）入ってすぐの来校者用受付で来場手続きを済ませていただく必要があります。手続きはご自身の名前などを書いていただくようなものですので、あらかじめ必要なものはございません。
+        </p>
+      </div>
+
+      <div class="pagnination">
+        <p height="6" class="faq-q">
+          当日、会場で開会式 / 閉会式を見たいのですが、可能ですか？
+        </p>
+        <p class="faq-a">
+          申し訳ございませんが、当日の会場での開会式・閉会式への参加は熱中症防止などの観点からご遠慮いただいております。代わりに、開閉会式ならびに体育館で開催される発表はすべてYouTube配信を行っておりますので、そちらをご覧ください。
+        </p>
+      </div>
+
+      <div class="pagnination">
+        <p class="faq-q">
+          金券の当日販売はありますか？<br>どこで行っていますか？
+        </p>
+        <p class="faq-a">
+          はい、金券の当日販売も行っています。１日目・２日目ともに、正門奥にある同窓会館の１階で行っています (予定) 。ただし、当日販売予定の金券には枚数に限りがありますので、なるべく早めに購入していただくことをおすすめしております。
+        </p>
+      </div>
+    </div>
+
+    <footer>
+      <p id="copyright">
+        Copyright &copy; 2024 Toin Science Club
+      </p>
+    </footer>
+
+    <noscript>
+      <h2>JavaScriptが無効です</h2>
+      <p>ブラウザの設定から有効にして再度お試しください</p>
+    </noscript>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="./asset/js/script_forParents.js"></script>
   </body>
+
 </html>

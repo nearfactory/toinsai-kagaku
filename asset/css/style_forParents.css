@@ -1,0 +1,214 @@
+@charset "utf-8";
+
+html, body{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  font-family: "Barlow Semi Condensed", "IBM Plex Sans JP", sans-serif;
+  font-size: 10px;
+
+  background-color: #ffffff;
+}
+
+/* ======================================== */
+
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  
+  display: block;
+
+  width: 100%;
+  height: 5rem;
+
+  background-color: #f1f1f188;
+  border: none;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+header>a{
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  color: #222222;
+  font-size: 1.75rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+
+  line-height: 5rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* ======================================== */
+
+#topSpan{
+  display: block;
+  width: 100%;
+  height: 5rem;
+
+  margin: 0;
+  padding: 0;
+  
+  visibility: hidden;
+}
+
+/* ======================================== */
+
+.container{
+  display: block;
+  width: 60%;
+  height: auto;
+
+  margin: 3rem auto;
+  padding: 0;
+}
+
+.container>h1{
+  display: block;
+  width: 100%;
+  height: 3rem;
+
+  margin: 1rem auto;
+  padding: 0;
+
+  border: none;
+  border-radius: 1rem;
+
+  color: #222222;
+  font-size: 1.5rem;
+  font-weight: 500;
+
+  line-height: 3rem;
+  text-align: justify;
+
+  text-decoration: underline;
+  text-decoration-color: #7FD9FB;
+  text-decoration-thickness: 0.5rem;
+}
+
+.container>p{
+  display: block;
+  width: 100%;
+
+  margin: 0 auto;
+  padding: 0;
+
+  color: #222222;
+  font-size: 1.2rem;
+  font-weight: 400;
+
+  line-height: 1.75rem;
+  text-align: justify;
+}
+
+/* ======================================== */
+
+.pagnination{
+  display: grid;
+  grid-template-rows: 7rem 1fr;
+  width: 100%;
+  height: 7rem;
+
+  margin: 1rem 0;
+  padding: 0;
+
+  border-radius: 1rem;
+  background: #f8f8f8;
+
+  overflow: hidden;
+
+  transition: all .25s;
+}
+
+.pagnination.active{
+  height: calc(7rem + 12.5rem);
+}
+
+.faq-q{
+  display: block;
+  width: calc(100% - 2rem);
+  height: calc(100% - 2rem);
+  
+  margin: 0;
+  padding: 1rem 1rem;
+  
+  color: #222222;
+  font-size: 1.2rem;
+  font-weight: 400;
+  
+  line-height: 2.5rem;
+  text-align: justify;
+}
+
+.faq-q::after{
+  content: "";
+
+  display: block;
+  width: 50%;
+  height: 0.5px;
+
+  margin: calc(1rem) auto;
+
+  background-color: #222222;
+}
+
+.faq-a{
+  display: block;
+  width: calc(100% - 2rem);
+  height: calc(100% - 2rem);
+  
+  margin: 0;
+  padding: 1rem 1rem;
+  
+  color: #222222;
+  font-size: 1rem;
+  font-weight: 400;
+  
+  line-height: 1.75rem;
+  text-align: justify;
+}
+/* ======================================== */
+
+footer{
+  display: block;
+
+  width: 40%;
+  height: auto;
+
+  margin: 0;
+  padding: 0.5rem 30%;
+
+  background-color: #f1f1f1;
+  border: none;
+}
+
+#copyright{
+  display: block;
+
+  width: 100%;
+  height: 1.5rem;
+
+  margin: 1rem 0;
+
+  color: #222222;
+  font-size: 0.875rem;
+  font-weight: 400;
+
+  line-height: 1.5rem;
+  text-align: center;
+}
+
+/* ======================================== */
+
+/* スマホで文字サイズが自動で切り替わってしまうことを防ぐ */
+* {
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; /* Safari */
+}
