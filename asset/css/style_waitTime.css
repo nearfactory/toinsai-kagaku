@@ -1,14 +1,5 @@
 @charset "utf-8";
 
-:root{
-  --background1: #ffffff;
-  --background2: #f1f1f1;
-  --background3: #f9f9f9;
-  --text: #222222;
-
-  --accent: #7FD9FB;
-}
-
 #sectionWaitTime{
   width: 90%;
 
@@ -375,7 +366,7 @@
   margin: 0;
   padding: 0;
 
-  color: #222222;
+  color: var(--text);
   font-size: 1.25rem;
   font-weight: 400;
 

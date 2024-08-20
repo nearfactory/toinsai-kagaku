@@ -84,6 +84,7 @@ $(".navLink").click(function(){
 
 // setInterval(updateDate, 50);
 
+// ==================================================
 
 var darkColor = ["#111E34", "#010E04", "#1d3255", "#111E3488", "#E6E6E6", "#CCCCCC"];
 var lightColor = ["#ffffff", "#f1f1f1", "#f9f9f9", "#f1f1f188", "#222222", "#777777"];
@@ -115,26 +116,3 @@ $("#colorMode").click(function(){
 })
 
 // ==================================================
-
-document.addEventListener("DOMContentLoaded", function() {
-  var lazyImages = [].slice.call(document.querySelectorAll("img.imgdelay"));
-  
-  if ("IntersectionObserver" in window) {
-    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          let lazyImage = entry.target;
-          lazyImage.src = lazyImage.dataset.src;
-          if (!(typeof lazyImage.dataset.srcset === "undefined")) {
-            lazyImage.srcset = lazyImage.dataset.srcset;
-          }
-          lazyImage.classList.remove("imgdelay");
-          lazyImageObserver.unobserve(lazyImage);
-        }
-      });
-    });
-    lazyImages.forEach(function(lazyImage) {
-    lazyImageObserver.observe(lazyImage);
-    });
-  }
-});

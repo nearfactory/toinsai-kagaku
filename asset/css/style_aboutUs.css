@@ -1,12 +1,5 @@
 @charset "utf-8";
 
-:root{
-  --text: #222222;
-  --textPale: #777777;
-
-  --accent: #7FD9FB;
-}
-
 #sectionAboutUs{
   width: 55%;
 

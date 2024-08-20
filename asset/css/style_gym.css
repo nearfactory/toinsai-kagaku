@@ -1,13 +1,9 @@
 @charset "utf-8";
 
 :root{
-  --background1: #ffffff;
-  --background2: #f1f1f1;
-  --background3: #f9f9f9;
-  --text: #222222;
-  --textPale: #777777;
-
-  --accent: #7FD9FB;
+  --classHeight: 2.5rem;
+  --descHeight: 9rem;
+  --imgHeight: 7.5rem;
 }
 
 #sectionGym{
@@ -220,17 +216,17 @@
 
   display: block;
 
-  width: calc(100% - 2rem);
+  width: 100%;
   height: 3rem;
 
   margin: 1rem auto 2rem;
-  padding: 0 1rem;
+  padding: 0;
 
-  border-radius: 10px;
+  border-radius: 1rem;
   background: linear-gradient(225deg, var(--background3), var(--background1));
   box-shadow:
-    -15px 15px 30px var(--background2),
-    15px -15px 30px var(--background1);
+    -5px 5px 10px var(--background2),
+    5px -5px 10px var(--background1);
 
   transition: all .25s;
 }
@@ -261,7 +257,7 @@
 }
 
 .schedule.active{
-  height: calc(3rem + 7rem + 7.5rem);
+  height: calc(3rem + var(--classHeight) + var(--descHeight) + var(--imgHeight));
 }
 
 .schedule.held::before{
@@ -271,8 +267,8 @@
 }
 
 .schedule.nowGoing::before{
-  background-color: #7FD9FB;
-  border: #7FD9FB 2px solid;
+  background-color: var(--accent);
+  border: var(--accent) 2px solid;
   top: calc(1.5rem - 0.5rem - 2px);
   left: calc(-1rem - 2.5rem + 0.5rem - 2px);
   opacity: 1;
@@ -280,16 +276,16 @@
 
 .scheduleMain{
   display: grid;
-  grid-template-columns: 2fr 6.5fr 3.5fr;
+  grid-template-columns: 3fr 6.5fr 2rem;
 
-  width: 100%;
+  width: calc(100% - 2rem);
   height: 3rem;
 
   margin: 0;
-  padding: 0;
+  padding: 0 1rem;
 }
 
-.schedule>div>h2{
+.scheduleMain>.scheduleTime{
   display: block;
 
   width: 100%;
@@ -301,12 +297,13 @@
   color: var(--text);
   font-size: 1.25rem;
   font-weight: 400;
+  font-variant-numeric: tabular-nums;
 
   line-height: 3rem;
-  text-align: center;
+  text-align: left;
 }
 
-.schedule>div>h1{
+.scheduleMain>.scheduleTitle{
   width: 100%;
   height: 100%;
 
@@ -321,7 +318,17 @@
   text-align: left;
 }
 
-.schedule>div>h3{
+.scheduleMain>.scheduleToggle{
+  position: relative;
+}
+
+.scheduleMain>.scheduleToggle::after{
+  content: "\f107";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
   display: block;
 
   width: 100%;
@@ -331,69 +338,91 @@
   padding: 0;
 
   color: var(--textPale);
-  font-size: 1rem;
-  font-weight: 400;
-
-  line-height: 3rem;
-  text-align: right;
-}
-
-.schedule>div>h3::after{
-  content: "\f107";
-  display: inline-block;
-
-  width: 3rem;
-  height: 100%;
-
-  margin: 0;
-  padding: 0;
-
-  color: var(--textPale);
-  font-family: "Font Awesome 6 Free";
   font-size: 1.125rem;
-  font-weight: 900;
+  font-weight: 400;
+  font-family: FontAwesome;
 
   line-height: 3rem;
   text-align: center;
 }
 
-.schedule.active>div>h3::after{
+.schedule.active>.scheduleMain>.scheduleToggle::after{
   content: "\f106";
+}
+
+.schedule>.scheduleClass{
+  display: block;
+  
+  width: calc(100% - 7rem);
+  height: 2.5rem;
+  
+  margin: 0;
+  padding: 0 3.5rem;
+  
+  color: var(--text);
+  font-size: 1.25rem;
+  font-weight: 500;
+  
+  line-height: 2.5rem;
+  text-align: justify;
+  
+  transform-origin: center 0;
+  transform: scaleY(0);
+
+  transition: all .25s;
+}
+
+.scheduleClass>small{
+  display: inline-block;
+
+  width: auto;
+  height: 100%;
+
+  margin: 0 0 0 1rem;
+  
+  color: var(--textPale);
+  font-size: 1rem;
+  font-weight: 400;
+  
+  line-height: 2.5rem;
+  text-align: justify;
+}
+
+.schedule>.scheduleDesc{
+  display: block;
+  
+  width: calc(100% - 7rem);
+  height: calc(var(--descHeight) - 0.5rem); 
+  
+  margin: 0;
+  padding: 0.25rem 3.5rem;
+  
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 400;
+  
+  line-height: calc((var(--descHeight) - 1rem) / 5);
+  text-align: justify;
+  
+  transform-origin: center calc(-1 * var(--classHeight));
+  transform: scaleY(0);
+
+  transition: all .25s;
 }
 
 .schedule>img{
   display: block;
 
   width: 100%;
-  height: 7rem;
+  height: 7.5rem;
 
   object-fit: cover;
 
-  transform-origin: top;
+  border-radius: 0 0 1rem 1rem;
+
+  transform-origin: center calc(-1 * (var(--classHeight) + var(--descHeight)));
   transform: scaleY(0);
-
-  transition: all .25s;
-}
-
-.schedule>p{
-  display: block;
-
-  width: 100%;
-  height: 7.5rem;
-
-  margin: 0;
-  padding: 0;
-
-  color: var(--text);
-  font-size: 1rem;
-  font-weight: 500;
-
-  line-height: 1.5rem;
-  text-align: left;
-
-  transform-origin: 50% calc(-7rem);
-  transform: scaleY(0);
-
+  
   transition: all .25s;
 }
 

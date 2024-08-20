@@ -1,21 +1,5 @@
 @charset "utf-8";
 
-:root{
-  --headerHeight: 3rem;
-  --navHeight: 4rem;
-  --footerHeight: 3rem;
-
-  --background1: #ffffff;
-  --background2: #f1f1f1;
-  --header: #f1f1f188;
-  --text: #222222;
-  --textPale: #777777;
-
-  --accent: #7FD9FB;
-}
-
-/* ======================================== */
-
 /* ズーム枠 */
 #sectionMap{
   position: relative;
@@ -27,7 +11,7 @@
   margin: 0;
   padding: 0;
 
-  background-color: #ffffff ;
+  background-color: var(--background1) ;
   border: none;
 
   overflow: scroll;
@@ -81,7 +65,7 @@
   margin: auto;
   padding: 0;
 
-  background-color: #ffffff;
+  background-color: var(--background1);
 
   object-fit: contain;
 }
@@ -225,7 +209,7 @@
 
   padding: 2rem 2rem 0 2rem;
 
-  color: #222222;
+  color: var(--text);
   font-size: 1.25rem;
   font-weight: 400;
 
@@ -240,7 +224,7 @@
 
   padding: 0 2rem;
 
-  color: #222222;
+  color: var(--text);
   font-size: 1.5rem;
   font-weight: 500;
 
@@ -255,7 +239,7 @@
 
   padding: 0 2rem;
 
-  color: #222222;
+  color: var(--text);
   font-size: 0.875rem;
   font-weight: 400;
 
