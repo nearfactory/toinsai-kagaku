@@ -59,7 +59,7 @@ fetchCSV(newsCSV, function(csvText) {
     newsDesc.textContent = news[i+1][5];
     newsBox.appendChild(newsDesc);
   
-    newsImage.src = "./image/news/" + news[i+1][4] + ".jpg";
+    newsImage.src = "./image/news/" + news[i+1][4] + ".webp";
     newsBox.appendChild(newsImage);
   }
 });
