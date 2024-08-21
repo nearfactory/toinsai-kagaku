@@ -1,5 +1,15 @@
 @charset "utf-8";
 
+:root{
+  --background1: #ffffff;
+  --background2: #f1f1f1;
+
+  --text: #222222;
+
+  --accent: #7FD9FB;
+  --accent2: #C3EDFD;
+}
+
 html, body{
   width: 100%;
   margin: 0;
@@ -7,8 +17,14 @@ html, body{
 
   font-family: "Barlow Semi Condensed", "IBM Plex Sans JP", sans-serif;
   font-size: 10px;
+}
 
-  background-color: #ffffff;
+html{
+  background-color: var(--background2);
+}
+
+body{
+  background-color: var(--background1);
 }
 
 /* ======================================== */
@@ -36,7 +52,7 @@ header>a{
   width: 100%;
   height: 100%;
 
-  color: #222222;
+  color: var(--text);
   font-size: 1.75rem;
   font-weight: 300;
   letter-spacing: 1px;
@@ -63,7 +79,7 @@ header>a{
 
 .container{
   display: block;
-  width: 60%;
+  width: 70%;
   height: auto;
 
   margin: 3rem auto;
@@ -81,7 +97,7 @@ header>a{
   border: none;
   border-radius: 1rem;
 
-  color: #222222;
+  color: var(--text);
   font-size: 1.5rem;
   font-weight: 500;
 
@@ -89,7 +105,7 @@ header>a{
   text-align: justify;
 
   text-decoration: underline;
-  text-decoration-color: #7FD9FB;
+  text-decoration-color: var(--accent);
   text-decoration-thickness: 0.5rem;
 }
 
@@ -110,70 +126,115 @@ header>a{
 
 /* ======================================== */
 
-.pagnination{
-  display: grid;
-  grid-template-rows: 7rem 1fr;
+.accordion{
+  display: block;
   width: 100%;
-  height: 7rem;
+  height: auto;
 
-  margin: 1rem 0;
+  margin: 1.5rem auto;
+
+  background-color: var(--background2);
+}
+
+.accordionTitle{
+  display: block;
+  max-height: 8rem;
+  width: calc(100% - 4rem);
+
+  margin: 0;
+  padding: 2rem;
+
+  color: var(--text);
+  font-size: 1.3rem;
+  font-weight: 500;
+
+  line-height: 2rem;
+  text-align: justify;
+}
+
+.accordionBody{
+  display: grid; 
+  grid-template-rows: 0fr;
+
+  width: 100%;
+  height: auto;
+  
+  margin: 0;
   padding: 0;
-
-  border-radius: 1rem;
-  background: #f8f8f8;
-
-  overflow: hidden;
-
+  
   transition: all .25s;
 }
 
-.pagnination.active{
-  height: calc(7rem + 12.5rem);
+.accordion.active .accordionBody{
+  grid-template-rows: 1fr;
+  padding: 0 0 2rem 0;
 }
 
-.faq-q{
-  display: block;
-  width: calc(100% - 2rem);
-  height: calc(100% - 2rem);
-  
-  margin: 0;
-  padding: 1rem 1rem;
-  
-  color: #222222;
-  font-size: 1.2rem;
-  font-weight: 400;
-  
-  line-height: 2.5rem;
-  text-align: justify;
+.accordionBody>div{
+  overflow: hidden;
 }
 
-.faq-q::after{
-  content: "";
-
+.accordionBody>div>span{
   display: block;
-  width: 50%;
+  width: 40%;
   height: 0.5px;
 
-  margin: calc(1rem) auto;
+  margin: 0 auto;
+  padding: 0;
 
-  background-color: #222222;
+  background-color: var(--text);
 }
 
-.faq-a{
+.accordionBody>div>p{
   display: block;
-  width: calc(100% - 2rem);
-  height: calc(100% - 2rem);
-  
+  width: calc(100% - 4rem);
+  height: auto;
+
   margin: 0;
-  padding: 1rem 1rem;
-  
-  color: #222222;
-  font-size: 1rem;
+  padding: 2rem 2rem 0 2rem;
+
+  color: var(--text);
+  font-size: 1.2rem;
   font-weight: 400;
-  
+
   line-height: 1.75rem;
   text-align: justify;
 }
+
+.accordionBody>div>a{
+  display: block;
+  width: calc(90% - 4rem);
+  height: auto;
+
+  margin: 1rem auto 0 auto;
+  padding: 1rem;
+
+  background-color: var(--accent2);
+  border-radius: calc((1.75rem + 2rem) / 2);
+
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 400;
+
+  line-height: 1.75rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.accordionBody>div>a>i{
+  display: inline-block;
+
+  margin: 0 1rem 0 0;
+  padding: 0;
+
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 400;
+
+  line-height: 1.75rem;
+  text-align: center;
+}
+
 /* ======================================== */
 
 footer{

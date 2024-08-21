@@ -49,13 +49,13 @@ fetchCSV(newsCSV, function(csvText) {
     
     newsDate.textContent = news[i+1][0];
     newsBox.appendChild(newsDate);
-    
+  
     newsTitle.textContent = news[i+1][2];
     newsBox.appendChild(newsTitle);
     
     newsPublisher.textContent = news[i+1][3];
     newsBox.appendChild(newsPublisher);
-  
+    
     newsDesc.textContent = news[i+1][5];
     newsBox.appendChild(newsDesc);
   
@@ -84,11 +84,10 @@ const newsModal = document.querySelector("#newsModal");
 
 
 $(document).on("click", ".newsContent", function () {
-  var onFocusContent = $(this);
+  console.log(this.children);
   newsModal.showModal();
   document.getElementById("newsModalTitle").innerHTML = this.children[1].innerHTML;
-  document.getElementById("newsModalPublisher").innerHTML = this.children[2].innerHTML;
-  document.getElementById("newsModalDate").innerHTML = this.children[0].innerHTML;
+  document.getElementById("newsModalPublisherDate").innerHTML = this.children[2].innerHTML + "&ensp;" + this.children[0].innerHTML;
   document.getElementById("newsModalContent").innerHTML = this.children[3].innerHTML;
   document.getElementById("newsModalImg").src = this.children[4].src;
   
@@ -98,3 +97,15 @@ $(document).on("click", ".newsContent", function () {
 $("#modalClose").click(function(){
   newsModal.close();
 })
+
+// モーダルバックグラウンドをタップしても閉じるように設定
+newsModal.addEventListener( 'click', (event) =>
+  {
+    newsModal.close();
+  }, false );
+
+contents = newsModal.querySelector("#modalNotBackground");
+contents.addEventListener( 'click', ( event ) =>
+  {
+      event.stopPropagation();
+  }, false );

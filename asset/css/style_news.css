@@ -122,8 +122,8 @@
   width: 4rem;
   height: 2rem;
 
-  background-color: var(--accent);
-  border: var(--accent) 1px solid;
+  background-color: #7FD9FB77;
+  border: #7FD9FB77 1px solid;
   border-radius: 5px 5px 0 0;
 
   color: var(--text);
@@ -185,8 +185,8 @@
 /* ======================================== */
 
 #newsModal{
-  width: 30rem;
-  max-height: 45rem;
+  width: 80vw;
+  max-height: 70dvh;
 
   padding: 0;
 
@@ -194,9 +194,7 @@
   border: none;
   border-radius: 1.5rem;
 
-  overflow-y: scroll;
-
-  transition: all 25s;
+  overflow-y: auto;
 }
 
 body:has(#newsModal[open]){
@@ -204,57 +202,68 @@ body:has(#newsModal[open]){
 }
 
 dialog::backdrop {
-  -webkit-backdrop-filter: blur(0.25rem);
-  backdrop-filter: blur(0.25rem);
+  -webkit-backdrop-filter: blur(0.5rem);
+  backdrop-filter: blur(0.5rem);
 
   transition: all 25s;
 }
 
+/* #modalNotBackground{
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+} */
+
 #newsModalTitle{
   display: block;
 
-  width: calc(100% - 10rem);
-  min-height: 3rem;
+  width: calc(85% + 7.5% - 5rem);
+  min-height: 2.5rem;
+  max-height: 5rem;
 
-  margin: 0;
-  padding: 1.5rem 5rem 0 5rem;
+  margin: 0 calc((100% - 85%) / 2);
+  padding: 2.5rem 0 0 0;
 
   color: var(--text);
-  font-size: 1.5rem;
+  font-size: 1.625rem;
   font-weight: 500;
 
-  line-height: 3rem;
+  line-height: 2.5rem;
   text-align: left;
 }
 
-#newsModalPublisher, #newsModalDate{
+#newsModalPublisherDate{
   display: block;
 
-  width: calc(100% - 10rem);
-  height: 1.5rem;
+  width: 85%;
+  height: 2rem;
 
-  margin: 0;
-  padding: 0 5rem;
+  margin: 0 auto;
+  padding: 0 0 1rem 0;
 
   color: var(--text);
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 400;
 
-  line-height: 1.5rem;
+  line-height: 2rem;
   text-align: left;
 }
 
 #newsModalContent{
   display: block;
 
-  width: calc(100% - 10rem);
+  width: 85%;
   height: auto;
 
-  margin: 0;
-  padding: 0 5rem;
+  margin: 0 auto;
+  padding: 0 0 2rem 0;
 
   color: var(--text);
-  font-size: 0.875rem;
+  font-size: 1.2rem;
   font-weight: 400;
 
   line-height: 1.5rem;
@@ -268,13 +277,13 @@ dialog::backdrop {
   height: 15rem;
 
   margin: 0;
-  padding: 1rem 0 0 0;
+  padding: 0;
 
   object-fit: cover;
 }
 
-#newsModal>button{
-  display: block;
+#modalClose{
+  display: inline-block;
 
   position: absolute;
   top: 0;
@@ -283,10 +292,14 @@ dialog::backdrop {
   width: 5rem;
   height: 5rem;
 
+  padding: 0;
+
   background-color: #ffffff00;
   border: none;
 
   color: var(--text);
   font-size: 1.5rem;
   font-weight: 400;
+
+  line-height: 5rem;
 }

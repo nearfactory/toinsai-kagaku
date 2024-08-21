@@ -13,7 +13,7 @@
     <link href="./asset/css/reset.css" rel="stylesheet">
 
     <!--自作cssの読み込み-->
-    <link href="./asset/css/style_forParents.css" rel="stylesheet">
+    <link href="./asset-forParents/style_forParents.css" rel="stylesheet">
 
     <!--googleFontsの読み込み-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,46 +46,82 @@
       <h1>&ensp;来校者の方へ&ensp;</h1>
       <p>
         お忙しい中桐蔭祭にご来場いただき、ありがとうございます。<br>
-        ご来校にあたって、注意していただきたい点をまとめましたので、確認いただけると幸いです。
+        ご来校いただくにあたって、よくある質問をまとめましたので、ご確認いただけると幸いです。
       </p>
     </div>
 
     <div class="container" id="faqContainer">
       <h1>&ensp;よくある質問&ensp;</h1>
-      <div class="pagnination">
-        <p class="faq-q">
+
+      <div class="accordion">
+        <h2 class="accordionTitle">
           自家用車で行こうと考えているのですが、駐車場はありますか？
-        </p>
-        <p class="faq-a">
-          申し訳ございませんが、自家用車での来校は基本的にお断りしております。本校には十分な数の来校者用の駐車場がありませんので、近隣のパーキング (有料) に駐車いただくか、公共交通機関を利用しての来校をお願いしております。
-        </p>
+        </h2>
+        <div class="accordionBody">
+          <div>
+            <span></span>
+            <p>
+              申し訳ございませんが、自家用車での来校は基本的にお断りしております。本校には十分な数の来校者用駐車場がありませんので、近隣のコインパーキングに駐車いただくか、公共交通機関を利用しての来校をお願いしております。
+            </p>
+          </div>
+        </div>
       </div>
 
-      <div class="pagnination">
-        <p class="faq-q">
-          当日、入校するにあたって何か必要な手続きはありますか？
-        </p>
-        <p class="faq-a">
-          ご来場いただく際は、必ず正門（1棟に近い門）入ってすぐの来校者用受付で来場手続きを済ませていただく必要があります。手続きはご自身の名前などを書いていただくようなものですので、あらかじめ必要なものはございません。
-        </p>
+      <div class="accordion">
+        <h2 class="accordionTitle">
+          当日、入校するにあたって何か必要な手続きや申し込みはありますか？
+        </h2>
+        <div class="accordionBody">
+          <div>
+            <span></span>
+            <p>
+              ご来場いただく際は、必ず正門（北側・1棟に近い門）入ってすぐに来校者受付で来場手続きをしていただく必要があります。不審者等防犯面からの措置ですので、必ず来校者受付を済ませてからご来場いただきますよう、お願い申し上げます。
+            </p>
+          </div>
+        </div>
       </div>
 
-      <div class="pagnination">
-        <p height="6" class="faq-q">
-          当日、会場で開会式 / 閉会式を見たいのですが、可能ですか？
-        </p>
-        <p class="faq-a">
-          申し訳ございませんが、当日の会場での開会式・閉会式への参加は熱中症防止などの観点からご遠慮いただいております。代わりに、開閉会式ならびに体育館で開催される発表はすべてYouTube配信を行っておりますので、そちらをご覧ください。
-        </p>
+      <div class="accordion">
+        <h2 class="accordionTitle">
+          当日、体育館で開会式 / 閉会式を見ることは可能ですか？
+        </h2>
+        <div class="accordionBody">
+          <div>
+            <span></span>
+            <p>
+              申し訳ございませんが、当日の開会式・閉会式への会場参加は、熱中症防止などの観点から設定している体育館のキャパシティを踏まえてご遠慮いただいております。代わりに、開閉会式ならびに体育館で開催される発表については、1日目・2日目を通してYouTube配信を行っておりますので、そちらをご覧ください。
+            </p>
+            <a href="https://youtube.com/"><i class="fa-brands fa-youtube"></i>YouTubeライブはこちら</a>
+          </div>
+        </div>
       </div>
 
-      <div class="pagnination">
-        <p class="faq-q">
-          金券の当日販売はありますか？<br>どこで行っていますか？
-        </p>
-        <p class="faq-a">
-          はい、金券の当日販売も行っています。１日目・２日目ともに、正門奥にある同窓会館の１階で行っています (予定) 。ただし、当日販売予定の金券には枚数に限りがありますので、なるべく早めに購入していただくことをおすすめしております。
-        </p>
+      <div class="accordion">
+        <h2 class="accordionTitle">
+          金券の当日販売分はどこで販売していますか？
+        </h2>
+        <div class="accordionBody">
+          <div>
+            <span></span>
+            <p>
+              金券の当日販売は、両日通して正門奥にある同窓会館の１階で行っています (予定) 。ただし、当日販売予定の金券には枚数に限りがありますので、なるべく早めに購入していただくことをおすすめしております。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <h2 class="accordionTitle">
+          校内での写真撮影はOKですか？
+        </h2>
+        <div class="accordionBody">
+          <div>
+            <span></span>
+            <p>
+              基本的にはOKですが、撮影した写真をSNSにアップする等、肖像権などの問題が発生するおそれのある行為については禁止とさせていただきます。あらかじめご了承ください。
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -102,7 +138,7 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="./asset/js/script_forParents.js"></script>
+    <script src="./asset-forParents/script_forParents.js"></script>
   </body>
 
 </html>

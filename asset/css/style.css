@@ -82,7 +82,13 @@ html, body{
 
   font-family: "Barlow Semi Condensed", "IBM Plex Sans JP", sans-serif;
   font-size: 10px;
+}
 
+html{
+  background-color: var(--background2);
+}
+
+body{
   background-color: var(--background1);
 }
 

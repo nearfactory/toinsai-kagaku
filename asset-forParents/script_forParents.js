@@ -1,5 +1,5 @@
 // ========================================
 
-$(".pagnination").click(function(){
+$(".accordion").click(function(){
   $(this).toggleClass("active");
 })
