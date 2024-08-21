@@ -172,7 +172,7 @@
   transition: all .25s;
 }
 
-#day1Line1, #day2Line1{
+#day0Line1, #day1Line1, #day2Line1{
   background-color: #D4F2FE;
 }
 
@@ -199,7 +199,7 @@
   display: none;
 }
 
-#day1Line2, #day2Line2{
+#day0Line2, #day1Line2, #day2Line2{
   background-color: #dddddd;
 }
 

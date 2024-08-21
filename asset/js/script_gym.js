@@ -5,7 +5,7 @@ const day1CSV = './asset/csv/test.csv';
 const day2CSV = './asset/csv/day2.csv';
 
 // 各日の日付を入力
-const day0date = "2024-09-10T";
+const day0date = "2024-08-20T";
 const day1date = "2024-08-21T";
 const day2date = "2024-09-12T";
 
@@ -260,69 +260,225 @@ var scheduleOpen = 0;
 var nowgoing = 0;
 
 function timeCalc(){
+
   // 現在時刻を取得
   now = new Date();
 
-  console.log(daySelect);
-  
-  // 進行状況を全イベント終了状態で初期化
-  nowPosition = (day1.length-1)*2;
-  
-  // 進行状況を取得
-  for(var i=0; i<day1.length-1; i++){
-    if(now < day1StartTimes[i]){
-      nowPosition = i*2
-      break;
-    }
-    else if(now < day1EndTimes[i]){
-      nowPosition = i*2+1;
-      break;
-    }
-  }
-  
-  // 現在進行中のイベント番号を取得
-  nowgoing = Math.floor((nowPosition)/2);
+  //選択されている日付によって挙動を変更
+  switch(daySelect){
+  case 0:
+    // 0日目（前夜祭）
+    // 進行状況を全イベント終了状態で初期化
+    nowPosition = (day0.length-1)*2;
 
-  if(nowPosition == 0){
-    $("#day1Line1").css("height", "0rem");
-    $("#day1Line2").css("height", "100%");
-    $("#day1Point").css("display", "none");
-    return;
-  }
-  
-  if(nowPosition%2 == 1){
-    // イベント進行中
-    $("#day1Line1").css("height", String(nowgoing*5 + 1 + 1.5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem");
-    $("#day1Line2").css("height", "calc(100% - " + String(nowgoing*5 + 1 + 1.5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem)");
-    $("#day1Point").css("display", "none");
-    // console.log(nowgoing);
-
-    for(var i=0; i<nowgoing; i++){
-      // 完了したイベントに held クラスを付与
-      $("#schedule" + String(i+1)).addClass("held");
-      if($("#schedule" + String(i+1)).hasClass("nowGoing")){
-        $("#schedule" + String(i+1)).removeClass("nowGoing");
+    // 進行状況を取得
+    for(var i=0; i<day0.length-1; i++){
+      if(now < day0StartTimes[i]){
+        nowPosition = i*2
+        break;
+      }
+      else if(now < day0EndTimes[i]){
+        nowPosition = i*2+1;
+        break;
       }
     }
-    // 進行中のイベントに nowgoing クラスを付与
-    $("#schedule" + String(nowgoing+1)).addClass("nowGoing");
-    return;
-  }
-  else{
-    // イベントとイベントの間
-    $("#day1Line1").css("height", String(nowgoing*5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem");
-    $("#day1Line2").css("height", "calc(100% - " + String(nowgoing*5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem)");
-    $("#day1Point").css("display", "block");
-    $("#day1Point").css("top", String(nowgoing*5 - 0.5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem");
-    
-    for(var i=0; i<nowgoing; i++){
-      $("#schedule" + String(i+1)).addClass("held");
-      if($("#schedule" + String(i+1)).hasClass("nowGoing")){
-        $("#schedule" + String(i+1)).removeClass("nowGoing");
+
+    // 現在進行中のイベント番号を取得
+    nowgoing = Math.floor((nowPosition)/2);
+
+    if(nowPosition == 0){
+      $("#day0Line1").css("height", "0rem");
+      $("#day0Line2").css("height", "100%");
+      $("#day0Point").css("display", "none");
+      return;
+    }
+
+    if(nowPosition%2 == 1){
+      // イベント進行中
+      $("#day0Line1").css("height", String(nowgoing*5 + 1 + 1.5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem");
+      $("#day0Line2").css("height", "calc(100% - " + String(nowgoing*5 + 1 + 1.5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem)");
+      $("#day0Point").css("display", "none");
+      // console.log(nowgoing);
+
+      for(var i=0; i<nowgoing; i++){
+        // 完了したイベントに held クラスを付与
+        $("#schedule" + String(i+1)).addClass("held");
+        if($("#schedule" + String(i+1)).hasClass("nowGoing")){
+          $("#schedule" + String(i+1)).removeClass("nowGoing");
+        }
+      }
+      // 進行中のイベントに nowgoing クラスを付与
+      $("#schedule" + String(nowgoing+1)).addClass("nowGoing");
+      return;
+    }
+    else{
+      // イベントとイベントの間
+      $("#day0Line1").css("height", String(nowgoing*5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem");
+      $("#day0Line2").css("height", "calc(100% - " + String(nowgoing*5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem)");
+      $("#day0Point").css("display", "block");
+      $("#day0Point").css("top", String(nowgoing*5 - 0.5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem");
+      
+      for(var i=0; i<nowgoing; i++){
+        $("#schedule" + String(i+1)).addClass("held");
+        if($("#schedule" + String(i+1)).hasClass("nowGoing")){
+          $("#schedule" + String(i+1)).removeClass("nowGoing");
+        }
+      }
+      return;
+    }
+    break;
+
+
+
+
+
+  case 1:
+    // 1日目
+    // 進行状況を全イベント終了状態で初期化
+    nowPosition = (day1.length-1)*2 + (day0.length-1)*2;
+
+    // 進行状況を取得
+    for(var i=0; i<day1.length-1; i++){
+      if(now < day1StartTimes[i]){
+        nowPosition = i*2 + (day0.length-1)*2;
+        break;
+      }
+      else if(now < day1EndTimes[i]){
+        nowPosition = i*2+1 + (day0.length-1)*2;
+        break;
       }
     }
-    return;
+
+    // 現在進行中のイベント番号を取得
+    nowgoing = Math.floor((nowPosition)/2);
+
+    if(nowPosition ==  (day0.length-1)*2){
+      $("#day1Line1").css("height", "0rem");
+      $("#day1Line2").css("height", "100%");
+      $("#day1Point").css("display", "none");
+      return;
+    }
+
+    if(nowPosition%2 == 1){
+      // イベント進行中
+      $("#day1Line1").css("height", String((nowgoing-(day0.length-1))*5 + 1 + 1.5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem");
+      $("#day1Line2").css("height", "calc(100% - " + String((nowgoing-(day0.length-1))*5 + 1 + 1.5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem)");
+      $("#day1Point").css("display", "none");
+      // console.log(nowgoing);
+
+      for(var i=0; i<nowgoing; i++){
+        // 完了したイベントに held クラスを付与
+        $("#schedule" + String(i+1)).addClass("held");
+        if($("#schedule" + String(i+1)).hasClass("nowGoing")){
+          $("#schedule" + String(i+1)).removeClass("nowGoing");
+        }
+      }
+      // 進行中のイベントに nowgoing クラスを付与
+      $("#schedule" + String(nowgoing+1)).addClass("nowGoing");
+      return;
+    }
+    else{
+      // イベントとイベントの間
+      $("#day1Line1").css("height", String((nowgoing-(day0.length-1))*5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem");
+      $("#day1Line2").css("height", "calc(100% - " + String((nowgoing-(day0.length-1))*5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem)");
+      $("#day1Point").css("display", "block");
+      $("#day1Point").css("top", String((nowgoing-(day0.length-1))*5 - 0.5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem");
+      
+      for(var i=0; i<nowgoing; i++){
+        $("#schedule" + String(i+1)).addClass("held");
+        if($("#schedule" + String(i+1)).hasClass("nowGoing")){
+          $("#schedule" + String(i+1)).removeClass("nowGoing");
+        }
+      }
+      return;
+    }
+    break;
+
+
+
+
+
+  case 2:
+    // 2日目
+    // 進行状況を全イベント終了状態で初期化
+    nowPosition = (day2.length-1)*2 + (day1.length-1)*2 + (day0.length-1)*2;
+
+    // 進行状況を取得
+    for(var i=0; i<day2.length-1; i++){
+      if(now < day2StartTimes[i]){
+        nowPosition = i*2 + (day1.length-1)*2 + (day0.length-1)*2;
+        break;
+      }
+      else if(now < day2EndTimes[i]){
+        nowPosition = i*2+1 + (day1.length-1)*2 + (day0.length-1)*2;
+        break;
+      }
+    }
+
+    // 現在進行中のイベント番号を取得
+    nowgoing = Math.floor((nowPosition)/2);
+
+    if(nowPosition ==  (day1.length-1)*2 + (day0.length-1)*2){
+      $("#day2Line1").css("height", "0rem");
+      $("#day2Line2").css("height", "100%");
+      $("#day2Point").css("display", "none");
+      return;
+    }
+
+    if(nowPosition%2 == 1){
+      // イベント進行中
+      $("#day2Line1").css("height", String((nowgoing-(day1.length-1)-(day0.length-1))*5 + 1 + 1.5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem");
+      $("#day2Line2").css("height", "calc(100% - " + String((nowgoing-(day1.length-1)-(day0.length-1))*5 + 1 + 1.5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem)");
+      $("#day2Point").css("display", "none");
+      // console.log(nowgoing);
+
+      for(var i=0; i<nowgoing; i++){
+        // 完了したイベントに held クラスを付与
+        $("#schedule" + String(i+1)).addClass("held");
+        if($("#schedule" + String(i+1)).hasClass("nowGoing")){
+          $("#schedule" + String(i+1)).removeClass("nowGoing");
+        }
+      }
+      // 進行中のイベントに nowgoing クラスを付与
+      $("#schedule" + String(nowgoing+1)).addClass("nowGoing");
+      return;
+    }
+    else{
+      // イベントとイベントの間
+      $("#day2Line1").css("height", String((nowgoing-(day1.length-1)-(day0.length-1))*5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem");
+      $("#day2Line2").css("height", "calc(100% - " + String((nowgoing-(day1.length-1)-(day0.length-1))*5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem)");
+      $("#day2Point").css("display", "block");
+      $("#day2Point").css("top", String((nowgoing-(day1.length-1)-(day0.length-1))*5 - 0.5 + scheduleOpen*(classHeight+descHeight+imgHeight)) + "rem");
+      
+      for(var i=0; i<nowgoing; i++){
+        $("#schedule" + String(i+1)).addClass("held");
+        if($("#schedule" + String(i+1)).hasClass("nowGoing")){
+          $("#schedule" + String(i+1)).removeClass("nowGoing");
+        }
+      }
+      return;
+    }
+    break;
+
+
+
+
+
+  default:
+    // その他（エラー発生時用）
+    alert("エラーが発生しました。ページを読み込みなおしてください。");
+    $("#scheduleDay0").removeClass("active");
+    $("#scheduleDay2").removeClass("active");
+    $("#scheduleDay1").addClass("active");
+    $("#day0").removeClass("active");
+    $("#day2").removeClass("active");
+    $("#day1").addClass("active");
+    firstHeight1 = document.getElementById("schedulesDay1").clientHeight;
+    daySelect = 1;
+    break;
   }
+  
+  
 }
 
 setInterval(timeCalc, 100);
