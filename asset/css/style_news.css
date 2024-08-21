@@ -302,4 +302,5 @@ dialog::backdrop {
   font-weight: 400;
 
   line-height: 5rem;
+  text-align: center;
 }
