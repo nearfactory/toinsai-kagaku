@@ -274,9 +274,9 @@
 
 #waitTimeLegends{
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr; 
-  width: 30%; 
-  height: 20rem;
+  grid-template-rows: 1fr 1fr;
+  width: 80%; 
+  height: 8rem;
 
   margin: 1.5rem auto 3rem auto;
   padding: 2rem;
@@ -337,6 +337,16 @@
 }
 
 #waitTimeLegends>div{
+  display: flex;
+  flex-direction: row;
+
+  width: auto;
+  height: 100%;
+
+  overflow-x: auto;
+}
+
+#waitTimeLegends>div>div{
   display: grid;
   grid-template-columns: 4rem 1fr;
   width: calc(4rem + 1.25rem * 5);
@@ -346,7 +356,7 @@
   padding: 0;
 }
 
-#waitTimeLegends>div>span{
+#waitTimeLegends>div>div>span{
   display: block;
   width: 2rem;
   height: 2rem;
@@ -358,7 +368,7 @@
   border-radius: 50%;
 }
 
-#waitTimeLegends>div>p{
+#waitTimeLegends>div>div>p{
   display: block;
   width: calc(1.25rem * 5);
   height: 100%;
@@ -374,18 +384,18 @@
   line-height: 4rem;
 }
 
-#waitTimeLegends>div:nth-of-type(1)>span{
+#waitTimeLegends>div>div:nth-of-type(1)>span{
   background-color: #23648C;
 }
 
-#waitTimeLegends>div:nth-of-type(2)>span{
+#waitTimeLegends>div>div:nth-of-type(2)>span{
   background-color: #4C97BF;
 }
 
-#waitTimeLegends>div:nth-of-type(3)>span{
-  background-color: #7FD9FA;
+#waitTimeLegends>div>div:nth-of-type(3)>span{
+  background-color: #7FD9FB;
 }
 
-#waitTimeLegends>div:nth-of-type(4)>span{
+#waitTimeLegends>div>div:nth-of-type(4)>span{
   background-color: #D0D0D0;
 }
