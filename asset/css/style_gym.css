@@ -131,7 +131,7 @@
 
 .gymMainContainer{
   display: none;
-  grid-template-columns: 5rem 1fr;
+  grid-template-columns: 3rem 1fr;
 
   width: 90%;
   height: auto;
@@ -236,7 +236,7 @@
 
   position: absolute;
   top: calc(1.5rem - 0.5rem);
-  left: calc(-1rem - 2.5rem + 0.5rem);
+  left: calc(-1rem - 1.5rem + 0.5rem);
   z-index: 1;
 
   display: block;
@@ -270,7 +270,7 @@
   background-color: var(--accent);
   border: var(--accent) 2px solid;
   top: calc(1.5rem - 0.5rem - 2px);
-  left: calc(-1rem - 2.5rem + 0.5rem - 2px);
+  left: calc(-1rem - 1.5rem + 0.5rem - 2px);
   opacity: 1;
 }
 

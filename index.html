@@ -36,7 +36,7 @@
 
   <body>
     <header>
-      <a href="./index.html">
+      <a href="./">
         TOIN-FESTIVAL&nbsp;2024
       </a>
 
@@ -63,6 +63,7 @@
       
     <span id="topSpan"></span>
     
+    <!-- 混雑状況 -->
     <div class="section" id="sectionWaitTime">
       <h1>教室展示の混雑状況</h1><br>
 
@@ -316,8 +317,9 @@
       </div>
     </div>
 
+    <!-- 体育館スケジュール -->
     <div class="section" id="sectionGym">
-      <h1>出し物のスケジュール</h1>
+      <h1>イベントスケジュール ＠体育館</h1>
       <a id="map-gym"><i class="fa-solid fa-location-dot"></i>体育館</a>
 
       <div class="gymDateContainer">
@@ -373,9 +375,9 @@
     <!-- 2Dマップ -->
     <div class="section" id="sectionMap">
       <div id="content">
-        <img class="imgFloor active" id="imgFloor1" src="./2d/001.webp" alt="1F" loading="eager">
-        <img class="imgFloor" id="imgFloor2" src="./2d/002.webp" alt="2F" loading="eager">
-        <img class="imgFloor" id="imgFloor3" src="./2d/003.webp" alt="3F" loading="eager">
+        <img class="imgFloor active" id="imgFloor1" src="./2d/001.png" alt="1F" loading="eager">
+        <img class="imgFloor" id="imgFloor2" src="./2d/002.png" alt="2F" loading="eager">
+        <img class="imgFloor" id="imgFloor3" src="./2d/003.png" alt="3F" loading="eager">
   
         <!-- <div id="grids">
           <span class="grid-tate" id="grid-tate1"></span><span class="grid-tate" id="grid-tate2"></span><span class="grid-tate" id="grid-tate3"></span><span class="grid-tate" id="grid-tate4"></span><span class="grid-tate" id="grid-tate5"></span><span class="grid-tate" id="grid-tate6"></span><span class="grid-tate" id="grid-tate7"></span><span class="grid-tate" id="grid-tate8"></span><span class="grid-tate" id="grid-tate9"></span><span class="grid-tate" id="grid-tate10"></span><span class="grid-tate" id="grid-tate11"></span><span class="grid-tate" id="grid-tate12"></span><span class="grid-tate" id="grid-tate13"></span><span class="grid-tate" id="grid-tate14"></span><span class="grid-tate" id="grid-tate15"></span><span class="grid-tate" id="grid-tate16"></span><span class="grid-tate" id="grid-tate17"></span><span class="grid-tate" id="grid-tate18"></span><span class="grid-tate" id="grid-tate19"></span><span class="grid-tate" id="grid-tate20"></span><span class="grid-tate" id="grid-tate21"></span><span class="grid-tate" id="grid-tate22"></span><span class="grid-tate" id="grid-tate23"></span><span class="grid-tate" id="grid-tate24"></span><span class="grid-tate" id="grid-tate25"></span><span class="grid-tate" id="grid-tate26"></span><span class="grid-tate" id="grid-tate27"></span><span class="grid-tate" id="grid-tate28"></span><span class="grid-tate" id="grid-tate29"></span><span class="grid-tate" id="grid-tate30"></span><span class="grid-tate" id="grid-tate31"></span><span class="grid-tate" id="grid-tate32"></span><span class="grid-tate" id="grid-tate33"></span><span class="grid-tate" id="grid-tate34"></span><span class="grid-tate" id="grid-tate35"></span><span class="grid-tate" id="grid-tate36"></span><span class="grid-tate" id="grid-tate37"></span><span class="grid-tate" id="grid-tate38"></span><span class="grid-tate" id="grid-tate39"></span><span class="grid-tate" id="grid-tate40"></span><span class="grid-tate" id="grid-tate41"></span><span class="grid-tate" id="grid-tate42"></span><span class="grid-tate" id="grid-tate43"></span><span class="grid-tate" id="grid-tate44"></span><span class="grid-tate" id="grid-tate45"></span><span class="grid-tate" id="grid-tate46"></span><span class="grid-tate" id="grid-tate47"></span><span class="grid-tate" id="grid-tate48"></span><span class="grid-tate" id="grid-tate49"></span><span class="grid-tate" id="grid-tate50"></span><span class="grid-tate" id="grid-tate51"></span><span class="grid-tate" id="grid-tate52"></span><span class="grid-tate" id="grid-tate53"></span><span class="grid-tate" id="grid-tate54"></span><span class="grid-tate" id="grid-tate55"></span><span class="grid-tate" id="grid-tate56"></span><span class="grid-tate" id="grid-tate57"></span><span class="grid-tate" id="grid-tate58"></span><span class="grid-tate" id="grid-tate59"></span><span class="grid-tate" id="grid-tate60"></span><span class="grid-tate" id="grid-tate61"></span><span class="grid-tate" id="grid-tate62"></span><span class="grid-tate" id="grid-tate63"></span><span class="grid-tate" id="grid-tate64"></span><span class="grid-tate" id="grid-tate65"></span><span class="grid-tate" id="grid-tate66"></span><span class="grid-tate" id="grid-tate67"></span><span class="grid-tate" id="grid-tate68"></span><span class="grid-tate" id="grid-tate69"></span><span class="grid-tate" id="grid-tate70"></span><span class="grid-tate" id="grid-tate71"></span><span class="grid-tate" id="grid-tate72"></span><span class="grid-tate" id="grid-tate73"></span><span class="grid-tate" id="grid-tate74"></span>
@@ -403,11 +405,12 @@
       </div>
     </div>
 
+    <!-- ニュース -->
     <div class="section current" id="sectionNews">
       <h1>ニュース</h1>
       <h2>タップして詳細をチェック</h2>
 
-      <a href="./forParents/index.html" id="newsForParents">来校者の方は必ずコチラをご確認ください<i class="fa-solid fa-up-right-from-square"></i></a>
+      <a href="./forParents/" id="newsForParents">来校者の方は必ずコチラをご確認ください<i class="fa-solid fa-up-right-from-square"></i></a>
 
       <div id="newsContainer">
         <!-- <div class="newsContent">
@@ -430,6 +433,7 @@
       </dialog>
     </div>
 
+    <!-- 制作者について -->
     <div class="section" id="sectionAboutUs">
       <h1>制作者について</h1>
       <p id="aboutUsThank">

@@ -127,8 +127,17 @@ $("#navMap").click(function(){
   zoomContainer.scrollTop = zoomContainer.scrollTop / 2;
 })
 
-$("#mapLink1").click(function(){ 
-  scale = scale;
+
+
+
+
+
+
+
+
+
+
+$("#map-gym").click(function(){ 
   newScale = 5;
 
   // const zoomCenterX = (zoomContainer.scrollLeft + containerWidth / 2) / scale;
