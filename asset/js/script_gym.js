@@ -1,7 +1,7 @@
 // スケジュールをCSVファイルから取得
 // ファイルはすべてindex.htmlからの相対パスを指定（script_gym.jsからではない）
 const day0CSV = './asset/csv/day0.csv';
-const day1CSV = './asset/csv/test.csv';
+const day1CSV = './asset/csv/day1.csv';
 const day2CSV = './asset/csv/day2.csv';
 
 // 各日の日付を入力
