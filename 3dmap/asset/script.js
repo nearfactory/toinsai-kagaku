@@ -456,3 +456,24 @@ function onMouseEvent(event) {
     });
   }  
 }
+
+
+
+
+
+
+
+
+
+$("#map3DHelpToggle").click(function(){
+  $(this).toggleClass("active");
+  if(!$(this).hasClass("active")){
+    $(this).html(`<i class="fa-solid fa-info"></i>`);
+  }
+  else{
+    $(this).html(`<i class="fa-solid fa-xmark"></i>`);
+  }
+  $("#map3DHelp").toggleClass("active");
+});
+
+setInterval(function(){console.log(controls.object.position);},10);
