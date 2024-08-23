@@ -25,24 +25,18 @@ const init = () => {
   const camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
 
   // 球体を作成・マテリアルにテクスチャーを設定
-  const geometry = new THREE.SphereGeometry(350, test2, 30);
-  const material = new THREE.MeshStandardMaterial({
-      map: new THREE.TextureLoader().load('earthmap1k.jpeg')
-  });
-
-  // メッシュを作成・追加
-  const earthMesh = new THREE.Mesh(geometry, material);
-  scene.add(earthMesh);
+  const planeGeometry = new THREE.PlaneGeometry(2000, 1000);
+  const planeMaterial = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load('earthmap1k.jpeg'), side: THREE.DoubleSide}) 
+  const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+  plane.position.set(0, 0, 0);
+  plane.rotation.set(Math.PI / 180 * -90, 0, 0)
+  console.log(plane);
+  scene.add(plane);
 
   // 平行光源
-  const directionalLight = new THREE.DirectionalLight(0xff00ff);
-  const directionalLight2 = new THREE.DirectionalLight(0xffff00);
+  const directionalLight = new THREE.DirectionalLight(0xffffff);
   directionalLight.position.set(0, 50, 0);
-  directionalLight2.position.set(0, -50, 0);
-
-  // シーンに追加
   scene.add(directionalLight);
-  scene.add(directionalLight2);
 
   // マウス座標はマウスが動いた時のみ取得できる
   document.addEventListener("mousemove", (event) => {
@@ -68,9 +62,9 @@ const init = () => {
 
   // 毎フレーム時に実行されるループイベントです
   const tick = () => {
-    // マウスの位置に応じて角度を設定
-    // マウスのX座標がステージの幅の何%の位置にあるか調べてそれを360度で乗算する
-    const targetRot = (mouseX / window.innerWidth) * 360;
+    // // マウスの位置に応じて角度を設定
+    // // マウスのX座標がステージの幅の何%の位置にあるか調べてそれを360度で乗算する
+    // const targetRot = (mouseX / window.innerWidth) * 360;
     // 原点方向を見つめる
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     // カメラコントローラーを更新
