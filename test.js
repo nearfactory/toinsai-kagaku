@@ -31,7 +31,6 @@ const init = () => {
   const plane = new THREE.Mesh(planeGeometry, planeMaterial);
   plane.position.set(0, 0, 0);
   plane.rotation.set(Math.PI / 180 * -90, 0, 0);
-  console.log(plane);
   scene.add(plane);
 
   // 平行光源
@@ -55,7 +54,6 @@ const init = () => {
   // controls.maxDistance = controlMaxDistance;
   controls.enableDamping = controlEnDamping;
   controls.dampingFactor = controlDampingFactor;
-  console.log(controls.object.zoom);
   
   // 毎フレーム時に実行されるループイベントです
   const tick = () => {
@@ -70,16 +68,12 @@ const init = () => {
 
     requestAnimationFrame(tick);
 
-    
-    console.log(Math.log(controls.object.position.y));
     // ズームアウトしすぎを解消
     if(Math.log(controls.object.position.y) > 8.5){
-      console.log("!");
       controls.object.position.y = Math.exp(8.5);
     }
     // ズームインしすぎを解消
     else if(Math.log(controls.object.position.y) < 0){
-      console.log("!!!!!!");
       controls.object.position.y = Math.exp(0);
     }
   }

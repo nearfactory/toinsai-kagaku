@@ -5,7 +5,8 @@ window.onload = () => {
 
 // サイズを指定
 const width = window.innerWidth;
-const height = window.innerHeight;
+const height = window.innerHeight - headerHeight - footerHeight;
+console.log(height);
 let rot = 0;
 let mouseX = 0;
 
@@ -27,7 +28,7 @@ const init = () => {
 
   // 平面を作成・マテリアルにテクスチャーを設定
   const planeGeometry = new THREE.PlaneGeometry(5000, 5000, 1, 1);
-  const planeMaterial = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load('earthmap1k.jpeg'), side: THREE.DoubleSide}) 
+  const planeMaterial = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL), side: THREE.DoubleSide}) 
   const plane = new THREE.Mesh(planeGeometry, planeMaterial);
   plane.position.set(0, 0, 0);
   plane.rotation.set(Math.PI / 180 * -90, 0, 0);
@@ -70,12 +71,11 @@ const init = () => {
 
     requestAnimationFrame(tick);
 
-    console.log(controls.object.position.x);
     console.log(Math.log(controls.object.position.y));
 
     // ズームアウトしすぎを解消
-    if(Math.log(controls.object.position.y) > 8.5){
-      controls.object.position.y = Math.exp(8.5);
+    if(Math.log(controls.object.position.y) > maxZoom){
+      controls.object.position.y = Math.exp(maxZoom);
     }
     // ズームインしすぎを解消
     else if(Math.log(controls.object.position.y) < 0){
@@ -102,7 +102,7 @@ const init = () => {
   function onResize() {
     // サイズを取得
     const width = window.innerWidth;
-    const height = window.innerHeight;
+    const height = window.innerHeight - headerHeight - footerHeight;
 
     // レンダラーのサイズを調整する
     renderer.setPixelRatio(window.devicePixelRatio);
