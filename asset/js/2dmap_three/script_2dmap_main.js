@@ -26,6 +26,20 @@ function cameraMoveCheck(cam) {
 
 
 
+
+// シーン
+var scene;
+// カメラ
+var cam;
+// マップ表示用平面ジオメトリ
+var plane;
+// OrbitControls操作用コントローラ
+var controls;
+
+
+
+
+
 // 初期化用関数
 const init = () => {
   const canvasElement = document.querySelector('#mapCanvas');
@@ -37,19 +51,20 @@ const init = () => {
   renderer.setSize(width, height);
 
   // シーンを作成
-  const scene = new THREE.Scene();
+  scene = new THREE.Scene();
 
   // カメラを作成
   // PerspectiveCamera(画角, アスペクト比＝縦横比, 描画開始距離, 描画終了距離);
-  const camera = new THREE.PerspectiveCamera(45, width / height, 0.0000001, 10000000);
+  camera = new THREE.PerspectiveCamera(45, width / height, 0.0000001, 10000000);
 
   // 平面を作成・マテリアルにテクスチャーを設定
   const planeGeometry = new THREE.PlaneGeometry(5000, 5000, 1, 1);
-  const planeMaterial = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL), side: THREE.DoubleSide}) 
-  const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+  const planeMaterial = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL), side: THREE.DoubleSide});
+  plane = new THREE.Mesh(planeGeometry, planeMaterial);
   plane.position.set(0, 0, 0);
   plane.rotation.set(Math.PI / 180 * -90, 0, 0);
   scene.add(plane);
+  console.log(plane);
 
   // 平行光源
   const directionalLight = new THREE.DirectionalLight(0xffffff);
@@ -57,7 +72,7 @@ const init = () => {
   scene.add(directionalLight);
 
   // カメラコントローラーを作成
-  const controls = new THREE.OrbitControls(camera, canvasElement);
+  controls = new THREE.MapControls(camera, canvasElement);
 
   // 各種カメラ設定（詳細はscript_2dmap_const.jsを参照）
   controls.enableRotate = controlEnRotate;
@@ -152,39 +167,28 @@ const init = () => {
 
 
 $("#floor1").click(function(){
-  $(".imgFloor").removeClass("active");
-  $("#imgFloor1").addClass("active");
-  $(".mapContentBox").removeClass("active");
-  $("#mapContent1F").addClass("active");
   $("#floorSelect>button").removeClass("active");
   $(this).addClass("active")
-  $(".mapContentBtn").removeClass("active");
+  mapImgURL = "./2d/1.png";
+  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL), side: THREE.DoubleSide});
 });
 $("#floor2").click(function(){
-  $(".imgFloor").removeClass("active");
-  $("#imgFloor2").addClass("active");
-  $(".mapContentBox").removeClass("active");
-  $("#mapContent2F").addClass("active");
   $("#floorSelect>button").removeClass("active");
   $(this).addClass("active")
-  $(".mapContentBtn").removeClass("active");
+  mapImgURL = "./2d/002.png";
+  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL), side: THREE.DoubleSide});
 });
 $("#floor3").click(function(){
-  $(".imgFloor").removeClass("active");
-  $("#imgFloor3").addClass("active");
-  $(".mapContentBox").removeClass("active");
-  $("#mapContent3F").addClass("active");
   $("#floorSelect>button").removeClass("active");
   $(this).addClass("active")
-  $(".mapContentBtn").removeClass("active");
+  mapImgURL = "./2d/003.png";
+  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL), side: THREE.DoubleSide});
 });
 $("#floorAll").click(function(){
-  $(".imgFloor").removeClass("active");
-  $("#imgFloor1").addClass("active");
-  $(".mapContentBox").addClass("active");
   $("#floorSelect>button").removeClass("active");
   $(this).addClass("active")
-  $(".mapContentBtn").removeClass("active");
+  mapImgURL = "./2d/1.png";
+  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL), side: THREE.DoubleSide});
 });
 
 $("#toggleFloor").click(function(){
