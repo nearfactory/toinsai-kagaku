@@ -123,3 +123,51 @@ const init = () => {
   // ---------------------------------------------------------------------------
   // -----------------------------------------------------------------------
 }
+
+
+
+
+
+
+
+
+
+$("#floor1").click(function(){
+  $(".imgFloor").removeClass("active");
+  $("#imgFloor1").addClass("active");
+  $(".mapContentBox").removeClass("active");
+  $("#mapContent1F").addClass("active");
+  $("#floorSelect>button").removeClass("active");
+  $(this).addClass("active")
+  $(".mapContentBtn").removeClass("active");
+});
+$("#floor2").click(function(){
+  $(".imgFloor").removeClass("active");
+  $("#imgFloor2").addClass("active");
+  $(".mapContentBox").removeClass("active");
+  $("#mapContent2F").addClass("active");
+  $("#floorSelect>button").removeClass("active");
+  $(this).addClass("active")
+  $(".mapContentBtn").removeClass("active");
+});
+$("#floor3").click(function(){
+  $(".imgFloor").removeClass("active");
+  $("#imgFloor3").addClass("active");
+  $(".mapContentBox").removeClass("active");
+  $("#mapContent3F").addClass("active");
+  $("#floorSelect>button").removeClass("active");
+  $(this).addClass("active")
+  $(".mapContentBtn").removeClass("active");
+});
+$("#floorAll").click(function(){
+  $(".imgFloor").removeClass("active");
+  $("#imgFloor1").addClass("active");
+  $(".mapContentBox").addClass("active");
+  $("#floorSelect>button").removeClass("active");
+  $(this).addClass("active")
+  $(".mapContentBtn").removeClass("active");
+});
+
+$("#toggleFloor").click(function(){
+  $("#floorSelect").toggleClass("active");
+});

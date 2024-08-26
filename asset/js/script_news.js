@@ -47,16 +47,16 @@ fetchCSV(newsCSV, function(csvText) {
     newsBox.classList.add("newsContent");
     newsContainer.prepend(newsBox);
     
-    newsDate.textContent = news[i+1][0];
+    newsDate.innerHTML = news[i+1][0];
     newsBox.appendChild(newsDate);
   
-    newsTitle.textContent = news[i+1][2];
+    newsTitle.innerHTML = news[i+1][2];
     newsBox.appendChild(newsTitle);
     
-    newsPublisher.textContent = news[i+1][3];
+    newsPublisher.innerHTML = news[i+1][3];
     newsBox.appendChild(newsPublisher);
     
-    newsDesc.textContent = news[i+1][5];
+    newsDesc.innerHTML = news[i+1][5];
     newsBox.appendChild(newsDesc);
   
     newsImage.src = "./image/news/" + news[i+1][4] + ".webp";
