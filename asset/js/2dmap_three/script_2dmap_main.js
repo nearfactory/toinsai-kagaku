@@ -10,6 +10,23 @@ console.log(height);
 let rot = 0;
 let mouseX = 0;
 
+
+
+
+// カメラの移動範囲チェック用関数
+function cameraMoveCheck(cam) {
+  cam.position.x = cam.position.x > camRangeVal[0] ? camRangeVal[0] : cam.position.x;
+  cam.position.x = cam.position.x < -1 * camRangeVal[0] ? -1 * camRangeVal[0] : cam.position.x;
+  cam.position.y = cam.position.y > camRangeVal[1] ? camRangeVal[1] : cam.position.y;
+  cam.position.y = cam.position.y < camRangeVal[2] ? camRangeVal[2] : cam.position.y;
+  cam.position.z = cam.position.z > camRangeVal[3] ? camRangeVal[3] : cam.position.z;
+  cam.position.z = cam.position.z < -1 * camRangeVal[3] ? -1 * camRangeVal[3] : cam.position.z;
+}
+
+
+
+
+// 初期化用関数
 const init = () => {
   const canvasElement = document.querySelector('#mapCanvas');
   // レンダラーを作成
@@ -71,22 +88,24 @@ const init = () => {
 
     requestAnimationFrame(tick);
 
-    console.log(Math.log(controls.object.position.y));
+    // console.log(Math.log(controls.object.position.y));
 
-    // ズームアウトしすぎを解消
-    if(Math.log(controls.object.position.y) > maxZoom){
-      controls.object.position.y = Math.exp(maxZoom);
-    }
-    // ズームインしすぎを解消
-    else if(Math.log(controls.object.position.y) < 0){
-      controls.object.position.y = Math.exp(0);
-    }
+    // // ズームアウトしすぎを解消
+    // if(Math.log(controls.object.position.y) > maxZoom){
+    //   controls.object.position.y = Math.exp(maxZoom);
+    // }
+    // // ズームインしすぎを解消
+    // else if(Math.log(controls.object.position.y) < 0){
+    //   controls.object.position.y = Math.exp(0);
+    // }
 
-    // 移動範囲を制限
-    if(controls.object.position.x > 1500){
-      console.log(controls.object.position.x);
-      console.log(controls.object.position.x+1);
-    }
+    // // 移動範囲を制限
+    // if(controls.object.position.x > 1500){
+    //   console.log(controls.object.position.x);
+    //   console.log(controls.object.position.x+1);
+    // }
+
+    cameraMoveCheck(camera);
   }
 
   tick();
