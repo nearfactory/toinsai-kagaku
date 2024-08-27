@@ -33,7 +33,7 @@ const controlDampingFactor = 0.25;
 const maxZoom = 8.68
 
 // カメラの移動可能範囲
-const camRangeVal = [500, 5000, 500];
+const camRangeVal = [500, 500000, 500];
 
 
 
