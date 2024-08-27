@@ -6,11 +6,11 @@ var mapImgURL = "./2d/1.png"
 const test2 = 30;
 
 // カメラ操作の有効化切り替え
-const controlEnRotate = true;
+const controlEnRotate = false;
 const controlEnPan = true;
 
 // カメラ操作の各スピード
-const controlSpRotate = 0.;
+const controlSpRotate = 0.75;
 const controlSpZoom = 0.5;
 const controlSpPan = 0.75;
 
@@ -30,10 +30,10 @@ const controlEnDamping = true;
 const controlDampingFactor = 0.25;
 
 // カメラのズームの最大値/最小値
-const maxZoom = 8.68
+const maxZoom = 6000
 
 // カメラの移動可能範囲
-const camRangeVal = [500, 500000, 500];
+const camRangeVal = [1000, 100000, 1000];
 
 
 
@@ -42,3 +42,10 @@ const camRangeVal = [500, 500000, 500];
 // ページのヘッダー高さ/フッター高さ
 const headerHeight = 70;
 const footerHeight = 45;
+
+
+
+
+
+// 3Dワールドの設定
+const worldColor = 0xffffff;

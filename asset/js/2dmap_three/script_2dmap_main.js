@@ -6,7 +6,6 @@ window.onload = () => {
 // サイズを指定
 const width = window.innerWidth;
 const height = window.innerHeight - headerHeight - footerHeight;
-console.log(height);
 let rot = 0;
 let mouseX = 0;
 
@@ -14,13 +13,11 @@ let mouseX = 0;
 
 
 // カメラの移動範囲チェック用関数
-function cameraMoveCheck(cam) {
-  cam.position.x = cam.position.x > camRangeVal[0] ? camRangeVal[0] : cam.position.x;
-  cam.position.x = cam.position.x < -1 * camRangeVal[0] ? -1 * camRangeVal[0] : cam.position.x;
-  cam.position.y = cam.position.y > camRangeVal[1] ? camRangeVal[1] : cam.position.y;
-  cam.position.y = cam.position.y < -1 * camRangeVal[1] ? -1 * camRangeVal[1] : cam.position.y;
-  cam.position.z = cam.position.z > camRangeVal[2] ? camRangeVal[2] : cam.position.z;
-  cam.position.z = cam.position.z < -1 * camRangeVal[2] ? -1 * camRangeVal[2] : cam.position.z;
+function cameraMoveCheck(ctrl) {
+  ctrl.target.x = Math.max(-1*camRangeVal[0], Math.min(camRangeVal[0], ctrl.target.x)); // x軸の範囲を制限
+  ctrl.target.z = Math.max(-1*camRangeVal[2], Math.min(camRangeVal[2], ctrl.target.z)); // z軸の範囲を制限
+  ctrl.object.position.x = THREE.MathUtils.clamp(ctrl.object.position.x, camRangeVal[0]*-1, camRangeVal[0]);
+  ctrl.object.position.z = THREE.MathUtils.clamp(ctrl.object.position.z, camRangeVal[2]*-1, camRangeVal[2]);
 }
 
 
@@ -30,13 +27,11 @@ function cameraMoveCheck(cam) {
 // シーン
 var scene;
 // カメラ
-var cam;
+var camera;
 // マップ表示用平面ジオメトリ
 var plane;
 // OrbitControls操作用コントローラ
 var controls;
-
-
 
 
 
@@ -49,6 +44,7 @@ const init = () => {
   });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(width, height);
+  renderer.setClearColor(new THREE.Color(worldColor));
 
   // シーンを作成
   scene = new THREE.Scene();
@@ -64,11 +60,10 @@ const init = () => {
   plane.position.set(0, 0, 0);
   plane.rotation.set(Math.PI / 180 * -90, 0, 0);
   scene.add(plane);
-  console.log(plane);
 
   // 平行光源
   const directionalLight = new THREE.DirectionalLight(0xffffff);
-  directionalLight.position.set(0, 50, 0);
+  directionalLight.position.set(0, 500, 0);
   scene.add(directionalLight);
 
   // カメラコントローラーを作成
@@ -83,11 +78,14 @@ const init = () => {
   controls.minPolarAngle = controlMinAngle;
   controls.maxPolarAngle = controlMaxAngle;
   // ズームの深度はcontrols.object.position.yで取得可能（カメラのy座標）
-  // controls.minDistance = controlMinDistance;
-  // controls.maxDistance = controlMaxDistance;
+  // controls.minDistance = minZoom;
+  controls.maxDistance = maxZoom;
   controls.enableDamping = controlEnDamping;
   controls.dampingFactor = controlDampingFactor;
-  controls.object.position.y = Math.exp(7);
+  
+  
+  camera.position.set(0, 2500, 2500);  // 高さを適切に設定
+  controls.target.set(0, 0, 0);  // ターゲットを原点に設定
 
   
   // 毎フレーム時に実行されるループイベントです
@@ -96,31 +94,13 @@ const init = () => {
     // camera.lookAt(new THREE.Vector3(0, 0, 0));
     
     // カメラコントローラーを更新
+    cameraMoveCheck(controls);
     controls.update();
 
     // レンダリング
     renderer.render(scene, camera);
 
     requestAnimationFrame(tick);
-
-    // console.log(Math.log(controls.object.position.y));
-
-    // // ズームアウトしすぎを解消
-    // if(Math.log(controls.object.position.y) > maxZoom){
-    //   controls.object.position.y = Math.exp(maxZoom);
-    // }
-    // // ズームインしすぎを解消
-    // else if(Math.log(controls.object.position.y) < 0){
-    //   controls.object.position.y = Math.exp(0);
-    // }
-
-    // // 移動範囲を制限
-    // if(controls.object.position.x > 1500){
-    //   console.log(controls.object.position.x);
-    //   console.log(controls.object.position.x+1);
-    // }
-
-    cameraMoveCheck(camera);
   }
 
   tick();
