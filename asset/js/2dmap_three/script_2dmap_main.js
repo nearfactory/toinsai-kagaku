@@ -18,7 +18,7 @@ function cameraMoveCheck(cam) {
   cam.position.x = cam.position.x > camRangeVal[0] ? camRangeVal[0] : cam.position.x;
   cam.position.x = cam.position.x < -1 * camRangeVal[0] ? -1 * camRangeVal[0] : cam.position.x;
   cam.position.y = cam.position.y > camRangeVal[1] ? camRangeVal[1] : cam.position.y;
-  cam.position.y = cam.position.y < camRangeVal[1] ? camRangeVal[1] : cam.position.y;
+  cam.position.y = cam.position.y < -1 * camRangeVal[1] ? -1 * camRangeVal[1] : cam.position.y;
   cam.position.z = cam.position.z > camRangeVal[2] ? camRangeVal[2] : cam.position.z;
   cam.position.z = cam.position.z < -1 * camRangeVal[2] ? -1 * camRangeVal[2] : cam.position.z;
 }
