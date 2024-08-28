@@ -1,7 +1,62 @@
-// ページの読み込みを待つ
-window.onload = () => {
-  init()
+// promiseを使用して完了まで待機するシステムにした
+function fetchCSV(url) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          resolve(xhr.responseText);
+        } else {
+          reject(`Failed to fetch CSV: ${xhr.status}`);
+        }
+      }
+    };
+    xhr.open('GET', url);
+    xhr.send();
+  });
 }
+
+// 読み込んだCSVファイルを二次元配列に組みなおす
+function parseCSV(csvText) {
+  const lines = csvText.split(/\r\n|\n/);
+  const data = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const currentLine = lines[i].split(',');
+    if (currentLine.length > 0) {
+      data.push(currentLine);
+    }
+  }
+
+  return data;
+}
+
+
+// ========================================
+
+
+// ページの読み込み完了で初期化
+window.onload = () => {
+  mapContentInit();
+  // while(!mapContentCSVFlag);
+  console.log(mapContentCSVFlag);
+  mapInit();
+}
+
+// ========================================
+
+
+// カメラの移動範囲チェック用関数
+function cameraMoveCheck(ctrl) {
+  ctrl.target.x = Math.max(-1*camRangeVal[0], Math.min(camRangeVal[0], ctrl.target.x)); // x軸の範囲を制限
+  ctrl.target.z = Math.max(-1*camRangeVal[1], Math.min(camRangeVal[1], ctrl.target.z)); // z軸の範囲を制限
+  ctrl.object.position.x = THREE.MathUtils.clamp(ctrl.object.position.x, camRangeVal[0]*-1, camRangeVal[0]);
+  ctrl.object.position.z = THREE.MathUtils.clamp(ctrl.object.position.z, camRangeVal[1]*-1, camRangeVal[1]);
+}
+
+
+// ========================================
+
 
 // サイズを指定
 const width = window.innerWidth;
@@ -10,18 +65,7 @@ let rot = 0;
 let mouseX = 0;
 
 
-
-
-// カメラの移動範囲チェック用関数
-function cameraMoveCheck(ctrl) {
-  ctrl.target.x = Math.max(-1*camRangeVal[0], Math.min(camRangeVal[0], ctrl.target.x)); // x軸の範囲を制限
-  ctrl.target.z = Math.max(-1*camRangeVal[2], Math.min(camRangeVal[2], ctrl.target.z)); // z軸の範囲を制限
-  ctrl.object.position.x = THREE.MathUtils.clamp(ctrl.object.position.x, camRangeVal[0]*-1, camRangeVal[0]);
-  ctrl.object.position.z = THREE.MathUtils.clamp(ctrl.object.position.z, camRangeVal[2]*-1, camRangeVal[2]);
-}
-
-
-
+// ========================================
 
 
 // シーン
@@ -34,10 +78,23 @@ var plane;
 var controls;
 
 
+// ========================================
+
+
+// CSVデータ格納用変数
+var mapContent;
+
+var mapContentCSVFlag = false;
+
+
+// ========================================
+
 
 // 初期化用関数
-const init = () => {
+const mapInit = () => {
+  // DOM要素を取得
   const canvasElement = document.querySelector('#mapCanvas');
+
   // レンダラーを作成
   const renderer = new THREE.WebGLRenderer({
       canvas: canvasElement
@@ -54,8 +111,8 @@ const init = () => {
   camera = new THREE.PerspectiveCamera(45, width / height, 0.0000001, 10000000);
 
   // 平面を作成・マテリアルにテクスチャーを設定
-  const planeGeometry = new THREE.PlaneGeometry(5000, 5000, 1, 1);
-  const planeMaterial = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL), side: THREE.DoubleSide});
+  const planeGeometry = new THREE.PlaneGeometry(planeSize, planeSize, 1, 1);
+  const planeMaterial = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[floor]), side: THREE.DoubleSide});
   plane = new THREE.Mesh(planeGeometry, planeMaterial);
   plane.position.set(0, 0, 0);
   plane.rotation.set(Math.PI / 180 * -90, 0, 0);
@@ -77,21 +134,20 @@ const init = () => {
   controls.panSpeed = controlSpPan;
   controls.minPolarAngle = controlMinAngle;
   controls.maxPolarAngle = controlMaxAngle;
-  // ズームの深度はcontrols.object.position.yで取得可能（カメラのy座標）
-  // controls.minDistance = minZoom;
+  controls.minDistance = minZoom;
   controls.maxDistance = maxZoom;
   controls.enableDamping = controlEnDamping;
   controls.dampingFactor = controlDampingFactor;
   
-  
-  camera.position.set(0, 2500, 2500);  // 高さを適切に設定
-  controls.target.set(0, 0, 0);  // ターゲットを原点に設定
+  // カメラの初期位置を設定
+  camera.position.set(posInit[0], posInit[1], posInit[2]);
+  controls.target.set(0, 0, 0);
+
+  console.log(mapContent);
 
   
-  // 毎フレーム時に実行されるループイベントです
+  // 毎フレーム時に実行されるループイベント
   const tick = () => {
-    // 原点方向を見つめる
-    // camera.lookAt(new THREE.Vector3(0, 0, 0));
     
     // カメラコントローラーを更新
     cameraMoveCheck(controls);
@@ -124,53 +180,15 @@ const init = () => {
 
     // カメラのアスペクト比を正す
     camera.aspect = width / height;
-    //camera.position.set(1000, 1000, 2000);
-    if (window.matchMedia('(max-width: 767px)').matches) {
-      // camera.position.set(1000, 1000, 2000);
-    } else if (window.matchMedia('(min-width:768px)').matches) {
-      // camera.position.set(0, 0, +1300);
-    }
     camera.updateProjectionMatrix();
   }
-
-  // ----------------------------------------------------------------------------
-  // ---------------------------------------------------------------------------
-  // -----------------------------------------------------------------------
 }
 
-
-
-
-
-
-
-
-
-$("#floor1").click(function(){
-  $("#floorSelect>button").removeClass("active");
-  $(this).addClass("active")
-  mapImgURL = "./2d/1.png";
-  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL), side: THREE.DoubleSide});
-});
-$("#floor2").click(function(){
-  $("#floorSelect>button").removeClass("active");
-  $(this).addClass("active")
-  mapImgURL = "./2d/002.png";
-  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL), side: THREE.DoubleSide});
-});
-$("#floor3").click(function(){
-  $("#floorSelect>button").removeClass("active");
-  $(this).addClass("active")
-  mapImgURL = "./2d/003.png";
-  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL), side: THREE.DoubleSide});
-});
-$("#floorAll").click(function(){
-  $("#floorSelect>button").removeClass("active");
-  $(this).addClass("active")
-  mapImgURL = "./2d/1.png";
-  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL), side: THREE.DoubleSide});
-});
-
-$("#toggleFloor").click(function(){
-  $("#floorSelect").toggleClass("active");
-});
+function mapContentInit() {
+  Promise.all([
+    fetchCSV(mapContentCSV)
+  ]).then(([csvText]) => {
+    mapContent = parseCSV(csvText);
+    mapContentCSVFlag = true;
+  }).catch(error => console.error(error));
+}
