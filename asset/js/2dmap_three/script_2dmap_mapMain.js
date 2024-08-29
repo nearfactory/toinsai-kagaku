@@ -37,9 +37,6 @@ function parseCSV(csvText) {
 
 // ページの読み込み完了で初期化
 window.onload = () => {
-  mapContentInit();
-  // while(!mapContentCSVFlag);
-  console.log(mapContentCSVFlag);
   mapInit();
 }
 
@@ -77,6 +74,9 @@ var plane;
 // OrbitControls操作用コントローラ
 var controls;
 
+// マップコンテンツグループ
+var contentGroup;
+
 
 // ========================================
 
@@ -84,7 +84,8 @@ var controls;
 // CSVデータ格納用変数
 var mapContent;
 
-var mapContentCSVFlag = false;
+// CSVデータ取得フラグ
+var mapContentFlag = false;
 
 
 // ========================================
@@ -143,8 +144,14 @@ const mapInit = () => {
   camera.position.set(posInit[0], posInit[1], posInit[2]);
   controls.target.set(0, 0, 0);
 
-  console.log(mapContent);
+  contentGroup = new THREE.Group();
 
+  var mapContentGeometry = new THREE.PlaneGeometry(500, 500, 1, 1);
+  var mapContentMaterial = new THREE.MeshToonMaterial({color: new THREE.Color(0xff0000), side: THREE.DoubleSide});
+  var mapContentObject = new THREE.Mesh(mapContentGeometry, mapContentMaterial);
+  mapContentObject.position.set(0, 0, 0);
+  mapContentObject.rotation.set(Math.PI / 180 * -90, 0, 0);
+  scene.add(mapContentObject);
   
   // 毎フレーム時に実行されるループイベント
   const tick = () => {
@@ -189,6 +196,7 @@ function mapContentInit() {
     fetchCSV(mapContentCSV)
   ]).then(([csvText]) => {
     mapContent = parseCSV(csvText);
-    mapContentCSVFlag = true;
+    mapContentFlag = true;
   }).catch(error => console.error(error));
 }
+mapContentInit();

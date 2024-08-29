@@ -26,7 +26,6 @@ var floor = 1;
 
 // マップのアイコンのデータ格納CSVファイルのパス
 const mapContentCSV = "./asset/csv/2dmap.csv";
-// const day2CSV = './asset/csv/day2.csv';
 
 
 // ========================================
