@@ -12,7 +12,7 @@ const footerHeight = 45;
 // マップの画像パス
 var mapImgURL = 
   [,
-   "./2d/1.png", 
+   "./2d/1-min.png", 
    "./2d/2.png",
    "./2d/3.png"
   ]; 
@@ -43,7 +43,7 @@ const controlSpPan = 1;
 // カメラの仰角の最大値/最小値
 // 仰角＝カメラの視線の線と地球を南北に貫く軸の角度の大きさ
 const controlMinAngle = Math.PI / 180 * 0;
-const controlMaxAngle = Math.PI / 180 * 0;
+const controlMaxAngle = Math.PI / 180 * 90;
 
 // カメラの最大距離/最小距離
 const controlMinDistance = 3;
@@ -56,27 +56,36 @@ const controlEnDamping = true;
 const controlDampingFactor = 0.25;
 
 // カメラのズームの最大値/最小値
-const minZoom = 500;
-const maxZoom = 15000;
+const minZoom = 50;
+const maxZoom = 750;
 
 // カメラの移動可能範囲
 // [0]x: ページ水平方向
 // [1]z: ページ垂直方向
-const camRangeVal = [2500, 4000];
+const camRangeVal = [125, 200];
 
 // カメラの初期位置
-posInit = [0, 10000, 0];
+posInit = [0, 500, 0];
+
+// グリッドの有効化
+const enGrid = false;
 
 
 // ========================================
 
 
 // 3Dワールドの設定
-const worldColor = 0xffffdd;
+const worldColor = 0xffffff;
+
+// 画面FPS（≦60）
+const fps = 60;
 
 
 // ========================================
 
 
 // 平面サイズ
-const planeSize = 9000;
+const planeSize = 450;
+
+// マップコンテンツ用アイコンサイズ
+const contentSize = 10;
