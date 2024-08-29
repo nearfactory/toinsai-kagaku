@@ -37,9 +37,6 @@ function parseCSV(csvText) {
 
 // ページの読み込み完了で初期化
 window.onload = () => {
-  mapContentInit();
-  // while(!mapContentCSVFlag);
-  console.log(mapContentCSVFlag);
   mapInit();
 }
 
@@ -77,6 +74,9 @@ var plane;
 // OrbitControls操作用コントローラ
 var controls;
 
+// マップコンテンツグループ
+var contentGroup;
+
 
 // ========================================
 
@@ -84,7 +84,8 @@ var controls;
 // CSVデータ格納用変数
 var mapContent;
 
-var mapContentCSVFlag = false;
+// CSVデータ取得フラグ
+var mapContentFlag = false;
 
 
 // ========================================
@@ -97,9 +98,10 @@ const mapInit = () => {
 
   // レンダラーを作成
   const renderer = new THREE.WebGLRenderer({
-      canvas: canvasElement
+      canvas: canvasElement,
+      antialias: true
   });
-  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
   renderer.setSize(width, height);
   renderer.setClearColor(new THREE.Color(worldColor));
 
@@ -109,23 +111,15 @@ const mapInit = () => {
   // カメラを作成
   // PerspectiveCamera(画角, アスペクト比＝縦横比, 描画開始距離, 描画終了距離);
   camera = new THREE.PerspectiveCamera(45, width / height, 0.0000001, 10000000);
-
-  // 平面を作成・マテリアルにテクスチャーを設定
-  const planeGeometry = new THREE.PlaneGeometry(planeSize, planeSize, 1, 1);
-  const planeMaterial = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[floor]), side: THREE.DoubleSide});
-  plane = new THREE.Mesh(planeGeometry, planeMaterial);
-  plane.position.set(0, 0, 0);
-  plane.rotation.set(Math.PI / 180 * -90, 0, 0);
-  scene.add(plane);
-
+  
   // 平行光源
   const directionalLight = new THREE.DirectionalLight(0xffffff);
   directionalLight.position.set(0, 500, 0);
   scene.add(directionalLight);
-
+  
   // カメラコントローラーを作成
   controls = new THREE.MapControls(camera, canvasElement);
-
+  
   // 各種カメラ設定（詳細はscript_2dmap_const.jsを参照）
   controls.enableRotate = controlEnRotate;
   controls.enablePan = controlEnPan;
@@ -142,20 +136,53 @@ const mapInit = () => {
   // カメラの初期位置を設定
   camera.position.set(posInit[0], posInit[1], posInit[2]);
   controls.target.set(0, 0, 0);
-
-  console.log(mapContent);
-
   
+    // 平面を作成・マテリアルにテクスチャーを設定
+    const planeGeometry = new THREE.PlaneGeometry(planeSize, planeSize, 1, 1);
+    const planeMaterial = new THREE.MeshBasicMaterial({
+      map: new THREE.TextureLoader().load(mapImgURL[floor]),
+      side: THREE.DoubleSide,
+    });
+    plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    plane.position.set(0, -0.01, 0);
+    plane.rotation.set(Math.PI / 180 * -90, 0, 0);
+    scene.add(plane);
+  
+  // マップコンテンツを作成・追加
+  contentGroup = new THREE.Group();
+  for(var i=0; i<mapContent.length-1; i++){
+    var mapContentGeometry = new THREE.PlaneGeometry(contentSize, contentSize);
+    var mapContentMaterial = new THREE.MeshBasicMaterial({
+      color: new THREE.Color(0x123456),
+      side: THREE.DoubleSide,
+    });
+    var mapContentObject = new THREE.Mesh(mapContentGeometry, mapContentMaterial);
+    mapContentObject.rotation.set(Math.PI / 180 * -90, 0, 0);
+    mapContentObject.position.set(mapContent[i+1][1], mapContent[i+1][2], mapContent[i+1][3]);
+    scene.add(mapContentObject);
+  }
+
+  // グリッドヘルパーを追加
+  if(enGrid){
+    var gridHelper = new THREE.GridHelper(planeSize, 50, 0xff0000, 0xaaaaaa);
+    scene.add(gridHelper);
+  }
+  var count = 0;
+
   // 毎フレーム時に実行されるループイベント
   const tick = () => {
+
+    count = (count+1)%(60/fps);
     
-    // カメラコントローラーを更新
-    cameraMoveCheck(controls);
-    controls.update();
-
-    // レンダリング
-    renderer.render(scene, camera);
-
+    if(count == 0){
+      // カメラコントローラーを更新
+      cameraMoveCheck(controls);
+      controls.update();
+  
+      // レンダリング
+      renderer.render(scene, camera);
+  
+    }
     requestAnimationFrame(tick);
   }
 
@@ -189,6 +216,7 @@ function mapContentInit() {
     fetchCSV(mapContentCSV)
   ]).then(([csvText]) => {
     mapContent = parseCSV(csvText);
-    mapContentCSVFlag = true;
+    mapContentFlag = true;
   }).catch(error => console.error(error));
 }
+mapContentInit();
