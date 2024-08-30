@@ -441,7 +441,7 @@ function onMouseEvent(event) {
   });
 
   // if(boxClicked == false && intersects.object.parent.name == "gym"){
-  if(boxClicked == false && intersects.object.parent.name == "gym"){
+  if(boxClicked == false && intersects.object.parent.name == "マリリン革命"){
     intersects.object.material.color.set("#000000");
     $("#mapBox").addClass("active");
   }
