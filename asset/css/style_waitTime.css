@@ -63,7 +63,7 @@
   display: grid;
   grid-template:
     "class title time" 5rem
-    "desc desc desc" 23rem
+    "desc desc desc" 24rem
     / 1fr 6fr 5rem;
   
   width: 100%;
@@ -260,7 +260,7 @@
   display: block;
 
   width: 100%;
-  height: 10rem;
+  height: 11rem;
 
   margin: 0;
   padding: 0;

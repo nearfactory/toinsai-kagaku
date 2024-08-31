@@ -93,6 +93,10 @@ body{
   background-color: var(--background1);
 }
 
+.noUserSelect{
+  user-select: none;
+}
+
 /* ======================================== */
 
 header{
