@@ -252,7 +252,7 @@
   font-size: 1.125rem;
   font-weight: 300;
 
-  line-height: 1.5rem;
+  line-height: calc(9rem / 5);
   text-align: left;
 }
 

@@ -1,3 +1,8 @@
+
+import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
+
+// ========================================
+
 // promiseを使用して完了まで待機するシステムにした
 function fetchCSV(url) {
   return new Promise((resolve, reject) => {
@@ -60,6 +65,7 @@ let mouseX = 0;
 
 // シーン
 var scene;
+var scene2;
 // カメラ
 var camera;
 // マップ表示用平面ジオメトリ
@@ -67,15 +73,16 @@ var plane;
 // OrbitControls操作用コントローラ
 var controls;
 
-// マップコンテンツグループ
-var contentGroup;
-
 // ========================================
 
 // CSVデータ格納用変数
 var mapContent;
-// CSVデータ取得フラグ
-var mapContentFlag = false;
+
+// ========================================
+
+// css3Dオブジェクト
+var css3Dobj;
+var cssobj;
 
 // ========================================
 
@@ -90,16 +97,27 @@ const mapInit = () => {
   // レンダラーを作成
   const renderer = new THREE.WebGLRenderer({
       canvas: canvasElement,
-      antialias: false,
+      antialias: true,
   });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(width, height);
   renderer.setClearColor(new THREE.Color(worldColor));
 
   // ========================================
 
+  const cssrenderer = new CSS3DRenderer();
+	cssrenderer.setSize(width, height);
+  cssrenderer.antialias = true;
+	cssrenderer.domElement.style.position = 'absolute';
+	cssrenderer.domElement.style.top = 0;
+  cssrenderer.domElement.setAttribute("id", "cssCanvas");
+	document.getElementById("sectionMap").prepend(cssrenderer.domElement);
+
+  // ========================================
+
   // シーンを作成
   scene = new THREE.Scene();
+  scene2 = new THREE.Scene();
 
   // ========================================
   
@@ -149,49 +167,27 @@ const mapInit = () => {
   scene.add(plane);
 
   // ========================================
-  
-  // マップコンテンツを作成・追加
-  // contentGroup = new THREE.Group();
-  // for(var i=0; i<mapContent.length-1; i++){
-  //   // ジオメトリとマテリアルを作成
-  //   const mapContentGeometry = new THREE.CircleGeometry(contentSize, 100);
-  //   const mapContentMaterial = new THREE.MeshBasicMaterial({
-  //     color: new THREE.Color(0xabcdef),
-  //     side: THREE.DoubleSide,
-  //   });
-
-  //   // ジオメトリとマテリアルからメッシュを作成
-  //   const mapContentObject = new THREE.Mesh(mapContentGeometry, mapContentMaterial);
-    
-  //   // オブジェクトの各種アトリビュートを設定
-  //   mapContentObject.rotation.set(Math.PI / 180 * -90, 0, 0);
-  //   mapContentObject.position.set(mapContent[i+1][1], mapContent[i+1][2], mapContent[i+1][3]);
-  //   mapContentObject.name = "content" + String(i+1);
-    
-  //   // 枠線を作成
-  //   const outline = new THREE.LineSegments(
-  //     new THREE.EdgesGeometry(mapContentGeometry), // 線を生成する元になるgeometry
-  //     new THREE.LineBasicMaterial({ color: 0x000000 }) // 線のmaterial
-  //   );
-    
-  //   // オブジェクトに枠線を追加
-  //   mapContentObject.add(outline);
-    
-  //   // オブジェクトをシーンに追加
-  //   scene.add(mapContentObject);
-  // }
-
-  // ========================================
 
   // グリッドヘルパーを追加
   if(enGrid){
     var gridHelper = new THREE.GridHelper(planeSize, 50, 0xff0000, 0xaaaaaa);
     scene.add(gridHelper);
   }
-  var count = 0;
-
+  
   // ========================================
-
+  
+  // マップコンテンツ選択用ボタンのコンテナをCSS3DObjectから追加（DOM要素を3Dワールドに追加）
+  cssobj = document.getElementById("mapContentBtnContainer");
+  css3Dobj = new CSS3DObject(cssobj);
+  scene2.add(css3Dobj);
+  css3Dobj.rotation.set(-90 / 180 * Math.PI, 0, 0);
+  css3Dobj.position.set(0, 0, 0);
+  css3Dobj.updateMatrixWorld();
+  cssobj.style.opacity = '1';
+  
+  // ========================================
+  
+  var count = 0;
   // 毎フレーム時に実行されるループイベント
   const tick = () => {
 
@@ -201,13 +197,11 @@ const mapInit = () => {
       // カメラコントローラーを更新
       cameraMoveCheck(controls);
       controls.update();
-  
+
       // レンダリング
       renderer.render(scene, camera);
-  
+      cssrenderer.render(scene2, camera);
     }
-
-    $("#mapContentBtnContainer").css("transform", "scale(" + String(500/camera.position.y) + ")");
 
     requestAnimationFrame(tick);
   }
@@ -227,8 +221,9 @@ const mapInit = () => {
     const height = window.innerHeight - headerHeight - footerHeight;
 
     // レンダラーのサイズを調整する
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(width, height);
+    cssrenderer.setSize(width, height);
 
     // カメラのアスペクト比を正す
     camera.aspect = width / height;
@@ -247,7 +242,6 @@ function mapContentInit() {
 
     // CSVを二次元配列化して格納
     mapContent = parseCSV(csvText);
-    mapContentFlag = true;
 
     addMapContentButton(mapContent);
 
@@ -257,85 +251,85 @@ mapContentInit();
 
 // ========================================
 
-// // raycasterでタップ場所からまっすぐ伸びる光線を作成、
-// // 光線上のオブジェクトを取得してクリック判定を行う
-// let raycaster, mouse;
-
-// // 操作用マウス/指ベクトルの作成
-// mouse = new THREE.Vector2();
-// // レイキャスターの初期化
-// raycaster = new THREE.Raycaster();
-
-// // クリックイベントの作成
-// document.addEventListener('click', onMouseEvent);
-
-// // クリック時に動く関数
-// function onMouseEvent(event) {
-//   if(!($("#sectionMap").hasClass("current"))){
-//     return;
-//   }
-//   // event.preventDefault();
-
-//   // 座標を正規化する呪文
-//   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-//   // mouse.y = -(event.clientY / (window.innerHeight + headerHeight)) * 2 + 1;
-//   mouse.y = -(event.clientY / (window.innerHeight)) * 2 + 1;
-//   // mouse.y = -(event.clientY / (window.innerHeight - headerHeight)) * 2 + 1;
-//   // mouse.y = -(event.clientY / (window.innerHeight - headerHeight - footerHeight)) * 2 + 1;
-//   // console.log(mouse.x);
-//   // console.log(mouse.y);
-
-//   // レイキャスティングでマウスと重なるオブジェクトを取得
-//   raycaster.setFromCamera(mouse, camera);
-//   var intersect = raycaster.intersectObjects(scene.children)[0];
-
-//   // 交差したオブジェクトの名前を取得してマップコンテンツかチェック
-//   if(intersect.object.name.indexOf("content") != -1){
-
-//     // まずすべてのマップコンテンツの色を初期化
-//     for(var i=0; i<mapContent.length-1; i++){
-//       console.log(scene.children[i+2].name);
-//       scene.children[i+2].material.color.set(new THREE.Color(0x123456));
-//     }
-
-//     // 交差したマップコンテンツのみ色を更新
-//     intersect.object.material.color.set(new THREE.Color(0x00ffff));
-//     intersect.mapClass = "checked";
-
-//     // 交差したマップコンテンツの名前からインデックスを取得してウィンドウのテキストを更新
-//     const contentIndex = intersect.object.name.replace("content", "");
-//     $("#mapContentClass").text(mapContent[contentIndex][4]);
-//     $("#mapContentTitle").text(mapContent[contentIndex][5]);
-//     $("#mapContentDesc").text(mapContent[contentIndex][6]);
-//     $("#mapContentDesc").text(mapContent[contentIndex][6]);
-//     console.log(intersect.mapClass);
-
-//     // ウィンドウを表示
-//     $("#mapContentWindow").addClass("active");
-//   }
-//   else{
-//     // すべてのマップコンテンツの色を初期化
-//     for(var i=0; i<mapContent.length-1; i++){
-//       console.log(scene.children[i+2].name);
-//       scene.children[i+2].material.color.set(new THREE.Color(0x123456));
-//     }
-
-//     // ウィンドウの非表示化
-//     $("#mapContentWindow").removeClass("active");
-//   }
-// }
-
-setInterval(() => {
-  console.log(camera.position);
-}, 100);
-
+// CSVファイルからマップ上のコンテンツボタンを作成・追加する関数
 function addMapContentButton(csvArray){
-  const sectionMap = document.getElementById("mapContentBtnContainer");
+  const mapContentBtnContainer = document.getElementById("mapContentBtnContainer");
   for(var i=0; i<csvArray.length-1; i++){
     const buttonElement = document.createElement("button");
     buttonElement.classList.add("mapContentBtn");
     buttonElement.setAttribute("id", "mapContentBtn" + String(i+1));
-    buttonElement.innerHTML = "TEST";
-    sectionMap.appendChild(buttonElement);
+    buttonElement.innerHTML = i+1;
+    buttonElement.style.left = mapContent[i+1][1] + "px";
+    buttonElement.style.top = mapContent[i+1][2] + "px";
+    mapContentBtnContainer.appendChild(buttonElement);
   }
 }
+
+// ========================================
+
+// マップコンテンツ選択ボタン押下時の実行関数
+$(document).on("click", ".mapContentBtn", function () {
+  $("#mapContentWindow").addClass("active");
+  const mapContentIndex = $(this).attr("id").replace("mapContentBtn", "");
+  console.log(mapContent);
+  $("#mapContentClass").text(mapContent[mapContentIndex][3]);
+  $("#mapContentTitle").text(mapContent[mapContentIndex][4]);
+  $("#mapContentDesc").text(mapContent[mapContentIndex][5]);
+  $("#mapContentImg").attr("src", "./image/" + mapContent[mapContentIndex][6] + ".webp");
+})
+
+// ========================================
+
+$("#mapCanvas").click(function(){
+  $("#mapContentWindow").removeClass("active");
+})
+
+// ========================================
+
+$("#floor1").click(function(){
+  $("#floorSelect>button").removeClass("active");
+  $(this).addClass("active")
+  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[1]), side: THREE.DoubleSide});
+});
+$("#floor2").click(function(){
+  $("#floorSelect>button").removeClass("active");
+  $(this).addClass("active")
+  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[2]), side: THREE.DoubleSide});
+});
+$("#floor3").click(function(){
+  $("#floorSelect>button").removeClass("active");
+  $(this).addClass("active")
+  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[3]), side: THREE.DoubleSide});
+});
+$("#floorAll").click(function(){
+  $("#floorSelect>button").removeClass("active");
+  $(this).addClass("active")
+  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[1]), side: THREE.DoubleSide});
+});
+
+// ========================================
+
+$("#toggleFloor").click(function(){
+  $("#floorSelect").toggleClass("active");
+});
+
+
+
+
+
+
+
+
+
+
+$(".waitContainerStretch>a").click(function(){
+  const clickedLinkIndex = $(this).attr("id").replace("map","");
+  camera.position.x = mapContent[clickedLinkIndex][1];
+  camera.position.y = 200;
+  camera.position.z = mapContent[clickedLinkIndex][2];
+  controls.target.set(mapContent[clickedLinkIndex][1], 0, mapContent[clickedLinkIndex][2]);
+});
+
+setInterval(() => {
+  console.log(camera.rotation);
+}, 1000);

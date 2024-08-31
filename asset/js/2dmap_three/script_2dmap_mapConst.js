@@ -62,7 +62,7 @@ const maxZoom = 1250;
 // カメラの移動可能範囲
 // [0]x: ページ水平方向
 // [1]z: ページ垂直方向
-const camRangeVal = [125, 200];
+const camRangeVal = [1500, 2250];
 
 // カメラの初期位置
 posInit = [0, 500, 0];
@@ -86,6 +86,3 @@ const fps = 60;
 
 // 平面サイズ
 const planeSize = 450;
-
-// マップコンテンツ用アイコンサイズ
-const contentSize = 5;
