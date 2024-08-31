@@ -28,150 +28,31 @@
   display: block;
 }
 
-/* Google Chrome、Safariへの対応 */
-#sectionMap::-webkit-scrollbar{
- display: none;
+/* ======================================== */
+
+#sectionMap>#mapCanvas{
+  display: none;
+}
+
+#sectionMap.current>#mapCanvas{
+  display: block;
 }
 
 /* ======================================== */
 
-/* ズーム可能な要素 */
-#content{
+#mapContentBtnContainer{
   position: absolute;
   top: 0;
   left: 0;
 
   display: block;
-
-  width: 100vw;
-  height: calc(375px / 1142 * 1379);
-
-  margin: calc(((100dvh - 8rem - 3rem - 5px) - (100vw / 1142 * 1379)) / 2) auto;
-
-  transform-origin: 0 0;
-  transform: scale(2);
-}
-
-/* ======================================== */
-
-.imgFloor{
-  position: relative;
-  z-index: 0;
-
-  display: none;
-  width: 375px;
-  height: auto;
-
-  margin: auto;
-  padding: 0;
-
-  background-color: var(--background1);
-
-  object-fit: contain;
-}
-
-.imgFloor.active{
-  display: block; 
-}
-
-/* ======================================== */
-
-#grids{
-  position: absolute;
-  top: 0;
-  left: calc((100vw - 375px) / 2);
-
-  display: block;
-}
-
-.grid-tate{
-  position: absolute;
-  top: 0;
-  
-  display: block;
-  width: 0.5px;
-  height: calc(375px / 1142 * 1379);
-
-  background-color: #cccccc88;
-}
-
-.grid-yoko{
-  position: absolute;
-  left: 0;
-  
-  display: block;
-  width: 375px;
-  height: 0.5px;
-  
-  background-color: #cccccc88;
-}
-
-/* ======================================== */
-
-.mapContentBox{
-  position: absolute;
-  top: 0;
-  left: calc((100vw - 375px) / 2);
-  
-  display: none;
-  width: 375px;
-  height: calc(375px / 1142 * 1379);
-  
-  padding: 0;
-}
-
-.mapContentBox.active{
-  display: block;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
 }
 
 .mapContentBtn{
-  position: absolute;
-  z-index: 1;
-  
-  display: block;
-  width: 1.5rem;
-  height: 1.5rem;
-  
-  margin: 0;
-  padding: 0;
-  
-  border-radius: 25%;
-  border: #cccccc 1px solid;
-  box-shadow: 0 1px 0 #a0a0a0;
-  
-  font-size: 0.75rem;
-  font-family: "IBM Plex Sans JP", sans-serif;
-  font-weight: 500;
-  
-  text-align: center;
-  line-height: 1.5rem;
-
-  transform: scale(1);
-  transform-origin: center center;
-}
-
-/* .mapContentBtn.active{
-  border-radius: 0;
-} */
-
-.教室展示{
-  background-color: #7ffbd2;
-  color: #4c967d;
-}
-
-.模擬店{
-  background-color: #fb7fbd;
-  color: #92486c
-}
-
-.部活{
-  background-color: #b97ffb;
-}
-
-.ゴミ箱, .トイレ{
-  border-radius: 50%;
-  background-color: #dddddd;
-  color: #888888;
+  visibility: visible;
 }
 
 /* ======================================== */
@@ -180,17 +61,18 @@
   position: fixed;
   /* bottom: 4.5rem; */
   bottom: 0;
-  left: calc(20% - 2rem);
+  left: calc(10% - 2rem);
+  z-index: 1000;
 
   display: grid;
   grid-template-rows: 3.5rem 2.5rem 6.25rem 7.25rem;
-  width: calc(60% + 4rem);
+  width: calc(80% + 4rem);
   height: calc(17.5rem + 2rem);
 
   margin: 0;
   padding: 0;
 
-  background-color: #f1f1f1cc;
+  background-color: #ffffffee;
   border-radius: 2rem 2rem 0 0;
   backdrop-filter: blur(1rem);
 
@@ -263,7 +145,7 @@
   position: fixed;
   bottom: 6rem;
   right: 1.5rem;
-  z-index: 100;
+  z-index: 500;
 
   display: none;
   width: 5rem;

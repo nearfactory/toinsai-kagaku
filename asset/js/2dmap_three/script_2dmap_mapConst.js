@@ -56,8 +56,8 @@ const controlEnDamping = true;
 const controlDampingFactor = 0.25;
 
 // カメラのズームの最大値/最小値
-const minZoom = 50;
-const maxZoom = 750;
+const minZoom = 30;
+const maxZoom = 1250;
 
 // カメラの移動可能範囲
 // [0]x: ページ水平方向
@@ -88,4 +88,4 @@ const fps = 60;
 const planeSize = 450;
 
 // マップコンテンツ用アイコンサイズ
-const contentSize = 10;
+const contentSize = 5;
