@@ -109,15 +109,14 @@
 
 #mapContentWindow{
   position: fixed;
-  /* bottom: 4.5rem; */
   bottom: 0;
   left: calc(10% - 2rem);
   z-index: 1000;
 
   display: grid;
-  grid-template-rows: 3.5rem 2.5rem 6.25rem 7.25rem;
+  grid-template-rows: 3.5rem 2.5rem 8rem 12rem;
   width: calc(80% + 4rem);
-  height: calc(17.5rem + 2rem);
+  height: calc(3.5rem + 2.5rem + 8rem + 12rem);
 
   margin: 0;
   padding: 0;
@@ -126,7 +125,7 @@
   border-radius: 2rem 2rem 0 0;
   backdrop-filter: blur(1rem);
 
-  transform: translateY(calc(100% + 4.5rem));
+  transform: translateY(100%);
   transition: all .4s;
 }
 
@@ -166,23 +165,23 @@
 
 #mapContentDesc{
   display: block;
-  width: 100%;
-  height: 3.75rem;
+  width: calc(100% - 4rem);
+  height: 8rem;
 
   padding: 0 2rem;
 
   color: var(--text);
-  font-size: 0.875rem;
+  font-size: 1.2rem;
   font-weight: 400;
 
   text-align: justify;
-  line-height: 1.25rem;
+  line-height: calc(8rem / 5);
 }
 
 #mapContentImg{
   display: block;
   width: 100%;
-  height: 7.25rem;
+  height: 12rem;
 
   padding: 0;
   

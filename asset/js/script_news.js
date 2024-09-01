@@ -86,7 +86,6 @@ const newsModal = document.querySelector("#newsModal");
 
 
 $(document).on("click", ".newsContent", function () {
-  console.log(this.children);
   newsModal.showModal();
   document.getElementById("newsModalTitle").innerHTML = this.children[1].innerHTML;
   document.getElementById("newsModalPublisherDate").innerHTML = this.children[2].innerHTML + "&ensp;" + this.children[0].innerHTML;

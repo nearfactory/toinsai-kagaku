@@ -70,6 +70,7 @@
   --background3: #f9f9f9;
   
   --text: #222222;
+  --textBlue: #375b69;
   --textPale: #777777;
 
   --accent: #7FD9FB;
@@ -87,6 +88,8 @@ html, body{
 
 html{
   background-color: var(--background2);
+  
+  touch-action: manipulation;
 }
 
 body{
