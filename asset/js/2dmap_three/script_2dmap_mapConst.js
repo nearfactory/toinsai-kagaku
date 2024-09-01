@@ -56,13 +56,13 @@ const controlEnDamping = true;
 const controlDampingFactor = 0.25;
 
 // カメラのズームの最大値/最小値
-const minZoom = 30;
-const maxZoom = 1250;
+const minZoom = 100;
+const maxZoom = 700;
 
 // カメラの移動可能範囲
 // [0]x: ページ水平方向
 // [1]z: ページ垂直方向
-const camRangeVal = [1500, 2250];
+const camRangeVal = [150, 225];
 
 // カメラの初期位置
 posInit = [0, 500, 0];

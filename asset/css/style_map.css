@@ -89,6 +89,24 @@
 
 /* ======================================== */
 
+.中学教室展示{
+  background-color: #fb7f7f;
+}
+
+.高校教室展示{
+  background-color: #fba67f;
+}
+
+.高校模擬店{
+  background-color: #7ffbdc;
+}
+
+.高校模擬店{
+  background-color: #7ffbdc;
+}
+
+/* ======================================== */
+
 #mapContentWindow{
   position: fixed;
   /* bottom: 4.5rem; */

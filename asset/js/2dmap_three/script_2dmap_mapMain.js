@@ -257,6 +257,7 @@ function addMapContentButton(csvArray){
   for(var i=0; i<csvArray.length-1; i++){
     const buttonElement = document.createElement("button");
     buttonElement.classList.add("mapContentBtn");
+    buttonElement.classList.add(mapContent[i+1][3]);
     buttonElement.setAttribute("id", "mapContentBtn" + String(i+1));
     buttonElement.innerHTML = i+1;
     buttonElement.style.left = mapContent[i+1][1] + "px";
@@ -272,10 +273,10 @@ $(document).on("click", ".mapContentBtn", function () {
   $("#mapContentWindow").addClass("active");
   const mapContentIndex = $(this).attr("id").replace("mapContentBtn", "");
   console.log(mapContent);
-  $("#mapContentClass").text(mapContent[mapContentIndex][3]);
-  $("#mapContentTitle").text(mapContent[mapContentIndex][4]);
-  $("#mapContentDesc").text(mapContent[mapContentIndex][5]);
-  $("#mapContentImg").attr("src", "./image/" + mapContent[mapContentIndex][6] + ".webp");
+  $("#mapContentClass").text(mapContent[mapContentIndex][4]);
+  $("#mapContentTitle").text(mapContent[mapContentIndex][5]);
+  $("#mapContentDesc").text(mapContent[mapContentIndex][6]);
+  $("#mapContentImg").attr("src", "./image/" + mapContent[mapContentIndex][7] + ".webp");
 })
 
 // ========================================
@@ -313,23 +314,13 @@ $("#toggleFloor").click(function(){
   $("#floorSelect").toggleClass("active");
 });
 
+// ========================================
 
-
-
-
-
-
-
-
-
-$(".waitContainerStretch>a").click(function(){
-  const clickedLinkIndex = $(this).attr("id").replace("map","");
+// 混雑状況タブの各クラスのマップリンククリック時の挙動用関数
+$(".mapLink").click(function(){
+  const clickedLinkIndex = $(this).attr("id").replace("mapLink","");
   camera.position.x = mapContent[clickedLinkIndex][1];
   camera.position.y = 200;
   camera.position.z = mapContent[clickedLinkIndex][2];
   controls.target.set(mapContent[clickedLinkIndex][1], 0, mapContent[clickedLinkIndex][2]);
 });
-
-setInterval(() => {
-  console.log(camera.rotation);
-}, 1000);
