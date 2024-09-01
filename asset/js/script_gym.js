@@ -147,7 +147,7 @@ function initSchedules() {
       scheduleDesc.textContent = day0[i][6];
       scheduleBox.appendChild(scheduleDesc);
       
-      scheduleImg.src = "./image/schedule/day0/" + day0[i][5] + ".webp";
+      scheduleImg.src = "./image/" + day0[i][5] + ".webp";
       scheduleImg.setAttribute("alt", "scheduleImg" + String(i));
       scheduleImg.setAttribute("loading", "lazy");
       scheduleBox.appendChild(scheduleImg);
@@ -192,7 +192,7 @@ function initSchedules() {
       scheduleDesc.textContent = day1[i][6];
       scheduleBox.appendChild(scheduleDesc);
       
-      scheduleImg.src = "./image/schedule/day1/" + day1[i][5] + ".webp";
+      scheduleImg.src = "./image/" + day1[i][5] + ".webp";
       scheduleImg.setAttribute("alt", "scheduleImg" + String(i+day0.length-1));
       scheduleImg.setAttribute("loading", "lazy");
       scheduleBox.appendChild(scheduleImg);
@@ -237,7 +237,7 @@ function initSchedules() {
       scheduleDesc.textContent = day2[i][6];
       scheduleBox.appendChild(scheduleDesc);
 
-      scheduleImg.src = "./image/schedule/day2/" + day2[i][5] + ".webp";
+      scheduleImg.src = "./image/" + day2[i][5] + ".webp";
       scheduleImg.setAttribute("alt", "scheduleImg" + String(i+day0.length-1+day1.length-1));
       scheduleImg.setAttribute("loading", "lazy");
       scheduleBox.appendChild(scheduleImg);

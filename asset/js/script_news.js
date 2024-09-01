@@ -1,22 +1,25 @@
 // スケジュールをCSVファイルから取得
 const newsCSV = './asset/csv/news.csv'; // ここにCSVファイルのURLを入力する
 
-function fetchCSV(url, callback) {
-  const xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status === 200) {
-        callback(xhr.responseText);
-      } else {
-        console.error('Failed to fetch CSV:', xhr.status);
-        callback(null);
+// promiseを使用して完了まで待機するシステムにした
+function fetchCSV(url) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          resolve(xhr.responseText);
+        } else {
+          reject(`Failed to fetch CSV: ${xhr.status}`);
+        }
       }
-    }
-  };
-  xhr.open('GET', url);
-  xhr.send();
+    };
+    xhr.open('GET', url);
+    xhr.send();
+  });
 }
 
+// 読み込んだCSVファイルを二次元配列に組みなおす
 function parseCSV(csvText) {
   const lines = csvText.split(/\r\n|\n/);
   const data = [];
@@ -31,45 +34,44 @@ function parseCSV(csvText) {
   return data;
 }
 
-fetchCSV(newsCSV, function(csvText) {
-  var news = parseCSV(csvText);
-
-  for(var i=0; i<(news.length)-1; i++){
-    var newsContainer = document.getElementById("newsContainer");
-  
-    var newsBox = document.createElement('div');
-    var newsDate = document.createElement('h3');
-    var newsTitle = document.createElement('h1');
-    var newsPublisher = document.createElement('h4');
-    var newsDesc = document.createElement('p');
-    var newsImage = document.createElement('img');
+function initNews(){
+  Promise.all([
+    fetchCSV(newsCSV)
+  ]).then(([csvText]) => {
     
-    newsBox.classList.add("newsContent");
-    newsContainer.prepend(newsBox);
+    var news = parseCSV(csvText);
+
+    for(var i=0; i<(news.length)-1; i++){
+      var newsContainer = document.getElementById("newsContainer");
     
-    newsDate.innerHTML = news[i+1][0];
-    newsBox.appendChild(newsDate);
-  
-    newsTitle.innerHTML = news[i+1][2];
-    newsBox.appendChild(newsTitle);
+      var newsBox = document.createElement('div');
+      var newsDate = document.createElement('h3');
+      var newsTitle = document.createElement('h1');
+      var newsPublisher = document.createElement('h4');
+      var newsDesc = document.createElement('p');
+      var newsImage = document.createElement('img');
+      
+      newsBox.classList.add("newsContent");
+      newsContainer.prepend(newsBox);
+      
+      newsDate.innerHTML = news[i+1][0];
+      newsBox.appendChild(newsDate);
     
-    newsPublisher.innerHTML = news[i+1][3];
-    newsBox.appendChild(newsPublisher);
+      newsTitle.innerHTML = news[i+1][2];
+      newsBox.appendChild(newsTitle);
+      
+      newsPublisher.innerHTML = news[i+1][3];
+      newsBox.appendChild(newsPublisher);
+      
+      newsDesc.innerHTML = news[i+1][5];
+      newsBox.appendChild(newsDesc);
     
-    newsDesc.innerHTML = news[i+1][5];
-    newsBox.appendChild(newsDesc);
-  
-    newsImage.src = "./image/news/" + news[i+1][4] + ".webp";
-    newsBox.appendChild(newsImage);
-  }
-});
-
-
-
-
-
-
-
+      newsImage.src = "./image/news/" + news[i+1][4] + ".webp";
+      newsBox.appendChild(newsImage);
+    }
+  });
+}
+initNews();
 
 
 
