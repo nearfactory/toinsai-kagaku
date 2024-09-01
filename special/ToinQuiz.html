@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>toinQuiz</title>
+</head>
+<body align="center" style="background-color: #BD5C8D;">    
+    <div style="background-color: white; top: 0%; height: 10%; position: fixed; width: 100%; left: 0%; opacity: 0.8; z-index: 100;">
+        <p id = "underbar"></p>
+    </div>
+
+    <div style="background-color: ; top: 0%; height: 10%; position: fixed; width: 10%; right: 5%; opacity: 1; z-index: 200;">
+        
+        <input style="border: 3px; color: black; font-size: 30px; height: 90%; width: 90%;" type = "button" onclick="quizreset()" value = "⌂">
+    </div>
+
+    <div style="background-color: ; top: 15%; height: 25%; position: fixed; width: 100%; left: 0%; opacity: 1;" >
+        
+        <P id = "questions" style="font-size: 20px;"></P>
+        <input id = "gobutton" style="font-size: 40px; height: 40%; width: 60%;" type="button" onclick="letsquiz()" value="クイズを始める">
+        <input id = "yourname" style="font-size: 16px; height: 20%; width: 60%; text-align: center;" type="text" maxlength="9" value="">
+ 
+        
+        <p>daaeddd</p>
+    </div>
+    
+    <div style="background-color: ; top: 40%; height: 25%; position: fixed; width: 100%; left: 0%; opacity: 1;">
+        <P id = "explains"></P>
+        
+    </div>
+
+    <div style="background-color: ; top: 0%; height: 100%; position: fixed; width: 100%; left: 0%; opacity: 0.9;">
+        
+        <img id="button1" src="button1.png" alt="1" style="" >
+        <img id="button2" src="button2.png" alt="2" style="" >
+        <img id="button3" src="button3.png" alt="3" style="" >
+        <img id="button4" src="button4.png" alt="4" style="" >
+        <img id="button5" src="button5.png" alt="5" style="" >
+        <img id="button6" src="button6.png" alt="6" style="" >
+        <img id="button7" src="button7.png" alt="7" style="" >
+        <img id="button8" src="button8.png" alt="8" style="" >
+        <img id="button9" src="button9.png" alt="9" style="" >
+        <img id="button0" src="button0.png" alt="0" style="" >
+        
+        <img id="backbutton" src="backbutton.png" alt="back" style="" >
+        <img id="decbutton" src="decbutton.png" alt="dec" style="" >
+    </div>
+
+    <script>
+        let nowtime = 0;
+        let quiztime = 0;
+        let yourans = 0;
+        let yourscore = 0;
+        let onescore = 0;
+        let topscore = 1000;
+        let sumscore = 0;
+        let spe = "  ";
+        let underbar = document.getElementById("underbar");
+        let questions = document.getElementById("questions");
+        let explaint = document.getElementById("explains");
+        let gobutton = document.getElementById("gobutton");
+        let yourname = document.getElementById("yourname");
+        let button1 = document.querySelector("#button1");
+        let button2 = document.querySelector("#button2");
+        let button3 = document.querySelector("#button3");
+        let button4 = document.querySelector("#button4");
+        let button5 = document.querySelector("#button5");
+        let button6 = document.querySelector("#button6");
+        let button7 = document.querySelector("#button7");
+        let button8 = document.querySelector("#button8");
+        let button9 = document.querySelector("#button9");
+        let backbutton = document.querySelector("#backbutton");
+        let decbutton = document.querySelector("#decbutton");
+        let button1a = document.getElementById("button1");
+        window.addEventListener("resize", buttonall);
+            let windowWidth = document.documentElement.clientWidth;
+            let typebutton = windowWidth / 12;
+            button1.width = typebutton;
+            button1.height = typebutton;
+            button2.width = typebutton;
+            button2.height = typebutton;
+            button3.width = typebutton;
+            button3.height = typebutton;
+            button4.width = typebutton;
+            button4.height = typebutton;
+            button5.width = typebutton;
+            button5.height = typebutton;
+            button6.width = typebutton;
+            button6.height = typebutton;
+            button7.width = typebutton;
+            button7.height = typebutton;
+            button8.width = typebutton;
+            button8.height = typebutton;
+            button9.width = typebutton;
+            button9.height = typebutton;
+            button0.width = typebutton;
+            button0.height = typebutton;
+            backbutton.width = typebutton;
+            backbutton.height = typebutton;
+            decbutton.width = typebutton;
+            decbutton.height = typebutton;
+            
+            
+
+
+        let exwid = 10;
+        function biggers () {
+            
+            // let windowWidth = document.documentElement.clientWidth;
+            // let typebutton = windowWidth / 5;
+            // button1.width = typebutton;
+            // button1.height = typebutton;
+            
+        }
+
+        function buttonall() {
+            window.addEventListener("resize", buttonall);
+            let windowWidth = document.documentElement.clientWidth;
+            let typebutton = windowWidth / (3 * 4);
+            button1.width = typebutton;
+            button1.height = typebutton;
+            button2.width = typebutton;
+            button2.height = typebutton;
+            button3.width = typebutton;
+            button3.height = typebutton;
+            button4.width = typebutton;
+            button4.height = typebutton;
+            button5.width = typebutton;
+            button5.height = typebutton;
+            button6.width = typebutton;
+            button6.height = typebutton;
+            button7.width = typebutton;
+            button7.height = typebutton;
+            button8.width = typebutton;
+            button8.height = typebutton;
+            button9.width = typebutton;
+            button9.height = typebutton;
+            button0.width = typebutton;
+            button0.height = typebutton;
+            backbutton.width = typebutton;
+            backbutton.height = typebutton;
+            decbutton.width = typebutton;
+            decbutton.height = typebutton;
+            alert("push");
+            //setTimeout(biggers, 100);
+        }
+        
+        button1a.onclick = buttonall;
+
+
+        if (nowtime == 0) {
+            questions.innerHTML = "桐蔭クイズー";
+            explaint.innerHTML = "名前を入れましょう";
+        }
+        function letsquiz() {
+            
+            if (nowtime == 0) {
+                underbar.innerHTML = "ユーザーネーム：" + yourname.value;
+            }
+            if (nowtime == 0 && yourname.value == "") {
+                explaint.innerHTML = "名前を入力して下さい";
+                nowtime = 0;
+            }
+            else if (quiztime == 10) {
+
+                quizreset();
+                questions.innerHTML = sumscore;
+            }
+            else if (nowtime % 2 == 1 && yourname.value == "" ) {
+                alert("答えてよ");
+            }
+            else if (nowtime % 2 == 1) {
+                yourans = yourname.value;
+                
+                if(yourans < answers(quiztime)) {
+                    yourscore = yourans / answers(quiztime);                    
+                }
+                else if (yourans > answers(quiztime)) {
+                    yourscore = answers(quiztime) / yourans;                    
+                }
+                if (yourscore < 0) {
+                    yourscore = 0;
+                }
+                if (yourscore == NaN) {
+                    yourscore = 0;
+                }
+                yourscore = yourscore * topscore;
+                
+                
+                yourname.value = "";
+                explaint.innerHTML = answers(quiztime)+ tani(quiztime) + "  " + explains(quiztime) + "score" + Math.trunc(yourscore);
+                gobutton.value = "次のクイズ";
+                sumscore += Math.trunc(yourscore);
+                quiztime += 1;
+                nowtime += 1;
+            }
+            else {
+                questions.innerHTML =quiztime+1 + ", " + quizes(quiztime);
+                explaint.innerHTML = "";
+                gobutton.value = "回答";
+                nowtime += 1;
+            }
+            yourname.value = "";
+            
+        } 
+
+
+        function quizreset() {
+            questions.innerHTML = "桐蔭くいずー";
+            explaint.innerHTML = "名前を入力してね";
+            gobutton.value = "クイズを始める";
+            yourname.value = "";
+            nowtime = 0;
+            quiztime = 0;
+            yourans = 0;
+            
+            
+        }
+
+        function quizes(num) {  //クイズ文
+        let quiztext = [
+            "桐蔭高校の敷地面積は？",
+            "桐蔭高校のイメージカラーのカラーコードは？",
+            "桐蔭の海抜高度はいくつ？",
+            "1棟1階のショーケースに飾られているメダルの数はいくつ？",
+            "9月で満月が見れるのはいつ？",
+            "桐蔭高校の経度は？",
+            "桐蔭高校の緯度は？",
+            "桐蔭中学校を英語で書くと何文字？",
+            "桐蔭敷地内の桜の木は何本？",
+            "桐蔭高校卒業の直木賞受賞作家は西暦何年に卒業したか",
+            "",
+        ];
+        return quiztext[num];
+        }
+        function answers(num) {
+            let answertext = [
+                1000,
+                2355,
+                33,
+                134,
+                11,
+                1775,
+                349,
+                39597,
+                9999,
+                187,
+                4,
+                44444,
+            ]
+            return answertext[num];
+        }
+        function tani(num) {
+            let answertext = [
+                "ｍ²",
+                "",
+                "ｍ",
+                "個",
+                "日",
+                "度",
+                "度",
+                "文字",
+                "本",
+                "年",
+                "",
+                "",
+                "",
+            ]
+            return answertext[num];
+        }
+        function explains(num) {
+            let explaintext = [
+                "めっちゃ広い",
+                "カラーコードって何ですか",
+                "思ったより高い",
+                "さす桐",
+                "過ぎてます",
+                "へー",
+                "へー",
+                "中学1年生レベル！？",
+                "多い",
+                "実は卒業生に直木賞受賞作家いるんです",
+                "",
+            ]
+            return explaintext[num];
+        }
+    </script>
+</body>
+</html>

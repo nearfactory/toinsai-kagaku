@@ -1,10 +1,74 @@
 @charset "utf-8";
 
+/* ======================================== */
+
+@font-face {
+  font-family: 'Barlow Semi Condensed';
+  src: url('../../asset/font/BarlowSemiCondensed-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Barlow Semi Condensed';
+  src: url('../../asset/font/BarlowSemiCondensed-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Barlow Semi Condensed';
+  src: url('../../asset/font/BarlowSemiCondensed-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Barlow Semi Condensed';
+  src: url('../../asset/font/BarlowSemiCondensed-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: 'IBM Plex Sans JP';
+  src: url('../../asset/font/IBMPlexSansJP-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: 'IBM Plex Sans JP';
+  src: url('../../asset/font/IBMPlexSansJP-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: 'IBM Plex Sans JP';
+  src: url('../../asset/font/IBMPlexSansJP-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: 'IBM Plex Sans JP';
+  src: url('../../asset/font/IBMPlexSansJP-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* ======================================== */
+
 :root{
+
   --background1: #ffffff;
   --background2: #f1f1f1;
-
+  --background3: #f9f9f9;
+  
   --text: #222222;
+  --textBlue: #375b69;
+  --textPale: #777777;
 
   --accent: #7FD9FB;
   --accent2: #C3EDFD;
@@ -77,7 +141,119 @@ header>a{
 
 /* ======================================== */
 
+h1{
+  display: block;
+  width: 80%;
+  height: 2rem;
 
+  margin: 1rem auto;
+  padding: 1rem;
+  
+  border-radius: 1rem;
+  background: linear-gradient(225deg, var(--background3), var(--background1));
+  box-shadow:
+    -15px 15px 30px var(--background2),
+    15px -15px 30px var(--background1);
+
+  color: var(--text);
+  font-size: 1.5rem;
+  font-weight: 500;
+
+  line-height: 2rem;
+  text-align: center;
+}
+
+/* ======================================== */
+
+#userAnswer{
+  display: block;
+  width: 24rem;
+  height: 4rem;
+
+  margin: 1rem auto;
+  padding: 0.5rem;
+  
+  border-radius: 1rem;
+  /* border: 1px solid; */
+  background: linear-gradient(225deg, var(--background3), var(--background1));
+  box-shadow:
+    -15px 15px 30px var(--background2),
+    15px -15px 30px var(--background1);
+
+  color: var(--textBlue);
+  font-size: 1.75rem;
+  font-weight: 600;
+
+  line-height: 3rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ======================================== */
+
+#numBtnContainer{
+  display: grid;
+  grid-template-columns: 8rem 8rem 8rem;
+  width: 24rem;
+  height: 24rem;
+
+  margin: 1rem auto;
+  padding: 0;
+}
+
+.numBtn{
+  width: calc(100%-1rem);
+  height: calc(100%-1rem);
+
+  margin: 0.5rem;
+  padding: 0;
+  
+  border-radius: 1rem;
+  border: none;
+  background: linear-gradient(225deg, var(--background3), var(--background1));
+  box-shadow:
+    -15px 15px 30px var(--background2),
+    15px -15px 30px var(--background1);
+
+  color: var(--textBlue);
+  font-size: 1.75rem;
+  font-weight: 600;
+
+  line-height: 1.5rem;
+  text-align: center;
+}
+
+.numBtn:active{
+  box-shadow:
+    15px -15px -30px var(--background2),
+    -15px 15px -30px var(--background1);
+}
+
+/* ======================================== */
+
+.controlBtn{
+  display: block;
+  width: 24rem;
+  height: 4rem;
+
+  margin: 0 auto;
+  padding: 0;
+
+  background-color: var(--accent2);
+  border: none;
+  border-radius: 0.5rem;
+
+  color: var(--textBlue);
+  font-size: 1.25rem;
+  font-weight: 600;
+
+  line-height: 1.5rem;
+  text-align: center;
+}
+
+.controlBtn:active{
+  background-color: var(--accent);
+}
 
 /* ======================================== */
 
@@ -102,7 +278,7 @@ footer{
 
   margin: 1rem 0;
 
-  color: #222222;
+  color: var(--text);
   font-size: 0.875rem;
   font-weight: 400;
 
@@ -116,4 +292,5 @@ footer{
 * {
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%; /* Safari */
+  font-family: "Barlow Semi Condensed", "IBM Plex Sans JP", sans-serif;
 }
