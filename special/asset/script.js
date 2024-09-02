@@ -1,4 +1,7 @@
 // ========================================
+
+
+// ========================================
 let nowtime = 0;
 let quiztime = 0;
 let yourans = 0;
@@ -166,8 +169,15 @@ function swap(list, a, b){
 
 // ユーザーネームの取得
 function askUsername(){
+  document.querySelector("dialog").showModal();
   return;
 }
+
+$("#modalClose").click(function(){
+  document.querySelector("dialog").close();
+  username = document.getElementById("usernameInput").value;
+  console.log(username);
+})
 
 // ========================================
 
@@ -206,10 +216,6 @@ function submit(answer){
   }, 50);
   console.log(answer);
 }
-
-setInterval(() => {
-  console.log(Math.floor(stage/2))
-}, 1000);
 
 // ========================================
 
