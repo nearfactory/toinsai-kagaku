@@ -81,6 +81,9 @@
   line-height: 1rem;
 
   visibility: visible;
+  
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 .mapContentBtn.active{
