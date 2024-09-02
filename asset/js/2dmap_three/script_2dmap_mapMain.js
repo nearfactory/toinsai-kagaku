@@ -273,9 +273,9 @@ $(document).on("click", ".mapContentBtn", function () {
   $("#mapContentWindow").addClass("active");
   const mapContentIndex = $(this).attr("id").replace("mapContentBtn", "");
   console.log(mapContent);
-  $("#mapContentClass").text(mapContent[mapContentIndex][4]);
-  $("#mapContentTitle").text(mapContent[mapContentIndex][5]);
-  $("#mapContentDesc").text(mapContent[mapContentIndex][6]);
+  $("#mapContentClass").html(mapContent[mapContentIndex][4]);
+  $("#mapContentTitle").html(mapContent[mapContentIndex][5]);
+  $("#mapContentDesc").html(mapContent[mapContentIndex][6]);
   $("#mapContentImg").attr("src", "./image/" + mapContent[mapContentIndex][7] + ".webp");
 })
 
