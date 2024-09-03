@@ -77,28 +77,23 @@ function updateDate(){
   var diffS = Math.floor(diff / (1000)) < 10 ? "0" + Math.floor(diff / (1000)) : Math.floor(diff / (1000));
   diff -= diffS*1000;
 
-  
-  // currentDate.innerHTML = month + "月" + day + "日";
-  // currentTime.innerHTML = h + ":" + m + ":" + s;
   remainingDate.innerHTML = diffDay + "<small>&nbsp;日</small>";
   remainingTime.innerHTML = diffH + "<small>&nbsp;時間&nbsp;</small>" + diffM + "<small>&nbsp;分&nbsp;</small>" + diffS + "<small>&nbsp;秒&nbsp;</small>";
 }
 
 var updateDateInterval;
 
-const sessionKey = "accesed";
-const sessionValue = true;
-
-//sessionStorageにsessionKeyというデータの有無を判別
-if (!sessionStorage.getItem(sessionKey)) {
-  //初回アクセス時の処理
-  updateDate();
-  updateDateInterval = setInterval(updateDate, 50);
-  document.getElementById("remainTimeDisplay").showModal();
-} else {
-  //ここに通常アクセス時の処理
-  console.log("アクセス済み");
-}
+$(function() {
+  const date = new Date();
+  date.setDate(date.getDate() + 1);
+  date.setHours(0, 0, 0);
+  if (Cookies.get('access_sample') == undefined) {
+    Cookies.set('access_sample', 'access', { expires: date });
+    updateDate();
+    updateDateInterval = setInterval(updateDate, 50);
+    document.getElementById("remainTimeDisplay").showModal();
+  }
+});
 
 $("#closeRemainTimeDisplay").click(function(){
   clearInterval(updateDateInterval);

@@ -287,7 +287,7 @@ nav>span{
 
 #remainTimeDisplay{
   width: calc(70% - 4rem);
-  height: 21rem;
+  height: 23rem;
 
   margin: auto;
   padding: 2rem;
@@ -315,8 +315,8 @@ nav>span{
 
 #remainDate{
   display: block;
-  width: 7rem;
-  height: 7rem;
+  width: 9rem;
+  height: 9rem;
 
   margin: 1rem auto;
   padding: 0;
@@ -325,10 +325,10 @@ nav>span{
   border-radius: 50%;
   
   color: var(--text);
-  font-size: 3.5rem;
+  font-size: 5rem;
   font-weight: 500;
   
-  line-height: 7rem;
+  line-height: 9rem;
   text-align: center;
   
   font-variant-numeric: tabular-nums;

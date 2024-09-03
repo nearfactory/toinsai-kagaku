@@ -65,7 +65,7 @@ function initNews(){
       
       newsDesc.innerHTML = news[i+1][5];
       newsBox.appendChild(newsDesc);
-    
+      
       newsImage.src = "./image/news/" + news[i+1][4] + ".webp";
       newsBox.appendChild(newsImage);
     }
@@ -90,7 +90,13 @@ $(document).on("click", ".newsContent", function () {
   document.getElementById("newsModalTitle").innerHTML = this.children[1].innerHTML;
   document.getElementById("newsModalPublisherDate").innerHTML = this.children[2].innerHTML + "&ensp;" + this.children[0].innerHTML;
   document.getElementById("newsModalContent").innerHTML = this.children[3].innerHTML;
-  document.getElementById("newsModalImg").src = this.children[4].src;
+  if(this.children[4].src.indexOf("none") == -1){
+    document.getElementById("newsModalImg").classList.remove("noImg");
+    document.getElementById("newsModalImg").src = this.children[4].src;
+  }
+  else{
+    document.getElementById("newsModalImg").classList.add("noImg");
+  }
   
   $("#newsModalBackground").addClass("active");
 })
