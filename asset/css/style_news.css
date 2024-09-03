@@ -270,6 +270,10 @@ dialog::backdrop {
   text-align: justify;
 }
 
+#newsModalContent>ul{
+  list-style: disc inside;
+}
+
 #newsModalImg{
   display: block;
 

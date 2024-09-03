@@ -154,34 +154,64 @@
   grid-area: time;
 
   display: flex;
-  width: 100%;
+  width: calc(100% - 1rem);
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
 .waitContainer>div>span{
-  display: block;
-  width: 50%;
-  height: 50%;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+
+  width: 80%;
+  height: 80%;
+
   margin: auto;
   padding: 0;
 
-  border-radius: 505%;
+  border-radius: 50%;
+  /* background-color: #d0d0d0; */
 
-  background-color: #d0d0d0;
+  color: var(--background1);
+  font-size: 1.25rem;
+  font-weight: 500;
+
+  line-height: 2.5rem;
+  text-align: center;
+
+  transform: rotate(-90deg);
 }
 
-.waitContainer>div>span.high{
+.waitContainer>div>span>span{
+  display: block;
+  width: calc(100% - 3px);
+  height: calc(100% - 3px);
+
+  margin: 1.5px;
+  padding: 0;
+
+  border-radius: calc(4rem / 3 / 2);
+}
+
+.waitContainer>div>span.high>span{
   background-color: #23648C;
 }
 
-.waitContainer>div>span.middle{
+.waitContainer>div>span.middle>span{
   background-color: #4C97BF;
 }
 
-.waitContainer>div>span.low{
+.waitContainer>div>span.low>span{
   background-color: #7FD9FB;
+}
+
+.waitContainer>div>span.middle>span:nth-of-type(1){
+  background-color: var(--background2);
+}
+
+.waitContainer>div>span.low>span:nth-of-type(1), .waitContainer>div>span.low>span:nth-of-type(2){
+  background-color: var(--background2);
 }
 
 .waitContainer>p::after{
