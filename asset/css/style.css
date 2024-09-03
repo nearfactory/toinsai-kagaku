@@ -287,7 +287,7 @@ nav>span{
 
 #remainTimeDisplay{
   width: calc(70% - 4rem);
-  height: calc(3rem + 7rem + 3rem);
+  height: 21rem;
 
   margin: auto;
   padding: 2rem;
@@ -313,7 +313,28 @@ nav>span{
   text-align: center;
 }
 
-#remainTimeDisplay>#remainTime{
+#remainDate{
+  display: block;
+  width: 7rem;
+  height: 7rem;
+
+  margin: 1rem auto;
+  padding: 0;
+
+  background-color: var(--accent);
+  border-radius: 50%;
+  
+  color: var(--text);
+  font-size: 3.5rem;
+  font-weight: 500;
+  
+  line-height: 7rem;
+  text-align: center;
+  
+  font-variant-numeric: tabular-nums;
+}
+
+#remainTime{
   display: block;
   width: 100%;
   height: 5rem;
@@ -329,6 +350,10 @@ nav>span{
   text-align: center;
   
   font-variant-numeric: tabular-nums;
+}
+
+#remainTimeDisplay>h1>small{
+  font-size: 1.25rem;
 }
 
 #remainTimeDisplay>#closeRemainTimeDisplay{

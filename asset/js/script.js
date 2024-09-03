@@ -51,6 +51,7 @@ function updateDate(){
   // var currentDate = document.getElementById("currentDate");
   // var currentTime = document.getElementById("currentTime");
   var remainingTime = document.getElementById("remainTime");
+  var remainingDate = document.getElementById("remainDate");
 
   const festivalDate = new Date('2024-09-11 08:50:00');
   
@@ -63,31 +64,41 @@ function updateDate(){
   var m = now.getMinutes();
   m = m < 10 ? "0"+m : m;
   var s = now.getSeconds();
-  s = s < 10 ? "0"+s : s;
+  s = s < 10 ? "0"+ s : s;
 
   var diff = festivalDate.getTime() - now.getTime();
   
   var diffDay = Math.floor(diff / (1000*60*60*24));
   diff -= diffDay*1000*60*60*24;
-  var diffH = Math.floor(diff / (1000*60*60));
+  var diffH = Math.floor(diff / (1000*60*60)) < 10 ? "0" + Math.floor(diff / (1000*60*60)) : Math.floor(diff / (1000*60*60));
   diff -= diffH*1000*60*60;
-  var diffM = Math.floor(diff / (1000*60));
+  var diffM = Math.floor(diff / (1000*60)) < 10 ? "0" + Math.floor(diff / (1000*60)) : Math.floor(diff / (1000*60));
   diff -= diffM*1000*60;
-  var diffS = Math.floor(diff / (1000));
+  var diffS = Math.floor(diff / (1000)) < 10 ? "0" + Math.floor(diff / (1000)) : Math.floor(diff / (1000));
   diff -= diffS*1000;
 
   
   // currentDate.innerHTML = month + "月" + day + "日";
   // currentTime.innerHTML = h + ":" + m + ":" + s;
-  remainingTime.innerHTML = diffDay + "日&nbsp;" + diffH + "時間&nbsp;" + diffM + "分" + diffS + "秒";
+  remainingDate.innerHTML = diffDay + "<small>&nbsp;日</small>";
+  remainingTime.innerHTML = diffH + "<small>&nbsp;時間&nbsp;</small>" + diffM + "<small>&nbsp;分&nbsp;</small>" + diffS + "<small>&nbsp;秒&nbsp;</small>";
 }
 
-var updateDateInterval
-$(document).ready(function(){
+var updateDateInterval;
+
+const sessionKey = "accesed";
+const sessionValue = true;
+
+//sessionStorageにsessionKeyというデータの有無を判別
+if (!sessionStorage.getItem(sessionKey)) {
+  //初回アクセス時の処理
   updateDate();
   updateDateInterval = setInterval(updateDate, 50);
-  document.getElementById("remainTimeDisplay").showModal(); 
-});
+  document.getElementById("remainTimeDisplay").showModal();
+} else {
+  //ここに通常アクセス時の処理
+  console.log("アクセス済み");
+}
 
 $("#closeRemainTimeDisplay").click(function(){
   clearInterval(updateDateInterval);
