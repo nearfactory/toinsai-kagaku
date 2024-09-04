@@ -63,7 +63,7 @@
         <div id="navGym" class="navItem"><span></span><i class="fa-solid fa-calendar-days"></i>
           <p>スケジュール</p><span></span>
         </div>
-        <div id="navMap" class="navItem current"><span></span><i class="fa-solid fa-map"></i>
+        <div id="navMap" class="navItem"><span></span><i class="fa-solid fa-map"></i>
           <p>校内マップ</p><span></span>
         </div>
         <div id="navNews" class="navItem"><span></span><i class="fa-solid fa-newspaper"></i>
@@ -77,6 +77,14 @@
     </header>
       
     <span id="topSpan"></span>
+    
+    <!-- 混雑状況 -->
+    <div class="section current" id="sectionHome">
+      <!-- <h1>桐蔭祭2024 公式ホームページ</h1> -->
+      <blockquote>桐蔭祭2024 公式HP</blockquote>
+      <img src="./image/main.webp" alt="toinfestival-thumbnail" id="thumbnail">
+
+    </div>
     
     <!-- 混雑状況 -->
     <div class="section" id="sectionWaitTime">
@@ -429,7 +437,7 @@
         </div>
       </div>
     </div>
-
+    
     <!-- スケジュール -->
     <div class="section" id="sectionGym">
       <h1>イベントスケジュール</h1>
@@ -485,7 +493,7 @@
     </div>
 
     <!-- 2Dマップ Three.js型 -->
-    <div class="section current" id="sectionMap">
+    <div class="section" id="sectionMap">
       <canvas id="mapCanvas"></canvas>
 
       <div id="mapContentBtnContainer"></div>
