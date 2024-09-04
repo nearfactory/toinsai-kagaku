@@ -32,7 +32,7 @@
 
 /* ======================================== */
 
-#newsForParents{
+.newsTabLink{
   display: block;
 
   width: calc(90% - 3rem);
@@ -57,7 +57,7 @@
   text-decoration: none;
 }
 
-#newsForParents>i{
+.newsTabLink>i{
   display: inline-block;
 
   width: 3rem;

@@ -3,7 +3,7 @@
 :root{
   --classHeight: 2.5rem;
   --descHeight: 9rem;
-  --imgHeight: 7.5rem;
+  --imgHeight: 10rem;
 }
 
 #sectionGym{
@@ -414,7 +414,7 @@
   display: block;
 
   width: 100%;
-  height: 7.5rem;
+  height: var(--imgHeight);
 
   object-fit: cover;
 

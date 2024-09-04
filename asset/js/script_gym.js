@@ -12,7 +12,7 @@ const day2date = "2024-09-12T";
 // 各ストレッチ有要素の高さ
 const classHeight = 2.5;
 const descHeight = 9;
-const imgHeight = 7.5;
+const imgHeight = 10;
 
 // 選択されている日付（初期設定は1日目）
 var daySelect = 1;
