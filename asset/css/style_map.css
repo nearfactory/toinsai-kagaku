@@ -62,7 +62,7 @@
 .mapContentBtn{
   position: absolute;
 
-  display: block;
+  display: none;
   width: 1rem;
   height: 1rem;
 
@@ -88,6 +88,10 @@
 
 .mapContentBtn.active{
   background-color: var(--background2);
+}
+
+.mapContentBtn.onDisplay{
+  display: block;
 }
 
 /* ======================================== */
@@ -117,9 +121,9 @@
   z-index: 1000;
 
   display: grid;
-  grid-template-rows: 3.5rem 2.5rem 8rem 11rem;
+  grid-template-rows: 3.5rem 2.5rem 10rem 11rem;
   width: calc(80% + 4rem);
-  height: calc(3.5rem + 2.5rem + 8rem + 11rem);
+  height: calc(3.5rem + 2.5rem + 10rem + 11rem);
 
   margin: 0;
   padding: 0;
@@ -169,16 +173,16 @@
 #mapContentDesc{
   display: block;
   width: calc(100% - 4rem);
-  height: 8rem;
+  height: 10rem;
 
-  padding: 0 2rem;
+  padding: 0.5rem 2rem;
 
   color: var(--text);
   font-size: 1.2rem;
   font-weight: 400;
 
   text-align: justify;
-  line-height: calc(8rem / 4);
+  line-height: calc((10rem - 1rem) / 5);
 }
 
 #mapContentImg{
@@ -248,7 +252,7 @@
 }
 
 #floorSelect.active{
-  width: 25rem;
+  width: 20rem;
   padding: 0;
 }
 
