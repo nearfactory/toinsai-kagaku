@@ -258,6 +258,12 @@ function addMapContentButton(csvArray){
     const buttonElement = document.createElement("button");
     buttonElement.classList.add("mapContentBtn");
     buttonElement.classList.add(mapContent[i+1][3]);
+    if(mapContent[i+1][0] == 1){
+      buttonElement.classList.add("onDisplay");
+    }
+    else{
+      buttonElement.classList.remove("onDisplay");
+    }
     buttonElement.setAttribute("id", "mapContentBtn" + String(i+1));
     buttonElement.innerHTML = i+1;
     buttonElement.style.left = mapContent[i+1][1] + "px";
@@ -289,19 +295,55 @@ $("#mapCanvas").click(function(){
 
 $("#floor1").click(function(){
   $("#floorSelect>button").removeClass("active");
-  $(this).addClass("active")
-  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[1]), side: THREE.DoubleSide});
+  $(this).addClass("active");
+  for(var i=0; i<mapContent.length-1; i++){
+    if(mapContent[i+1][0] == 1){
+      document.getElementById("mapContentBtn" + String(i+1)).classList.add("onDisplay");
+    }
+    else{
+      document.getElementById("mapContentBtn" + String(i+1)).classList.remove("onDisplay");
+    }
+  }
+  if(floor != 1){
+    plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[1]), side: THREE.DoubleSide});
+  }
+  floor = 1;
 });
+
 $("#floor2").click(function(){
   $("#floorSelect>button").removeClass("active");
-  $(this).addClass("active")
-  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[2]), side: THREE.DoubleSide});
+  $(this).addClass("active");
+  for(var i=0; i<mapContent.length-1; i++){
+    if(mapContent[i+1][0] == 2){
+      document.getElementById("mapContentBtn" + String(i+1)).classList.add("onDisplay");
+    }
+    else{
+      document.getElementById("mapContentBtn" + String(i+1)).classList.remove("onDisplay");
+    }
+  }
+  if(floor != 2){
+    plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[2]), side: THREE.DoubleSide});
+  }
+  floor = 2;
 });
+
 $("#floor3").click(function(){
   $("#floorSelect>button").removeClass("active");
-  $(this).addClass("active")
-  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[3]), side: THREE.DoubleSide});
+  $(this).addClass("active");
+  for(var i=0; i<mapContent.length-1; i++){
+    if(mapContent[i+1][0] == 3){
+      document.getElementById("mapContentBtn" + String(i+1)).classList.add("onDisplay");
+    }
+    else{
+      document.getElementById("mapContentBtn" + String(i+1)).classList.remove("onDisplay");
+    }
+  }
+  if(floor != 3){
+    plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[3]), side: THREE.DoubleSide});
+  }
+  floor = 3;
 });
+
 $("#floorAll").click(function(){
   $("#floorSelect>button").removeClass("active");
   $(this).addClass("active")

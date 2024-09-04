@@ -12,7 +12,7 @@ const day2date = "2024-09-12T";
 // 各ストレッチ有要素の高さ
 const classHeight = 2.5;
 const descHeight = 9;
-const imgHeight = 7.5;
+const imgHeight = 10;
 
 // 選択されている日付（初期設定は1日目）
 var daySelect = 1;
@@ -128,12 +128,12 @@ function initSchedules() {
       scheduleBox.appendChild(scheduleMainBox);
       
       scheduleTime.classList.add("scheduleTime");
-      scheduleTime.textContent = day0[i][0] + " - " + day0[i][1];
+      scheduleTime.innerHTML = day0[i][0] + " - " + day0[i][1];
       scheduleMainBox.appendChild(scheduleTime);
       
       scheduleTitle.classList.add("scheduleTitle");
       scheduleTitle.setAttribute("id", "scheduleTitle" + String(i));
-      scheduleTitle.textContent = day0[i][3];
+      scheduleTitle.innerHTML = day0[i][3];
       scheduleMainBox.appendChild(scheduleTitle);
       
       scheduleToggle.classList.add("scheduleToggle");
@@ -173,12 +173,12 @@ function initSchedules() {
       scheduleBox.appendChild(scheduleMainBox);
       
       scheduleTime.classList.add("scheduleTime");
-      scheduleTime.textContent = day1[i][0] + " - " + day1[i][1];
+      scheduleTime.innerHTML = day1[i][0] + " - " + day1[i][1];
       scheduleMainBox.appendChild(scheduleTime);
       
       scheduleTitle.classList.add("scheduleTitle");
       scheduleTitle.setAttribute("id", "scheduleTitle" + String(i+day0.length-1));
-      scheduleTitle.textContent = day1[i][3];
+      scheduleTitle.innerHTML = day1[i][3];
       scheduleMainBox.appendChild(scheduleTitle);
       
       scheduleToggle.classList.add("scheduleToggle");
@@ -189,7 +189,7 @@ function initSchedules() {
       scheduleBox.appendChild(scheduleClass);
       
       scheduleDesc.classList.add("scheduleDesc");
-      scheduleDesc.textContent = day1[i][6];
+      scheduleDesc.innerHTML = day1[i][6];
       scheduleBox.appendChild(scheduleDesc);
       
       scheduleImg.src = "./image/" + day1[i][5] + ".webp";
@@ -218,12 +218,12 @@ function initSchedules() {
       scheduleBox.appendChild(scheduleMainBox);
       
       scheduleTime.classList.add("scheduleTime");
-      scheduleTime.textContent = day2[i][0] + " - " + day2[i][1];
+      scheduleTime.innerHTML = day2[i][0] + " - " + day2[i][1];
       scheduleMainBox.appendChild(scheduleTime);
       
       scheduleTitle.classList.add("scheduleTitle");
       scheduleTitle.setAttribute("id", "scheduleTitle" + String(i+day0.length-1+day1.length-1));
-      scheduleTitle.textContent = day2[i][3];
+      scheduleTitle.innerHTML = day2[i][3];
       scheduleMainBox.appendChild(scheduleTitle);
       
       scheduleToggle.classList.add("scheduleToggle");
@@ -234,7 +234,7 @@ function initSchedules() {
       scheduleBox.appendChild(scheduleClass);
       
       scheduleDesc.classList.add("scheduleDesc");
-      scheduleDesc.textContent = day2[i][6];
+      scheduleDesc.innerHTML = day2[i][6];
       scheduleBox.appendChild(scheduleDesc);
 
       scheduleImg.src = "./image/" + day2[i][5] + ".webp";
