@@ -11,7 +11,7 @@ const footerHeight = 45;
 
 // マップの画像パス
 var mapImgURL = 
-  [,
+  ["",
    "./2d/1.png", 
    "./2d/2.png",
    "./2d/3.png"

@@ -159,7 +159,6 @@ const mapInit = () => {
   const planeGeometry = new THREE.PlaneGeometry(planeSize, planeSize, 1, 1);
   const planeMaterial = new THREE.MeshBasicMaterial({
     map: new THREE.TextureLoader().load(mapImgURL[floor]),
-    side: THREE.DoubleSide,
   });
   plane = new THREE.Mesh(planeGeometry, planeMaterial);
   plane.position.set(0, -0.01, 0);
@@ -278,7 +277,6 @@ function addMapContentButton(csvArray){
 $(document).on("click", ".mapContentBtn", function () {
   $("#mapContentWindow").addClass("active");
   const mapContentIndex = $(this).attr("id").replace("mapContentBtn", "");
-  console.log(mapContent);
   $("#mapContentClass").html(mapContent[mapContentIndex][4]);
   $("#mapContentTitle").html(mapContent[mapContentIndex][5]);
   $("#mapContentDesc").html(mapContent[mapContentIndex][6]);
@@ -293,61 +291,45 @@ $("#mapCanvas").click(function(){
 
 // ========================================
 
-$("#floor1").click(function(){
-  $("#floorSelect>button").removeClass("active");
-  $(this).addClass("active");
+function changeFloor(floorInto){
   for(var i=0; i<mapContent.length-1; i++){
-    if(mapContent[i+1][0] == 1){
+    if(mapContent[i+1][0] == floorInto){
       document.getElementById("mapContentBtn" + String(i+1)).classList.add("onDisplay");
     }
     else{
       document.getElementById("mapContentBtn" + String(i+1)).classList.remove("onDisplay");
     }
   }
-  if(floor != 1){
-    plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[1]), side: THREE.DoubleSide});
+  if(floor != floorInto){
+    plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[floorInto])});
   }
+}
+
+$("#floor1").click(function(){
+  $("#floorSelect>button").removeClass("active");
+  $(this).addClass("active");
+  changeFloor(1);  
   floor = 1;
 });
 
 $("#floor2").click(function(){
   $("#floorSelect>button").removeClass("active");
   $(this).addClass("active");
-  for(var i=0; i<mapContent.length-1; i++){
-    if(mapContent[i+1][0] == 2){
-      document.getElementById("mapContentBtn" + String(i+1)).classList.add("onDisplay");
-    }
-    else{
-      document.getElementById("mapContentBtn" + String(i+1)).classList.remove("onDisplay");
-    }
-  }
-  if(floor != 2){
-    plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[2]), side: THREE.DoubleSide});
-  }
+  changeFloor(2);
   floor = 2;
 });
 
 $("#floor3").click(function(){
   $("#floorSelect>button").removeClass("active");
   $(this).addClass("active");
-  for(var i=0; i<mapContent.length-1; i++){
-    if(mapContent[i+1][0] == 3){
-      document.getElementById("mapContentBtn" + String(i+1)).classList.add("onDisplay");
-    }
-    else{
-      document.getElementById("mapContentBtn" + String(i+1)).classList.remove("onDisplay");
-    }
-  }
-  if(floor != 3){
-    plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[3]), side: THREE.DoubleSide});
-  }
+  changeFloor(3);
   floor = 3;
 });
 
 $("#floorAll").click(function(){
   $("#floorSelect>button").removeClass("active");
   $(this).addClass("active")
-  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[1]), side: THREE.DoubleSide});
+  plane.material = new THREE.MeshToonMaterial({map: new THREE.TextureLoader().load(mapImgURL[1])});
 });
 
 // ========================================
@@ -361,8 +343,11 @@ $("#toggleFloor").click(function(){
 // 混雑状況タブの各クラスのマップリンククリック時の挙動用関数
 $(".mapLink").click(function(){
   const clickedLinkIndex = $(this).attr("id").replace("mapLink","");
+  const clickedLinkFloor = $(this).attr("data-floor").replace("f","");
   camera.position.x = mapContent[clickedLinkIndex][1];
   camera.position.y = 200;
   camera.position.z = mapContent[clickedLinkIndex][2];
   controls.target.set(mapContent[clickedLinkIndex][1], 0, mapContent[clickedLinkIndex][2]);
+  changeFloor(clickedLinkFloor);
+  floor = clickedLinkFloor;
 });
