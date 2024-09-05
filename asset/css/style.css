@@ -75,6 +75,10 @@
 
   --accent: #7FD9FB;
   --accent2: #C3EDFD;
+
+  --waitHigh: #12536d;
+  --waitMiddle: #3885a3;
+  --waitLow: #7FD9FB;
 }
 
 html, body{

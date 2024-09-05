@@ -7,25 +7,25 @@ fetch(api_url)
   for (var i in json) {  
     if(json[i].state == "混雑"){
       document.getElementById("wait" + String(Number(i)+1)).classList.add("high");
-      // document.getElementById("wait" + String(Number(i)+1)).innerHTML = "混";
+      document.getElementById("wait" + String(Number(i)+1)).innerHTML = "混";
       document.getElementById("wait" + String(Number(i)+1)).classList.remove("middle");
       document.getElementById("wait" + String(Number(i)+1)).classList.remove("low");
     }
     else if(json[i].state == "普通"){
       document.getElementById("wait" + String(Number(i)+1)).classList.remove("high");
-      // document.getElementById("wait" + String(Number(i)+1)).innerHTML = "普";
+      document.getElementById("wait" + String(Number(i)+1)).innerHTML = "普";
       document.getElementById("wait" + String(Number(i)+1)).classList.add("middle");
       document.getElementById("wait" + String(Number(i)+1)).classList.remove("low");
     }
     else if(json[i].state == "空いている"){
       document.getElementById("wait" + String(Number(i)+1)).classList.remove("high");
-      // document.getElementById("wait" + String(Number(i)+1)).innerHTML = "空";
+      document.getElementById("wait" + String(Number(i)+1)).innerHTML = "空";
       document.getElementById("wait" + String(Number(i)+1)).classList.remove("middle");
       document.getElementById("wait" + String(Number(i)+1)).classList.add("low");
     }
     else{
       document.getElementById("wait" + String(Number(i)+1)).classList.remove("high");
-      // document.getElementById("wait" + String(Number(i)+1)).innerHTML = "？";
+      document.getElementById("wait" + String(Number(i)+1)).innerHTML = "？";
       document.getElementById("wait" + String(Number(i)+1)).classList.remove("middle");
       document.getElementById("wait" + String(Number(i)+1)).classList.remove("low");
 

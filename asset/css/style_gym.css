@@ -316,6 +316,11 @@
 
   line-height: 3rem;
   text-align: left;
+  
+  /* あふれた分を3点リーダーで隠す */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .scheduleMain>.scheduleToggle{
