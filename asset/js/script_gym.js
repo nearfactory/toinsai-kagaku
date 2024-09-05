@@ -494,7 +494,8 @@ $("#day0").click(function(){
   $("#day0").addClass("active");
   firstHeight0 = document.getElementById("schedulesDay0").clientHeight;
   daySelect = 0;
-  $("#map-gym").html(`<i class="fa-solid fa-location-dot"></i>運動会`);
+  $("#mapLink17").addClass("active");
+  $("#mapLink18").removeClass("active");
 });
 
 $("#day1").click(function(){
@@ -506,7 +507,8 @@ $("#day1").click(function(){
   $("#day1").addClass("active");
   firstHeight1 = document.getElementById("schedulesDay1").clientHeight;
   daySelect = 1;
-  $("#map-gym").html(`<i class="fa-solid fa-location-dot"></i>体育館`);
+  $("#mapLink17").removeClass("active");
+  $("#mapLink18").addClass("active");
 });
 
 $("#day2").click(function(){
@@ -518,7 +520,8 @@ $("#day2").click(function(){
   $("#day2").addClass("active");
   firstHeight2 = document.getElementById("schedulesDay2").clientHeight;
   daySelect = 2;
-  $("#map-gym").html(`<i class="fa-solid fa-location-dot"></i>体育館`);
+  $("#mapLink17").removeClass("active");
+  $("#mapLink18").addClass("active");
 })
 
 // ========================================

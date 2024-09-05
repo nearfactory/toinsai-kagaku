@@ -66,7 +66,7 @@ function initNews(){
       newsDesc.innerHTML = news[i+1][5];
       newsBox.appendChild(newsDesc);
       
-      newsImage.src = "./image/news/" + news[i+1][4] + ".webp";
+      newsImage.src = "./image/" + news[i+1][4] + ".webp";
       newsBox.appendChild(newsImage);
     }
   });
@@ -93,6 +93,12 @@ $(document).on("click", ".newsContent", function () {
   if(this.children[4].src.indexOf("none") == -1){
     document.getElementById("newsModalImg").classList.remove("noImg");
     document.getElementById("newsModalImg").src = this.children[4].src;
+    if(this.children[4].src.indexOf("zenyasai.webp") != -1  ){
+      document.getElementById("newsModalImg").style.height = "auto";
+    }
+    else{
+      document.getElementById("newsModalImg").style.height = "15rem";
+    }
   }
   else{
     document.getElementById("newsModalImg").classList.add("noImg");

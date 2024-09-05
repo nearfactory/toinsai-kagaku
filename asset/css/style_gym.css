@@ -20,7 +20,7 @@
 }
 
 #sectionGym>a{
-  display: block;
+  display: none;
 
   width: 100%;
   height: 2rem;
@@ -40,6 +40,10 @@
 
 #sectionGym>a>i{
   margin: 0 0.5rem 0 0;
+}
+
+#sectionGym>a.active{
+  display: block;
 }
 
 /* ======================================== */
@@ -394,24 +398,29 @@
 }
 
 .schedule>.scheduleDesc{
-  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+  text-overflow: ellipsis;
   
   width: calc(100% - 7rem);
-  height: calc(var(--descHeight) - 0.5rem); 
-  
-  margin: 0;
-  padding: 0.25rem 3.5rem;
+  height: calc(var(--descHeight) - 0.5rem);
+  /* height: auto; */
+  margin: 0.5rem 3.5rem;
+  padding: 0;
   
   color: var(--text);
   font-size: 1.2rem;
   font-weight: 400;
   
-  line-height: calc((var(--descHeight) - 1rem) / 5);
   text-align: justify;
-  
-  transform-origin: center calc(-1 * var(--classHeight));
-  transform: scaleY(0);
+  line-height: calc((var(--descHeight) - 1rem) / 5);
+  max-height: calc((var(--descHeight) - 1rem));
 
+  transform: scaleY(0);
+  transform-origin: center calc(-1 * var(--classHeight));
+  
   transition: all .25s;
 }
 
