@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+  <head prefix="og: https://toinkagaku.net/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>桐蔭祭 | ステータス表示</title>
+
+    <!--FontAwesome読み込み-->
+    <script src="https://kit.fontawesome.com/2cd68e5bc6.js" crossorigin="anonymous" async></script>
+
+    <!--リセットcssの読み込み-->
+    <link href="../asset/css/reset.css" rel="stylesheet">
+
+    <!--自作cssの読み込み-->
+    <link href="./asset/style.css" rel="stylesheet">
+
+    <!-- ファビコンの読み込み -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../asset/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../asset/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../asset/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../asset/favicon/site.webmanifest">
+    <link rel="mask-icon" href="../asset/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../asset/favicon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="../asset/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- ページのデスクリプション -->
+    <meta name="description" content="和歌山県立桐蔭中学校・高等学校 「桐蔭祭」 公式ホームページ">
+    <meta property="og:url" content="https://toinkagaku.net/"/>
+    <meta property="og:title" content="和歌山県立桐蔭中学校・高等学校 「桐蔭祭」 公式ホームページ"/>
+    <meta property="og:description" content="「桐蔭祭2024を徹底的に楽しむ」をベースとして立ち上がった本サイト。今年から新たに、科学部によって制作された公式ページを活用しながら、ぜひ桐蔭祭2024を楽しんでください!"/>
+    <meta property="og:site_name" content="桐蔭祭 | ステータス表示"/>
+    <meta property="og:image" content="https://toinkagaku.net/asset/favicon/main.png"/>
+  </head>
+
+  <body>
+
+    <!-- ヘッダー -->
+    <header>
+      <a href="..//">
+        TOIN-FESTIVAL&nbsp;2024
+      </a>
+    </header>
+      
+    <span id="topSpan"></span>
+
+    <!-- メインコンテナ -->
+    <div id="mainContainer">
+      <!-- 待ち時間のステータス表示 -->
+      <div id="waitStatus">
+        <h1>クラス</h1><h1>待ち時間</h1>
+        <h2 class="waitStatusClass" id="waitStatusClass1">中2A</h2><h3 class="waitStatusStatus" id="waitStatusStatus1"></h3>
+        <h2 class="waitStatusClass" id="waitStatusClass2">中2B</h2><h3 class="waitStatusStatus" id="waitStatusStatus2"></h3>
+        <h2 class="waitStatusClass" id="waitStatusClass3">高2A</h2><h3 class="waitStatusStatus" id="waitStatusStatus3"></h3>
+        <h2 class="waitStatusClass" id="waitStatusClass4">高2B</h2><h3 class="waitStatusStatus" id="waitStatusStatus4"></h3>
+        <h2 class="waitStatusClass" id="waitStatusClass5">高2C</h2><h3 class="waitStatusStatus" id="waitStatusStatus5"></h3>
+        <h2 class="waitStatusClass" id="waitStatusClass6">高2D</h2><h3 class="waitStatusStatus" id="waitStatusStatus6"></h3>
+        <h2 class="waitStatusClass" id="waitStatusClass7">高2E</h2><h3 class="waitStatusStatus" id="waitStatusStatus7"></h3>
+        <h2 class="waitStatusClass" id="waitStatusClass8">高2F</h2><h3 class="waitStatusStatus" id="waitStatusStatus8"></h3>
+        <h2 class="waitStatusClass" id="waitStatusClass9">高2G</h2><h3 class="waitStatusStatus" id="waitStatusStatus9"></h3>
+        <h2 class="waitStatusClass" id="waitStatusClass10">高3A</h2><h3 class="waitStatusStatus" id="waitStatusStatus10"></h3>
+        <h2 class="waitStatusClass" id="waitStatusClass11">高3B</h2><h3 class="waitStatusStatus" id="waitStatusStatus11"></h3>
+        <h2 class="waitStatusClass" id="waitStatusClass12">高3C</h2><h3 class="waitStatusStatus" id="waitStatusStatus12"></h3>
+        <h2 class="waitStatusClass" id="waitStatusClass13">高3D</h2><h3 class="waitStatusStatus" id="waitStatusStatus13"></h3>
+        <h2 class="waitStatusClass" id="waitStatusClass14">高3E</h2><h3 class="waitStatusStatus" id="waitStatusStatus14"></h3>
+        <h2 class="waitStatusClass" id="waitStatusClass15">高3F</h2><h3 class="waitStatusStatus" id="waitStatusStatus15"></h3>
+        <h2 class="waitStatusClass" id="waitStatusClass16">高3G</h2><h3 class="waitStatusStatus" id="waitStatusStatus16"></h3>
+      </div>
+
+      <!-- 在庫のステータス表示 -->
+      <div id="stockStatus">
+        <div>
+          <h3>クラス</h3><h3>各商品名</h3><h3>在庫数</h3>
+        </div>
+
+        <div class="stockStatusClass" id="stockStatusClass1">
+          <h1 class="stockStatusClass">高3A</h1>
+          <h2 class="stockStatusItem1Name" id="stockStatusItem1Name1">マリリンのわがままワッフル</h2>
+          <h2 class="stockStatusItem1Stock" id="stockStatusItem1Stock1"></h2>
+          <h2 class="stockStatusItem2Name" id="stockStatusItem2Name1">マリリンのわがままホットサンド</h2>
+          <h2 class="stockStatusItem2Stock" id="stockStatusItem2Stock1"></h2>
+        </div>
+
+        <div class="stockStatusClass" id="stockStatusClass2">
+          <h1 class="stockStatusClass">高3B</h1>
+          <h2 class="stockStatusItem1Name" id="stockStatusItem1Name2">ブリングカレー</h2>
+          <h2 class="stockStatusItem1Stock" id="stockStatusItem1Stock2"></h2>
+          <h2 class="stockStatusItem2Name" id="stockStatusItem2Name2">ナジュムゼリー</h2>
+          <h2 class="stockStatusItem2Stock" id="stockStatusItem2Stock2"></h2>
+        </div>
+
+        <div class="stockStatusClass" id="stockStatusClass3">
+          <h1 class="stockStatusClass">高3C</h1>
+          <h2 class="stockStatusItem1Name" id="stockStatusItem1Name3">SPEED PIZZA</h2>
+          <h2 class="stockStatusItem1Stock" id="stockStatusItem1Stock3"></h2>
+          <h2 class="stockStatusItem2Name" id="stockStatusItem2Name3">CHURROT</h2>
+          <h2 class="stockStatusItem2Stock" id="stockStatusItem2Stock3"></h2>
+        </div>
+
+        <div class="stockStatusClass" id="stockStatusClass4">
+          <h1 class="stockStatusClass">高3D</h1>
+          <h2 class="stockStatusItem1Name" id="stockStatusItem1Name4">大学紅薯</h2>
+          <h2 class="stockStatusItem1Stock" id="stockStatusItem1Stock4"></h2>
+          <h2 class="stockStatusItem2Name" id="stockStatusItem2Name4">中国餃子</h2>
+          <h2 class="stockStatusItem2Stock" id="stockStatusItem2Stock4"></h2>
+        </div>
+
+        <div class="stockStatusClass" id="stockStatusClass5">
+          <h1 class="stockStatusClass">高3E</h1>
+          <h2 class="stockStatusItem1Name" id="stockStatusItem1Name5">特星チャーハン</h2>
+          <h2 class="stockStatusItem1Stock" id="stockStatusItem1Stock5"></h2>
+          <h2 class="stockStatusItem2Name" id="stockStatusItem2Name5">惑星たこさん</h2>
+          <h2 class="stockStatusItem2Stock" id="stockStatusItem2Stock5"></h2>
+        </div>
+
+        <div class="stockStatusClass" id="stockStatusClass6">
+          <h1 class="stockStatusClass">高3F</h1>
+          <h2 class="stockStatusItem1Name" id="stockStatusItem1Name6">デリシャス･D･ドッグ</h2>
+          <h2 class="stockStatusItem1Stock" id="stockStatusItem1Stock6"></h2>
+          <h2 class="stockStatusItem2Name" id="stockStatusItem2Name6">大秘宝</h2>
+          <h2 class="stockStatusItem2Stock" id="stockStatusItem2Stock6"></h2>
+        </div>
+
+        <div class="stockStatusClass" id="stockStatusClass7">
+          <h1 class="stockStatusClass">高3G</h1>
+          <h2 class="stockStatusItem1Name" id="stockStatusItem1Name7">やきとり｢浸･振｣</h2>
+          <h2 class="stockStatusItem1Stock" id="stockStatusItem1Stock7"></h2>
+          <h2 class="stockStatusItem2Name" id="stockStatusItem2Name7">たこやき｢真･辛｣</h2>
+          <h2 class="stockStatusItem2Stock" id="stockStatusItem2Stock7"></h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- フッター -->
+    <footer>
+      <p id="copyright">
+        Copyright &copy; 2024 Toin Science Club
+      </p>
+    </footer>
+
+    <noscript>
+      <h2>JavaScriptが無効です</h2>
+      <p>ブラウザの設定から有効にして再度お試しください</p>
+    </noscript>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="./asset/script.js" async></script>
+  </body>
+
+</html>

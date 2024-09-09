@@ -1,0 +1,333 @@
+@charset "utf-8";
+
+/* ======================================== */
+
+@font-face {
+  font-family: 'Barlow Semi Condensed';
+  src: url('../../asset/font/BarlowSemiCondensed-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Barlow Semi Condensed';
+  src: url('../../asset/font/BarlowSemiCondensed-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Barlow Semi Condensed';
+  src: url('../../asset/font/BarlowSemiCondensed-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Barlow Semi Condensed';
+  src: url('../../asset/font/BarlowSemiCondensed-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: 'IBM Plex Sans JP';
+  src: url('../../asset/font/IBMPlexSansJP-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: 'IBM Plex Sans JP';
+  src: url('../../asset/font/IBMPlexSansJP-SemiBold.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: 'IBM Plex Sans JP';
+  src: url('../../font/IBMPlexSansJP-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: 'IBM Plex Sans JP';
+  src: url('../../font/IBMPlexSansJP-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* ======================================== */
+
+:root{
+  --headerHeight: 5rem;
+  --footerHeight: 3rem;
+
+  --background1: #ffffff;
+  --background2: #f1f1f1;
+  --background3: #f9f9f9;
+  
+  --text: #222222;
+  --textBlue: #375b69;
+  --textPale: #777777;
+
+  --accent: #7FD9FB;
+  --accent2: #C3EDFD;
+  --accent3: #eaf7fd;
+
+  --waitHigh: #213E47;
+  --waitMiddle: #176D87;
+  --waitLow: #8CC0CF;
+}
+
+html, body{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  font-family: "Barlow Semi Condensed", "IBM Plex Sans JP", sans-serif;
+  font-size: 10px;
+}
+
+html{
+  background-color: var(--background2);
+  
+  touch-action: manipulation;
+}
+
+body{
+  background-color: var(--background1);
+}
+
+.noUserSelect{
+  user-select: none;
+}
+
+/* ======================================== */
+
+header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  
+  display: block;
+
+  width: 100%;
+  height: (--headerHeight);
+
+  background-color: #f1f1f188;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+header>a{
+  display: block;
+
+  width: 100%;
+  height: var(--headerHeight);
+
+  color: var(--text);
+  font-size: 1.75rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+
+  line-height: var(--headerHeight);
+  text-align: center;
+  text-decoration: none;
+}
+
+/* ======================================== */
+
+#topSpan{
+  display: block;
+  width: 100%;
+  height: var(--headerHeight);
+
+  opacity: 0;
+}
+
+/* ======================================== */
+
+#mainContainer{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr;
+
+  width: calc(60% - 4rem);
+  height: calc(100dvh - var(--headerHeight) - var(--footerHeight) - 1.5rem - 4rem);
+
+  margin: auto;
+  padding: 2rem;
+}
+
+/* ======================================== */
+
+#waitStatus{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: repeat(1fr, calc(2+7+7+1));
+
+  width: calc(100% - 2rem - 2rem);
+  height: calc(100% - 2rem - 2rem);
+
+  margin: 1rem;
+  padding: 1rem;
+}
+
+#waitStatus>*{
+  display: block;
+  width: calc(100% - 0.3rem);
+  height: calc(100% - 0.3rem);
+
+  margin: auto;
+
+  color: var(--text);
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-family: "IBM Plex Sans JP", sans-serif;
+
+  line-height: calc((100dvh - var(--headerHeight) - var(--footerHeight) - 1.5rem - 4rem  - 2rem  - 2rem) / 17 - 0.3rem);
+  text-align: center;
+}
+
+#waitStatus>h1{
+  background-color: var(--background2);
+}
+
+#waitStatus>*.high{
+  background-color: #a8e8ff;
+}
+
+#waitStatus>*.middle{
+  background-color: #cbf0ff;
+}
+
+#waitStatus>*.low{
+  background-color: #e0f6ff;
+}
+
+/* ======================================== */
+
+#stockStatus{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1.5fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+
+  width: calc(100% - 2rem - 2rem);
+  height: calc(100% - 2rem - 2rem);
+
+  margin: 1rem;
+  padding: 1rem;
+}
+
+#stockStatus>div:nth-of-type(n+2){
+  display: grid;
+  grid-template: "class item1Name item1Stock" 1fr
+                 "class item2Name item2Stock" 1fr/
+                 2fr 5fr 2fr;
+  width: calc(100% - 0.3rem);
+  height: calc(100% - 0.3rem);
+
+  margin: auto;
+
+  background-color: var(--background3);
+}
+
+#stockStatus>div:nth-of-type(n+2)>h1{
+  grid-area: class;
+  
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  color: var(--text);
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-family: "IBM Plex Sans JP", sans-serif;
+  
+  line-height: calc((100dvh - var(--headerHeight) - var(--footerHeight) - 1.5rem - 4rem  - 2rem  - 2rem) / 7.75 - 0.3rem);
+  text-align: center;
+}
+
+#stockStatus>div:nth-of-type(n+2)>h2{  
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  color: var(--text);
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-family: "IBM Plex Sans JP", sans-serif;
+  
+  line-height: calc(((100dvh - var(--headerHeight) - var(--footerHeight) - 1.5rem - 4rem  - 2rem  - 2rem) / 7.75 - 0.3rem) / 2);
+  text-align: center;
+}
+
+#stockStatus>div:nth-of-type(1){
+  display: grid;
+  grid-template-columns: 2fr 5fr 2fr;
+
+  width: calc(100% - 0.3rem);
+  height: calc(100% - 0.3rem);
+
+  margin: auto;
+  padding: 0;
+
+  background-color: var(--background3);
+}
+
+#stockStatus>div:nth-of-type(1)>h3{
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  color: var(--text);
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-family: "IBM Plex Sans JP", sans-serif;
+  
+  line-height: calc(((100dvh - var(--headerHeight) - var(--footerHeight) - 1.5rem - 4rem  - 2rem  - 2rem) / 7.75 - 0.3rem) / 1.5);
+  text-align: center;
+}
+
+
+/* ======================================== */
+
+footer{
+  display: block;
+
+  width: 40%;
+  height: auto;
+
+  margin: 0;
+  padding: 0.5rem 30%;
+
+  background-color: var(--background2);
+}
+
+#copyright{
+  display: block;
+
+  width: 100%;
+
+  margin: 1rem 0;
+
+  color: var(--text);
+  font-size: 0.875rem;
+  font-weight: 400;
+
+  line-height: 1.5rem;
+  text-align: center;
+}
+
+/* ======================================== */
+
+/* ======================================== */
+
+/* スマホで文字サイズが自動で切り替わってしまうことを防ぐ */
+* {
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; /* Safari */
+}
