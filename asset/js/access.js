@@ -5,4 +5,4 @@ $("#accessBtn").click(function(){
   if(idBox.value == "kagaku" && pwBox.value == "fujiking"){
     $("#access").addClass("active");
   }
-})
+});
