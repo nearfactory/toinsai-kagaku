@@ -1,4 +1,4 @@
-var api_url = 'https://script.google.com/macros/s/AKfycbyTsJwu8dszcX7lSbERPr_YXRewyPVNimgomaDhn2k3jeTHZbXM3uNlwrd2kteykRfIdQ/exec'; //生成したAPIのURLを指定
+var api_url = 'https://script.google.com/macros/s/AKfycbySfCC1bco8J_rok4uhw6vZYsz527CK6KsswCkpsASiN9GzbG96Jyc5yV8uR5ibjc2S6Q/exec'; //生成したAPIのURLを指定
 fetch(api_url)
 .then(function (fetch_data) {
   return fetch_data.json();
