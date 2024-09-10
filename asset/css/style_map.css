@@ -112,6 +112,23 @@
   background-color: #7ffbdc;
 }
 
+.クラブ展示{
+  background-color: var(--accent);
+}
+
+.ステージ{
+  background-color: #fbef7f;
+}
+
+.ステージ{
+  background-color: #fbef7f;
+}
+
+.お手洗い{
+  background-color: #ffffff;
+  border: #555555 solid 0.25px;
+}
+
 /* ======================================== */
 
 #mapContentWindow{
