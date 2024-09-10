@@ -238,7 +238,6 @@ const loader = new GLTFLoader();
 
 const url = [
   "./3d/main/toin.gltf",
-  "./3d/point/point.gltf",
   "./3d/balloon/balloon.gltf",
 ];
 
@@ -267,25 +266,6 @@ loader.load(url[0], function (gltf) {
 });
 
 loader.load(url[1], function (gltf) {
-  model.ball = gltf.scene;
-  model.ball.scale.set(scaleVal[1], scaleVal[1], scaleVal[1]);
-  model.ball.position.set(places[0][0], places[0][1], places[0][2]);
-
-  // 裏面も描画
-  // model.ball.traverse((object) => { //モデルの構成要素をforEach的に走査
-  //   if(object.isMesh) { //その構成要素がメッシュだったら
-  //     object.material.side = THREE.DoubleSide;
-  //   }
-  // });
-
-  model.ball.name = "gym";
-
-  scene.add(model.ball);
-
-  flag += 1;
-});
-
-loader.load(url[2], function (gltf) {
   model.balloon = gltf.scene;
   model.balloon.scale.set(scaleVal[2], scaleVal[2], scaleVal[2]);
   model.balloon.position.set(15, 15, 15);
@@ -396,74 +376,6 @@ window.addEventListener('resize', onResize);
 
 
 
-// raycasterでタップ場所からまっすぐ伸びる光線を作成、
-// 光線上のオブジェクトを取得してクリック判定を行う
-let raycaster, mouse;
-
-// 操作用マウス/指ベクトルの作成
-mouse = new THREE.Vector2();
-// レイキャスターの初期化
-raycaster = new THREE.Raycaster();
-
-
-// クリックイベントの作成
-document.addEventListener('click', onMouseEvent);
-
-
-
-
-
-
-
-
-
-
-// クリック時に動く関数
-function onMouseEvent(event) {
-  // event.preventDefault();
-
-  // 座標を正規化する呪文
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-  // console.log(mouse.x);
-  // console.log(mouse.y);
-
-  // レイキャスティングでマウスと重なるオブジェクトを取得
-  raycaster.setFromCamera(mouse, camera);
-  var intersects = raycaster.intersectObjects(scene.children)[0];
-  var boxClicked = false;
-
-    // console.log("");
-  $('#mapBox').off('click');
-  $("#mapBox").on("click", function(){
-    // console.log("clicked");
-    boxClicked = true;
-  });
-
-  // if(boxClicked == false && intersects.object.parent.name == "gym"){
-  if(boxClicked == false && intersects.object.parent.name == "マリリン革命"){
-    intersects.object.material.color.set("#000000");
-    $("#mapBox").addClass("active");
-  }
-  else{
-    // intersects.object.material.color.set("#ffffff");
-    $("#mapBox").removeClass("active");
-    model.ball.traverse((object) => { //モデルの構成要素をforEach的に走査
-      if(object.isMesh) { //その構成要素がメッシュだったら
-        object.material.color.set("#E7444C");
-        object.material.side = THREE.DoubleSide;
-      }
-    });
-  }  
-}
-
-
-
-
-
-
-
-
 
 $("#map3DHelpToggle").click(function(){
   $(this).toggleClass("active");
@@ -475,5 +387,3 @@ $("#map3DHelpToggle").click(function(){
   }
   $("#map3DHelp").toggleClass("active");
 });
-
-setInterval(function(){console.log(controls.object.position);},10);
