@@ -32,10 +32,10 @@ fetch(api_url)
       $("#waitStatusStatus" + String(Number(i)+1)).html("取得中");
     }
     
-    if(i > 8){
-      $("#stockStatusItem1Stock" + String(Number(i)-8)).html(json[i].item1);
-      $("#stockStatusItem2Stock" + String(Number(i)-8)).html(json[i].item2);
-    }
+    // if(i > 8){
+    //   $("#stockStatusItem1Stock" + String(Number(i)-8)).html(json[i].item1);
+    //   $("#stockStatusItem2Stock" + String(Number(i)-8)).html(json[i].item2);
+    // }
   }
 });
 
@@ -73,11 +73,48 @@ stateUpdate = setInterval(function(){
         $("#waitStatusStatus" + String(Number(i)+1)).html("取得中");
       }
     
-      if(i > 8){
-        $("#stockStatusItem1Stock" + String(Number(i)-8)).html(json[i].item1);
-        $("#stockStatusItem2Stock" + String(Number(i)-8)).html(json[i].item2);
-      }
+      // if(i > 8){
+      //   $("#stockStatusItem1Stock" + String(Number(i)-8)).html(json[i].item1);
+      //   $("#stockStatusItem2Stock" + String(Number(i)-8)).html(json[i].item2);
+      // }
     }
   });
 }
 , 10000);
+
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+var player;
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    width: '100%',
+    height: '100%',
+    videoId: 'AZpE2fziy00',
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+}
+
+// 4. The API will call this function when the video player is ready.
+function onPlayerReady(event) {
+  event.target.playVideo();
+}
+
+// 5. The API calls this function when the player's state changes.
+//    The function indicates that when playing a video (state=1),
+//    the player should play for six seconds and then stop.
+var done = false;
+function onPlayerStateChange(event) {
+  if (event.data == YT.PlayerState.PLAYING && !done) {
+    done = true;
+  }
+}
+
+function stopVideo() {
+  player.stopVideo();
+}

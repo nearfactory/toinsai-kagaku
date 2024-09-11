@@ -152,10 +152,10 @@ header>a{
 
 #mainContainer{
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 30rem 1fr;
   grid-template-rows: 1fr;
 
-  width: calc(60% - 4rem);
+  width: calc(70% - 4rem);
   height: calc(100dvh - var(--headerHeight) - var(--footerHeight) - 1.5rem - 4rem);
 
   margin: auto;
@@ -166,7 +166,7 @@ header>a{
 
 #waitStatus{
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 3fr 5fr;
   grid-template-rows: repeat(1fr, calc(2+7+7+1));
 
   width: calc(100% - 2rem - 2rem);
@@ -292,6 +292,15 @@ header>a{
   text-align: center;
 }
 
+/* ======================================== */
+
+#player{
+  display: block;
+  width: calc(100% - 4rem);
+  height: calc(60% - 4rem);
+
+  margin: 2rem;
+}
 
 /* ======================================== */
 
