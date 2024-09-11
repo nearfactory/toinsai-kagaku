@@ -79,6 +79,8 @@
   --waitHigh: #213E47;
   --waitMiddle: #176D87;
   --waitLow: #8CC0CF;
+
+  --loopTime: 25s
 }
 
 html, body{
@@ -152,8 +154,9 @@ header>a{
 
 #mainContainer{
   display: grid;
-  grid-template-columns: 30rem 1fr;
-  grid-template-rows: 1fr;
+  grid-template: "wait news" 17rem
+                 "wait youtube" 3fr/
+                 30rem 1fr;
 
   width: calc(70% - 4rem);
   height: calc(100dvh - var(--headerHeight) - var(--footerHeight) - 1.5rem - 4rem);
@@ -165,6 +168,8 @@ header>a{
 /* ======================================== */
 
 #waitStatus{
+  grid-area: wait;
+
   display: grid;
   grid-template-columns: 3fr 5fr;
   grid-template-rows: repeat(1fr, calc(2+7+7+1));
@@ -193,7 +198,7 @@ header>a{
 }
 
 #waitStatus>h1{
-  background-color: var(--background2);
+  background-color: var(--background3);
 }
 
 #waitStatus>*.high{
@@ -294,10 +299,106 @@ header>a{
 
 /* ======================================== */
 
+#latestNews{
+  display: grid;
+  grid-template-rows: 7rem 6rem;
+  width: calc(100% - 4rem);
+  height: calc(100% - 4rem);
+
+  margin: 2rem;
+
+  background-color: var(--background3);
+}
+
+#latestNews>h1{
+  display: block;
+  width: calc(100% - 4rem);
+  height: calc(100% - 4rem);
+
+  margin: 0;
+  padding: 2rem;
+
+  color: var(--text);
+  font-size: 2.25rem;
+  font-weight: 400;
+  font-family: "IBM Plex Sans JP", sans-serif;
+
+  line-height: 3rem;
+  text-align: justify;
+}
+
+.wrapper{
+  position: relative;
+
+  display: block;
+  
+  height: 6rem;
+  
+  margin: 0;
+  padding: 0 2rem;
+
+  overflow: hidden;
+}
+
+@keyframes loop {
+  0%{
+    transform: translateX(0%);
+  }
+  100%{
+    transform: translateX(calc(-100% - 2rem));
+  }
+}
+
+@keyframes loop2 {
+  0%{
+    transform: translateX(calc(100% + 2rem));
+  }
+  100%{
+    transform: translateX(0%);
+  }
+}
+
+.loop{
+  position: absolute;
+  top: 0;
+  left: calc(0 + 2rem);
+  
+  display: inline-block;
+  height: 6rem; 
+  
+  margin: 0;
+  padding: 0;
+  
+  color: var(--text);
+  font-size: 1.75rem;
+  font-weight: 400;
+  font-family: "IBM Plex Sans JP", sans-serif;
+  
+  line-height: 6rem;
+  text-align: justify;
+
+  white-space: nowrap;
+}
+
+#newsContent1{
+  animation: loop var(--loopTime) linear infinite; 
+}
+
+#newsContent2{
+  animation: loop2 var(--loopTime) linear infinite;
+}
+
+
+
+
+
+
+/* ======================================== */
+
 #player{
   display: block;
   width: calc(100% - 4rem);
-  height: calc(60% - 4rem);
+  height: calc(100% - 4rem);
 
   margin: 2rem;
 }
