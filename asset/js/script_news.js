@@ -93,7 +93,7 @@ $(document).on("click", ".newsContent", function () {
   if(this.children[4].src.indexOf("none") == -1){
     document.getElementById("newsModalImg").classList.remove("noImg");
     document.getElementById("newsModalImg").src = this.children[4].src;
-    if(this.children[4].src.indexOf("zenyasai.webp") != -1  ){
+    if(this.children[4].src.indexOf("zenyasai.webp") != -1 || this.children[4].src.indexOf("startyuushi.webp") != -1){
       document.getElementById("newsModalImg").style.height = "auto";
     }
     else{
