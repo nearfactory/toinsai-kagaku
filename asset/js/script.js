@@ -83,19 +83,19 @@ function updateDate(){
 
 var updateDateInterval;
 
-$(function() {
-  const date = new Date();
-  date.setDate(date.getDate() + 1);
-  date.setHours(0, 0, 0);
-  if (Cookies.get('access_sample') == undefined) {
-    Cookies.set('access_sample', 'access', { expires: date });
-    updateDate();
-    updateDateInterval = setInterval(updateDate, 50);
-    document.getElementById("remainTimeDisplay").showModal();
-  }
-});
+// $(function() {
+//   const date = new Date();
+//   date.setDate(date.getDate() + 1);
+//   date.setHours(0, 0, 0);
+//   if (Cookies.get('access_sample') == undefined) {
+//     Cookies.set('access_sample', 'access', { expires: date });
+//     updateDate();
+//     updateDateInterval = setInterval(updateDate, 50);
+//     document.getElementById("remainTimeDisplay").showModal();
+//   }
+// });
 
-$("#closeRemainTimeDisplay").click(function(){
-  clearInterval(updateDateInterval);
-  document.getElementById("remainTimeDisplay").close(); 
-});
+// $("#closeRemainTimeDisplay").click(function(){
+//   clearInterval(updateDateInterval);
+//   document.getElementById("remainTimeDisplay").close(); 
+// });
