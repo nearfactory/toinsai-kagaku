@@ -1,6 +1,7 @@
 # リポジトリ概要
 2024年度 桐蔭祭公式ホームページ 作成プロジェクト<br>
 開発/リリース用リポジトリ<br>
+### [Wikiはこちら](https://github.com/nearfactory/toin-festival/wiki)
 
 # 概要
 ## サイト概要
